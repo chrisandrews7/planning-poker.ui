@@ -1,6 +1,6 @@
 # Planning Poker
 
-[![Build Status](https://travis-ci.org/chrisandrews7/planning-poker.svg?branch=master)](https://travis-ci.org/chrisandrews7/planning-poker)
+[![Build Status](https://travis-ci.org/chrisandrews7/planning-poker.svg?branch=master)](https://travis-ci.org/chrisandrews7/planning-poker) [![Coverage Status](https://coveralls.io/repos/github/chrisandrews7/planning-poker/badge.svg?branch=master)](https://coveralls.io/github/chrisandrews7/planning-poker?branch=master)
 
 ## About
 

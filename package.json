@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "NODE_ENV=development babel-node node_modules/.bin/isparta cover _mocha -- src --recursive --full-trace",
+    "test": "NODE_ENV=test babel-node node_modules/.bin/isparta cover --report text _mocha -- src --recursive --full-trace",
     "start": "nodemon src/index.js",
     "build": "webpack"
   },
