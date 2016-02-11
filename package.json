@@ -12,9 +12,6 @@
     "type": "git",
     "url": "http://github.com/chrisandrews7/planning-poker.git"
   },
-  "engines": {
-    "node": "4.1.x"
-  },
   "author": "Chris Andrews",
   "license": "ISC",
   "dependencies": {
