@@ -5,3 +5,15 @@
 ## About
 
 Sprint planning tool to make agile estimating and planning faster and more efficient.
+
+## Getting Started
+
+Install dependencies through NPM
+```
+npm install
+```
+
+Start app
+```
+npm start
+```
