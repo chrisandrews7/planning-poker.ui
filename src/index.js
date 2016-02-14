@@ -1,4 +1,5 @@
 require('babel-core/register');
-require('./server').listen(3333, function(err) {
+var config = require('config');
+require('./server').listen(config.get('port'), function(err) {
 	console.log('Server is running');
 });

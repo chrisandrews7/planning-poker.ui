@@ -1,0 +1,4 @@
+reporting:
+    print: summary
+    reports:
+        - text
