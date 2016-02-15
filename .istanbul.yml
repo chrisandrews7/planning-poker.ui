@@ -1,4 +1,4 @@
 reporting:
-    print: lcov
     reports:
         - text
+        - lcov
