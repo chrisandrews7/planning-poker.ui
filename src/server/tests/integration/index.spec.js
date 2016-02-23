@@ -3,7 +3,7 @@ import httpStatus from 'http-status';
 
 import app from '../../index';
 
-describe('Server', () => {
+describe('App', () => {
   let server;
 
   beforeEach(() => {
@@ -14,13 +14,7 @@ describe('Server', () => {
     server.close(done);
   });
 
-  it('responds to /', (done) => {
-    request(server)
-      .get('/')
-      .expect(httpStatus.OK, done);
-  });
-
-  it('returns a 404 for anything else', (done) => {
+  it('returns a 404 for a page that doesnt exist', (done) => {
     request(server)
       .get('/page-doesnt-exist')
       .expect(httpStatus.NOT_FOUND, done);

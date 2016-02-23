@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
+import indexRoutes from './controllers/index';
+
 const app = express();
 
 // Logging
@@ -20,8 +22,10 @@ app.use(bodyParser.urlencoded({
 // Security
 app.use(helmet());
 
-app.get('/', (req, res) => {
-  res.send('Hello');
-});
+// Views
+app.use(express.static(`${__dirname}/../client`));
+
+// Routes
+app.use(indexRoutes);
 
 export default app;
