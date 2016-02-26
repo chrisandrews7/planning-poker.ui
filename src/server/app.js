@@ -7,13 +7,13 @@ import indexRoutes from './controllers/index';
 const app = express();
 
 // Body Parser
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({
-//   extended: false
-// }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // Security
-// app.use(helmet());
+app.use(helmet());
 
 // Views
 app.use(express.static(`${__dirname}/../client`));
