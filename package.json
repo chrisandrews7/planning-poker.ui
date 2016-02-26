@@ -46,6 +46,7 @@
     "mocha": "^2.4.5",
     "nodemon": "^1.8.1",
     "sinon": "^1.17.3",
+    "socket.io-client": "^1.4.5",
     "supertest": "^1.1.0",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"

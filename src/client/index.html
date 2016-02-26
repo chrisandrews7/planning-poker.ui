@@ -2,6 +2,8 @@
 <script>
   var socket = io.connect('http://localhost:3333');
   socket.emit('vote', {amount: 1, playerId: 'POOO'});
+  socket.emit('vote', {amount: 6, playerId: 'WEEEE'});
+  
   socket.on('votingChanged', function (data) {
     console.log(data);
   });
