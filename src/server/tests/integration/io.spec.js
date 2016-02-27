@@ -10,7 +10,7 @@ describe('IO', () => {
 
   beforeEach((done) => {
     server = app.listen(config.get('port'), () => {
-      io = ioclient.connect('http://localhost:3333');
+      io = ioclient.connect(`http://localhost:${config.get('port')}`);
       io.on('connect', () => {
         done();
       });
