@@ -1,7 +1,7 @@
 import { expect } from 'chai';
+import config from 'config';
 import ioclient from 'socket.io-client';
-import http from 'http';
-import socketio from '../../io';
+import app from '../../index';
 import { VOTE, VOTING_CHANGED } from '../../constants/events';
 
 describe('IO', () => {
@@ -9,9 +9,7 @@ describe('IO', () => {
   let server;
 
   beforeEach((done) => {
-    server = http.Server();
-    socketio.attach(server);
-    server.listen(3333, () => {
+    server = app.listen(config.get('port'), () => {
       io = ioclient.connect('http://localhost:3333');
       io.on('connect', () => {
         done();

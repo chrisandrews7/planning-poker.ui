@@ -1,13 +1,13 @@
 import request from 'supertest';
 import httpStatus from 'http-status';
-
+import config from 'config';
 import app from '../../../index';
 
 describe('Index Controller', () => {
   let server;
 
   beforeEach(() => {
-    server = app.listen(3333);
+    server = app.listen(config.get('port'));
   });
 
   afterEach((done) => {
