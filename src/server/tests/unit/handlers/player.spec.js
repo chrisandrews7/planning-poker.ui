@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import * as eventConstants from '../../../constants/events';
+import * as eventConstants from '../../../../shared/constants/events';
 import * as player from '../../../handlers/player';
 
 describe('Player Handler', () => {

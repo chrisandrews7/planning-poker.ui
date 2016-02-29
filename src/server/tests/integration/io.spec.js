@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import config from 'config';
 import ioclient from 'socket.io-client';
 import app from '../../index';
-import { VOTE, VOTING_CHANGED } from '../../constants/events';
+import { VOTE, VOTING_CHANGED } from '../../../shared/constants/events';
 
 describe('IO', () => {
   let io;

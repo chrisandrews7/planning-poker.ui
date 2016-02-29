@@ -1,6 +1,6 @@
 import socketio from 'socket.io';
 import * as player from './handlers/player';
-import { CONNECTION, VOTE } from './constants/events';
+import { CONNECTION, VOTE } from '../shared/constants/events';
 
 const io = socketio();
 

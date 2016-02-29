@@ -1,7 +1,7 @@
 {
-  "name": "server",
-  "version": "0.2.0",
-  "description": "",
+  "name": "planning-poker",
+  "version": "0.0.1",
+  "description": "Sprint planning tool to make agile estimating and planning faster and more efficient",
   "main": "src/index.js",
   "scripts": {
     "test": "NODE_ENV=test babel-node node_modules/mocha/bin/mocha src --recursive --full-trace",
