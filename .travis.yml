@@ -3,6 +3,8 @@ node_js:
   - 4.2
 env:
   - NODE_ENV=TEST
+before_install:
+  - npm install -g npm@'>=3.4.1'
 script:
   - npm run coverage
 after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
