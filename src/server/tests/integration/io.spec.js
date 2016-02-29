@@ -22,8 +22,8 @@ describe('IO', () => {
     server.close(done);
   });
 
-  describe('Player', () => {
-    it('should emit an error if no gameId is specified', (done) => {
+  describe('Vote', () => {
+    it('should emit ERROR if no gameId is specified', (done) => {
       io.emit(eventConstants.VOTE, {});
       io.on(eventConstants.ERROR, (data) => {
         expect(data).to.be.ok;
@@ -31,7 +31,7 @@ describe('IO', () => {
       });
     });
 
-    it('should receive a voting changed event when a vote event is emitted', (done) => {
+    it('should emit VOTING_CHANGED when VOTE is emitted', (done) => {
       const gameId = 'test';
       io.emit(eventConstants.JOIN, gameId);
       io.emit(eventConstants.VOTE, {}, gameId);
