@@ -3,6 +3,7 @@ node_js:
   - 4.2
 env:
   - NODE_ENV=TEST
+sudo: false
 before_install:
   - npm install -g npm@3.4
 script:

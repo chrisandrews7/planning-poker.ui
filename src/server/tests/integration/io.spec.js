@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import config from 'config';
 import ioclient from 'socket.io-client';
 import app from '../../index';
-import { VOTE, VOTING_CHANGED } from '../../../shared/constants/events';
+import * as eventConstants from '../../../shared/constants/events';
 
 describe('IO', () => {
   let io;
@@ -22,11 +22,23 @@ describe('IO', () => {
     server.close(done);
   });
 
-  it('should receive a voting changed event when a vote event is emitted', (done) => {
-    io.emit(VOTE, {});
-    io.on(VOTING_CHANGED, (data) => {
-      expect(data).to.be.ok;
-      done();
+  describe('Player', () => {
+    it('should emit an error if no gameId is specified', (done) => {
+      io.emit(eventConstants.VOTE, {});
+      io.on(eventConstants.ERROR, (data) => {
+        expect(data).to.be.ok;
+        done();
+      });
+    });
+
+    it('should receive a voting changed event when a vote event is emitted', (done) => {
+      const gameId = 'test';
+      io.emit(eventConstants.JOIN, gameId);
+      io.emit(eventConstants.VOTE, {}, gameId);
+      io.on(eventConstants.VOTING_CHANGED, (data) => {
+        expect(data).to.be.ok;
+        done();
+      });
     });
   });
 });

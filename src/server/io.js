@@ -1,11 +1,13 @@
 import socketio from 'socket.io';
 import * as player from './handlers/player';
-import { CONNECTION, VOTE } from '../shared/constants/events';
+import * as common from './handlers/common';
+import * as eventConstants from '../shared/constants/events';
 
 const io = socketio();
 
-io.on(CONNECTION, (socket) => {
-  socket.on(VOTE, player.vote);
+io.on(eventConstants.CONNECTION, (socket) => {
+  socket.on(eventConstants.JOIN, common.join);
+  socket.on(eventConstants.VOTE, player.vote.bind(io));
 });
 
 export default io;
