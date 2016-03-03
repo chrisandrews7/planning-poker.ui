@@ -3,27 +3,36 @@
 <head>
 </head>
 <body>
-  <input class="room" name="room" />
-  <button class="join">Join</button>
-  <button class="send">Send Spike</button>
+  <p>
+    <input class="room" name="room" value="test" />
+    <button class="join">Join</button>
+  </p>
+  <p>
+    <input class="vote" name="vote" />
+    <button class="send">Send</button>
+    <div class="console"></div>
+  </p>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:3333');
+    function update(value) {
+      $('.console').text(value);
+    }
+
     socket.on('error', function (data) {
-      console.error('ERROR: ' + data);
+      update('ERROR: ' + data);
+    });
+    socket.on('votingChanged', function (data) {
+      update(JSON.stringify(data));
     });
 
     $('.join').on('click', function() {
-      socket.emit('join', {gameId: $('.room').val()});
+      socket.emit('join', $('.room').val());
     });
-
     $('.send').on('click', function() {
-      socket.emit('vote', {amount: 1, playerId: 'testPlayer'});
-      socket.on('votingChanged', function (data) {
-        console.log(data);
-      });
+      socket.emit('vote', {amount: $('.vote').val(), id: 'test'}, $('.room').val());
     });
   </script>
 </body>
