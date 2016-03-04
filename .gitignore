@@ -50,3 +50,4 @@ junitresults.xml
 
 config/*
 !config/default.yml.example
+!config/test.yml

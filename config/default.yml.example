@@ -1,6 +1,8 @@
 port: 3333
 features:
   logging: true
+expiry:
+  vote: 7200 #2 Hours
 db:
   host: "test.com"
   port: 12345

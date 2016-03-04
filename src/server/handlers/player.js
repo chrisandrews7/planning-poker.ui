@@ -1,11 +1,25 @@
 import { VOTING_CHANGED, ERROR } from '../../shared/constants/events';
-import { setVote } from '../models/vote';
+import { getVotes, setVote } from '../models/vote';
 
-export async function vote(data, gameId) {
+async function vote(data, gameId) {
   try {
     await setVote(gameId, data.user, data.vote);
-    this.to(gameId).emit(VOTING_CHANGED, data);
+    const result = await getVotes(gameId);
+    this.to(gameId).emit(VOTING_CHANGED, result);
   } catch (exception) {
     this.emit(ERROR, exception);
   }
 }
+
+async function join(gameId) {
+  try {
+    this.join(gameId);
+    const result = await getVotes(gameId);
+    this.emit(VOTING_CHANGED, result);
+  } catch (exception) {
+    this.emit(ERROR, exception);
+  }
+
+}
+
+export default {vote, join};

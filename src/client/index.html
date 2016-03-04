@@ -4,11 +4,17 @@
 </head>
 <body>
   <p>
-    <input class="room" name="room" value="test" />
+    <input class="room" name="room" value="t4d2a" placeholder="Room" />
     <button class="join">Join</button>
   </p>
   <p>
-    <input class="vote" name="vote" />
+    <span>Vote</span>
+    <input class="vote" name="vote" placeholder="Vote Value" />
+  </p>
+  <p>
+    <span>User</span>
+    <input class="user" name="user" placeholder="User Name" />
+  </p>
     <button class="send">Send</button>
     <div class="console"></div>
   </p>
@@ -25,7 +31,6 @@
 
     socket.on('connect', function() {
         socket.emit('join', $('.room').val());
-        update('Connected to ' + $('.room').val());
     });
 
     socket.on('disconnect', function() {
@@ -40,7 +45,7 @@
     });
 
     $('.send').on('click', function() {
-      socket.emit('vote', {vote: $('.vote').val(), user: 'test'}, $('.room').val());
+      socket.emit('vote', {vote: $('.vote').val(), user: $('.user').val()}, $('.room').val());
     });
   });
   </script>
