@@ -16,15 +16,5 @@ describe('Player Handler', () => {
       expect(io.to.calledWith(gameId)).to.be.ok;
       expect(io.emit.calledWith(eventConstants.VOTING_CHANGED)).to.be.ok;
     });
-
-    it('should emit ERROR when called without a gameId', () => {
-      const io = {
-        emit: sinon.stub().returnsThis(),
-        to: sinon.stub().returnsThis()
-      };
-
-      player.vote.call(io, {});
-      expect(io.emit.calledWith(eventConstants.ERROR)).to.be.ok;
-    });
   });
 });

@@ -10,7 +10,11 @@ describe('IO', () => {
 
   beforeEach((done) => {
     server = app.listen(config.get('port'), () => {
-      io = ioclient.connect(`http://localhost:${config.get('port')}`);
+      io = ioclient.connect(`http://localhost:${config.get('port')}`, {
+        'reconnection delay': 0,
+        'reopen delay': 0,
+        'force new connection': true
+      });
       io.on('connect', () => {
         done();
       });
@@ -23,14 +27,6 @@ describe('IO', () => {
   });
 
   describe('Vote', () => {
-    it('should emit ERROR if no gameId is specified', (done) => {
-      io.emit(eventConstants.VOTE, {});
-      io.on(eventConstants.ERROR, (data) => {
-        expect(data).to.be.ok;
-        done();
-      });
-    });
-
     it('should emit VOTING_CHANGED when VOTE is emitted', (done) => {
       const gameId = 'test';
       io.emit(eventConstants.JOIN, gameId);

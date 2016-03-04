@@ -16,24 +16,33 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+  function update(value) {
+    $('.console').text(value);
+  }
+
+  $('.join').on('click', function() {
     var socket = io.connect('http://localhost:3333');
-    function update(value) {
-      $('.console').text(value);
-    }
+
+    socket.on('connect', function() {
+        socket.emit('join', $('.room').val());
+        update('Connected to ' + $('.room').val());
+    });
+
+    socket.on('disconnect', function() {
+        update('Disconnected');
+    });
 
     socket.on('error', function (data) {
-      update('ERROR: ' + data);
+      update(JSON.stringify(data));
     });
     socket.on('votingChanged', function (data) {
       update(JSON.stringify(data));
     });
 
-    $('.join').on('click', function() {
-      socket.emit('join', $('.room').val());
-    });
     $('.send').on('click', function() {
-      socket.emit('vote', {amount: $('.vote').val(), id: 'test'}, $('.room').val());
+      socket.emit('vote', {vote: $('.vote').val(), user: 'test'}, $('.room').val());
     });
+  });
   </script>
 </body>
 </html>
