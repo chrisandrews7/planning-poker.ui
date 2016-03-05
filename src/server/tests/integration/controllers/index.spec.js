@@ -4,20 +4,20 @@ import config from 'config';
 import app from '../../../index';
 
 describe('Index Controller', () => {
-  let server;
+    let server;
 
-  beforeEach(() => {
-    server = app.listen(config.get('port'));
-  });
+    beforeEach(() => {
+        server = app.listen(config.get('port'));
+    });
 
-  afterEach((done) => {
-    server.close(done);
-  });
+    afterEach((done) => {
+        server.close(done);
+    });
 
-  it('responds to / and returns a html page', (done) => {
-    request(server)
-      .get('/')
-      .expect('Content-Type', 'text/html; charset=UTF-8')
-      .expect(httpStatus.OK, done);
-  });
+    it('responds to / and returns a html page', (done) => {
+        request(server)
+            .get('/')
+            .expect('Content-Type', 'text/html; charset=UTF-8')
+            .expect(httpStatus.OK, done);
+    });
 });

@@ -30,17 +30,20 @@
     var socket = io.connect('http://localhost:3333');
 
     socket.on('connect', function() {
-        socket.emit('join', $('.room').val());
+        socket.emit('join', $('.room').val(), $('.user').val());
     });
 
     socket.on('disconnect', function() {
-        update('Disconnected');
+      io.to($('.room').val()).emit('leave', $('.room').val(), $('.user').val());
     });
 
     socket.on('error', function (data) {
       update(JSON.stringify(data));
     });
-    socket.on('votingChanged', function (data) {
+    socket.on('votesUpdated', function (data) {
+      update(JSON.stringify(data));
+    });
+    socket.on('playersUpdated', function (data) {
       update(JSON.stringify(data));
     });
 

@@ -1,3 +1,3 @@
 export const GAME = 'game';
-export const PLAYER = 'player';
+export const PLAYERS = 'players';
 export const VOTES = 'votes';

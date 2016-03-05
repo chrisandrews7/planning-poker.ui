@@ -1,10 +1,11 @@
 port: 3333
 features:
-  logging: true
+    logging: true
 expiry:
-  vote: 7200 #2 Hours
+    vote: 7200 # 2 Hours
+    players: 72000 # 2 Hours
 db:
-  host: "test.com"
-  port: 12345
-  password: "test"
-  auth: false
+    host: "test.com"
+    port: 12345
+    password: "test"
+    auth: false
