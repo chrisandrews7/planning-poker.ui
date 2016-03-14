@@ -1,3 +1,6 @@
 port: 4444
 features:
   logging: false
+expiry:
+  votes: 120
+  players: 1200

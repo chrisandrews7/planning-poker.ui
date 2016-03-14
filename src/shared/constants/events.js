@@ -7,5 +7,6 @@ export const JOIN = 'join';
 export const LEAVE = 'leave';
 
 export const VOTE = 'vote';
-export const VOTES_UPDATED = 'votesUpdated';
-export const PLAYERS_UPDATED = 'playersUpdated';
+export const VOTE_UPDATED = 'voteUpdated';
+export const PLAYER_JOINED = 'playerJoined';
+export const PLAYER_LEFT = 'playerLeft';

@@ -40,15 +40,18 @@
     socket.on('error', function (data) {
       update(JSON.stringify(data));
     });
-    socket.on('votesUpdated', function (data) {
+    socket.on('voteUpdated', function (data) {
       update(JSON.stringify(data));
     });
-    socket.on('playersUpdated', function (data) {
+    socket.on('playerLeft', function (data) {
+      update(JSON.stringify(data));
+    });
+    socket.on('playerJoined', function (data) {
       update(JSON.stringify(data));
     });
 
     $('.send').on('click', function() {
-      socket.emit('vote', {vote: $('.vote').val(), user: $('.user').val()}, $('.room').val());
+      socket.emit('vote', $('.vote').val(), $('.user').val(), $('.room').val());
     });
   });
   </script>
