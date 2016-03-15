@@ -1,14 +1,18 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import * as eventConstants from '../../../../shared/constants/events';
-import * as player from '../../../handlers/player';
+import { VOTE_UPDATED } from '../../../../shared/constants/events';
+import player from '../../../handlers/player';
 import voteModel from '../../../models/vote';
 
 describe('Player Handler', () => {
     describe('Vote', () => {
         let socketMock;
-        const voteMock = sinon.stub(voteModel, 'setVote').returns(true);
+        let voteMock;
+
+        before(() => {
+            voteMock = sinon.stub(voteModel, 'setVote').returns(true);
+        });
 
         beforeEach(() => {
             socketMock = {
@@ -27,7 +31,7 @@ describe('Player Handler', () => {
             await player.vote.call(socketMock, vote, playerId, gameId);
 
             expect(socketMock.broadcast.to.calledWith(gameId)).to.be.ok;
-            expect(socketMock.broadcast.emit.calledWithExactly(eventConstants.VOTE_UPDATED, {
+            expect(socketMock.broadcast.emit.calledWithExactly(VOTE_UPDATED, {
                 playerId: playerId,
                 vote: vote
             })).to.be.ok;
