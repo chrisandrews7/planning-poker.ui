@@ -4,7 +4,12 @@ import voteModel from '../models/vote';
 async function vote(vote, playerId, gameId) {
     try {
         await voteModel.setVote(gameId, playerId, vote);
-        this.broadcast.to(gameId).emit(VOTE_UPDATED, {playerId: playerId, vote: vote});
+        this.broadcast
+            .to(gameId)
+            .emit(VOTE_UPDATED, {
+                playerId: playerId,
+                vote: vote
+            });
     } catch (exception) {
         this.emit(ERROR, exception);
     }

@@ -4,7 +4,7 @@ import ioclient from 'socket.io-client';
 import app from '../../index';
 import * as eventConstants from '../../../shared/constants/events';
 
-describe('IO', () => {
+xdescribe('IO', () => {
     let io;
     let server;
 
