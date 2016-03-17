@@ -2,25 +2,13 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import config from 'config';
 import faker from 'faker';
-import redis from 'redis';
 import keys from '../../../utils/keys';
+import voteModel from '../../../models/vote';
+import client from '../../../db';
 
 describe('Vote Model', () => {
-    let client;
     let params;
-    let voteModel;
     let key;
-
-    before(() => {
-        //sinon.stub(redis, 'createClient', fakeredis.createClient);
-        voteModel = require('../../../models/vote');
-        //client = redis.createClient('test');
-        client = require('../../../db');
-    });
-
-    after(() => {
-        // redis.createClient.restore();
-    });
 
     beforeEach(() => {
         params = {

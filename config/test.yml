@@ -1,4 +1,6 @@
 port: 4444
+db:
+  fake: true
 features:
   logging: false
 expiry:

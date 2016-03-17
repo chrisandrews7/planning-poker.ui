@@ -2,25 +2,13 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import config from 'config';
 import faker from 'faker';
-import redis from 'redis';
+import client from '../../../db';
 import keys from '../../../utils/keys';
+import playerModel from '../../../models/player';
 
 describe('Player Model', () => {
-    let client;
     let key;
     let params;
-    let playerModel;
-
-    before(() => {
-        //sinon.stub(redis, 'createClient', fakeredis.createClient);
-        playerModel = require('../../../models/player');
-        //client = redis.createClient('test');
-        client = require('../../../db');
-    });
-
-    after(() => {
-        // redis.createClient.restore();
-    });
 
     beforeEach(() => {
         params = {
