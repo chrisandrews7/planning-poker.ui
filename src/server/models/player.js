@@ -13,22 +13,22 @@ function addPlayer(gameId, playerId) {
             .expire(key, EXPIRY)
             .exec((err, res) => {
                 if (err) {
-                    reject(err);
+                    return reject(err);
                 }
-                resolve(res);
+                return resolve(res);
             });
     });
 }
 
 function removePlayer(gameId, playerId) {
     return new Promise((resolve, reject) => {
-        const key = keys.players(gameid);
+        const key = keys.players(gameId);
 
         db.srem(key, playerId, (err, res) => {
             if (err) {
-                reject(err);
+                return reject(err);
             }
-            resolve(res);
+            return resolve(res);
         });
     });
 }
@@ -39,9 +39,9 @@ function getPlayers(gameId) {
 
         db.smembers(key, (err, res) => {
             if (err) {
-                reject(err);
+                return reject(err);
             }
-            resolve(res);
+            return resolve(res);
         });
     });
 }

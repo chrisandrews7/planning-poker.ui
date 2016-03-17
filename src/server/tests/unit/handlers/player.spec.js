@@ -24,8 +24,8 @@ describe('Player Handler', () => {
             params = {
                 gameId: faker.random.number(),
                 playerId: faker.name.firstName(),
-                vote: faker.random.number()
-            }
+                vote: faker.random.number(10)
+            };
         });
 
         afterEach(() => {

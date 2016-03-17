@@ -25,7 +25,7 @@ describe('Common Handler', () => {
         params = {
             gameId: faker.random.number(),
             playerId: faker.name.firstName()
-        }
+        };
     });
 
     afterEach(() => {

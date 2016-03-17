@@ -8,7 +8,7 @@ xdescribe('IO', () => {
     let io;
     let server;
 
-    beforeEach((done) => {
+    before((done) => {
         server = app.listen(config.get('port'), () => {
             io = ioclient.connect(`http://localhost:${config.get('port')}`, {
                 'reconnection delay': 0,
@@ -21,7 +21,7 @@ xdescribe('IO', () => {
         });
     });
 
-    afterEach((done) => {
+    after((done) => {
         io.disconnect();
         server.close(done);
     });

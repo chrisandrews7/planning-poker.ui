@@ -9,13 +9,13 @@ function setVote(gameId, playerId, vote) {
         const key = keys.votes(gameId);
 
         db.multi()
-            .hset(key, playerId, vote)
+            .hmset(key, playerId, vote)
             .expire(key, EXPIRY)
             .exec((err, res) => {
                 if (err) {
-                    reject(err);
+                    return reject(err);
                 }
-                resolve(res);
+                return resolve(res);
             });
     });
 }
@@ -26,9 +26,9 @@ function getVotes(gameId) {
 
         db.hgetall(key, (err, res) => {
             if (err) {
-                reject(err);
+                return reject(err);
             }
-            resolve(res);
+            return resolve(res);
         });
     });
 }

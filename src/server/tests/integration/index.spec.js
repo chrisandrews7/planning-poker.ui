@@ -6,7 +6,7 @@ import app from '../../index';
 describe('App', () => {
     let server;
 
-    beforeEach(() => {
+    before(() => {
         server = app.listen(config.get('port'));
     });
 
