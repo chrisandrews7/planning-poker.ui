@@ -23,7 +23,7 @@ describe('Common Handler', () => {
             emit: sandbox.spy()
         };
         params = {
-            gameId: faker.helpers.randomize(),
+            gameId: faker.random.number(),
             playerId: faker.name.firstName()
         }
     });

@@ -22,9 +22,9 @@ describe('Player Handler', () => {
                 emit: sinon.spy()
             };
             params = {
-                gameId: faker.helpers.randomize(),
+                gameId: faker.random.number(),
                 playerId: faker.name.firstName(),
-                vote: faker.helpers.randomize()
+                vote: faker.random.number()
             }
         });
 
