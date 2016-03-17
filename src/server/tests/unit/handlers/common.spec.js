@@ -67,6 +67,7 @@ describe('Common Handler', () => {
             expect(socketMock.emit.calledWith(ERROR)).to.be.ok;
         });
     });
+
     describe('Leave', () => {
         it('should leave the specified gameId', async () => {
             sandbox.stub(playerModel, 'removePlayer').returns(Promise.resolve());
