@@ -27,7 +27,7 @@ describe('Vote Model', () => {
 
     describe('setVote', () => {
         it('should set the vote record using the vote key', (done) => {
-            const expectedResult = {};
+            let expectedResult = {};
             expectedResult[params.playerId] = String(params.vote);
 
             voteModel.setVote(params.gameId, params.playerId, params.vote)
@@ -56,7 +56,7 @@ describe('Vote Model', () => {
         it('should return the vote records', (done) => {
             const expectedTtl = config.get('expiry.votes');
 
-            const expectedResult = {};
+            let expectedResult = {};
             expectedResult[params.playerId] = String(params.vote);
 
             client.multi()
