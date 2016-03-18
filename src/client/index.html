@@ -22,8 +22,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-  function update(value) {
-    $('.console').text(value);
+  var game = {};
+
+  function update() {
+    $('.console').text(JSON.stringify(game));
   }
 
   $('.join').on('click', function() {
@@ -41,16 +43,25 @@
       update(JSON.stringify(data));
     });
     socket.on('voteUpdated', function (data) {
-      update(JSON.stringify(data));
+      game[data.playerId] = data.vote;
+      update();
     });
     socket.on('playerLeft', function (data) {
-      update(JSON.stringify(data));
+      delete game[data.playerId];
+      update();
     });
     socket.on('playerJoined', function (data) {
-      update(JSON.stringify(data));
+      game[data.playerId] = null;
+      update();
+    });
+    socket.on('connected', function (data) {
+      game = data.votes;
+      game[$('.user').val()] = null;
+      update();
     });
 
     $('.send').on('click', function() {
+      game[$('.user').val()] = $('.vote').val();
       socket.emit('vote', $('.vote').val(), $('.user').val(), $('.room').val());
     });
   });

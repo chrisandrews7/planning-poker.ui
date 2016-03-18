@@ -2,9 +2,10 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import faker from 'faker';
 
-import { PLAYER_JOINED, PLAYER_LEFT, ERROR } from '../../../../shared/constants/events';
+import { PLAYER_JOINED, PLAYER_LEFT, ERROR, CONNECT } from '../../../../shared/constants/events';
 import common from '../../../handlers/common';
 import playerModel from '../../../models/player';
+import voteModel from '../../../models/vote';
 
 describe('Common Handler', () => {
     let sandbox;
@@ -35,6 +36,7 @@ describe('Common Handler', () => {
     describe('Join', () => {
         it('should join the specified gameId', async () => {
             sandbox.stub(playerModel, 'addPlayer').returns(Promise.resolve());
+            sandbox.stub(voteModel, 'getVotes').returns(Promise.resolve({}));
 
             await common.join.call(socketMock, params.gameId, params.playerId);
             expect(socketMock.join.calledWith(params.gameId)).to.be.ok;
@@ -42,6 +44,7 @@ describe('Common Handler', () => {
 
         it('should broadcast PLAYER_JOINED to the room with the playerId when called', async () => {
             sandbox.stub(playerModel, 'addPlayer').returns(Promise.resolve());
+            sandbox.stub(voteModel, 'getVotes').returns(Promise.resolve({}));
 
             await common.join.call(socketMock, params.gameId, params.playerId);
 
@@ -51,16 +54,50 @@ describe('Common Handler', () => {
             })).to.be.ok;
         });
 
+        it('should emit CONNECT with the votes when called', async () => {
+            let votes = {};
+            votes[faker.name.firstName()] = faker.random.number();
+
+            sandbox.stub(playerModel, 'addPlayer').returns(Promise.resolve());
+            sandbox.stub(voteModel, 'getVotes').returns(Promise.resolve(votes));
+
+            await common.join.call(socketMock, params.gameId, params.playerId);
+
+            expect(socketMock.emit.calledWithExactly(CONNECT, {
+                votes: votes
+            })).to.be.ok;
+        });
+
         it('should call the addPlayer function on the player model', async () => {
             const playerMock = sandbox.stub(playerModel, 'addPlayer').returns(Promise.resolve());
+            sandbox.stub(voteModel, 'getVotes').returns(Promise.resolve({}));
 
             await common.join.call(socketMock, params.gameId, params.playerId);
 
             expect(playerMock.calledWithExactly(params.gameId, params.playerId)).to.be.ok;
         });
 
-        it('should emit ERROR when a problem occurs', async () => {
+        it('should call the getVotes function on the vote model', async () => {
+            sandbox.stub(playerModel, 'addPlayer').returns(Promise.resolve());
+            const voteMock = sandbox.stub(voteModel, 'getVotes').returns(Promise.resolve({}));
+
+            await common.join.call(socketMock, params.gameId, params.playerId);
+
+            expect(voteMock.calledWithExactly(params.gameId)).to.be.ok;
+        });
+
+        it('should emit ERROR when the addPlayer method errors', async () => {
+            sandbox.stub(voteModel, 'getVotes').returns(Promise.resolve({}));
             sandbox.stub(playerModel, 'addPlayer').returns(Promise.reject());
+
+            await common.join.call(socketMock, params.gameId, params.playerId);
+
+            expect(socketMock.emit.calledWith(ERROR)).to.be.ok;
+        });
+
+        it('should emit ERROR when the getVotes method errors', async () => {
+            sandbox.stub(voteModel, 'getVotes').returns(Promise.reject());
+            sandbox.stub(playerModel, 'addPlayer').returns(Promise.resolve());
 
             await common.join.call(socketMock, params.gameId, params.playerId);
 

@@ -4,6 +4,7 @@ export const CONNECTION = 'connection';
 export const DISCONNECT = 'disconnect';
 
 export const JOIN = 'join';
+export const CONNECT = 'connected';
 export const LEAVE = 'leave';
 
 export const VOTE = 'vote';

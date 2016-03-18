@@ -28,7 +28,7 @@ function getVotes(gameId) {
             if (err) {
                 return reject(err);
             }
-            return resolve(res);
+            return resolve(res || {});
         });
     });
 }

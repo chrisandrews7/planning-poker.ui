@@ -9,3 +9,4 @@ db:
     port: 12345
     password: "test"
     auth: false
+    fake: false

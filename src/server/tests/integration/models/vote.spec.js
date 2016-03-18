@@ -70,5 +70,13 @@ describe('Vote Model', () => {
                         });
                 });
         });
+
+        it('should return an empty object if no records exist', (done) => {
+            voteModel.getVotes(params.gameId)
+                .then((results) => {
+                    expect(results).to.deep.equal({});
+                    done();
+                });
+        });
     });
 });
