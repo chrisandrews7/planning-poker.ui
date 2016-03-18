@@ -24,7 +24,7 @@ describe('Player Model', () => {
         });
     });
 
-    describe('addPlayer', () => {
+    describe('Add Player', () => {
         it('should add the player id to the current game players set', (done) => {
             const expectedResult = [params.playerId];
 
@@ -50,7 +50,7 @@ describe('Player Model', () => {
         });
     });
 
-    describe('getPlayers', () => {
+    describe('Get Players', () => {
         it('should return the player set record', (done) => {
             const expectedTtl = config.get('expiry.players');
             const expectedResult = [params.playerId];
@@ -68,7 +68,7 @@ describe('Player Model', () => {
         });
     });
 
-    describe('removePlayer', () => {
+    describe('Remove Player', () => {
         it('should remove a player from the player set record', (done) => {
             const expectedTtl = config.get('expiry.players');
             const playerToChange = 'anotherTestPlayer';
