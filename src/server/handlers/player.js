@@ -1,9 +1,20 @@
-import { VOTING_CHANGED, ERROR } from '../../shared/constants/events';
+import { VOTE_UPDATED, ERROR } from '../../shared/constants/events';
+import voteModel from '../models/vote';
 
-export function vote(data, gameId) {
-  if (!gameId) {
-    this.emit(ERROR, 'No gameId present');
-    return;
-  }
-  this.to(gameId).emit(VOTING_CHANGED, data);
+async function vote(vote, playerId, gameId) {
+    try {
+        await voteModel.setVote(gameId, playerId, vote);
+        this.broadcast
+            .to(gameId)
+            .emit(VOTE_UPDATED, {
+                playerId: playerId,
+                vote: vote
+            });
+    } catch (exception) {
+        this.emit(ERROR, exception);
+    }
 }
+
+export default {
+    vote
+};

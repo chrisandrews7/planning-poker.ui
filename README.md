@@ -7,8 +7,9 @@
 Sprint planning tool to make agile estimating and planning faster and more efficient.
 
 ## Getting Started
+First clone config/default.yml.example to default.yml and add your settings.
 
-Install dependencies through NPM
+Next install dependencies through NPM
 ```
 npm install
 ```

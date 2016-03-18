@@ -4,19 +4,19 @@ import config from 'config';
 import app from '../../index';
 
 describe('App', () => {
-  let server;
+    let server;
 
-  beforeEach(() => {
-    server = app.listen(config.get('port'));
-  });
+    before(() => {
+        server = app.listen(config.get('port'));
+    });
 
-  afterEach((done) => {
-    server.close(done);
-  });
+    afterEach((done) => {
+        server.close(done);
+    });
 
-  it('returns a 404 for a page that doesnt exist', (done) => {
-    request(server)
-      .get('/page-doesnt-exist')
-      .expect(httpStatus.NOT_FOUND, done);
-  });
+    it('returns a 404 for a page that doesnt exist', (done) => {
+        request(server)
+            .get('/page-doesnt-exist')
+            .expect(httpStatus.NOT_FOUND, done);
+    });
 });
