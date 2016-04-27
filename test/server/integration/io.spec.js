@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import config from 'config';
 import ioclient from 'socket.io-client';
-import app from '../../index';
-import * as eventConstants from '../../../shared/constants/events';
+import app from '../../../src/server/index';
+import * as eventConstants from '../../../src/shared/constants/events';
 
 xdescribe('IO', () => {
     let io;

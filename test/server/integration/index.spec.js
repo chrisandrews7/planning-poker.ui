@@ -1,7 +1,7 @@
 import request from 'supertest';
 import httpStatus from 'http-status';
 import config from 'config';
-import app from '../../index';
+import app from '../../../src/server/index';
 
 describe('App', () => {
     let server;

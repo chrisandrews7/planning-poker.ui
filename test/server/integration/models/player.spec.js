@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import config from 'config';
 import faker from 'faker';
-import client from '../../../db';
-import keys from '../../../utils/keys';
-import playerModel from '../../../models/player';
+import client from '../../../../src/server/db';
+import keys from '../../../../src/server/utils/keys';
+import playerModel from '../../../../src/server/models/player';
 
 describe('Player Model', () => {
     let key;

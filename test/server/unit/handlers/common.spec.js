@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import faker from 'faker';
 
-import { PLAYER_JOINED, PLAYER_LEFT, ERROR, CONNECT } from '../../../../shared/constants/events';
-import common from '../../../handlers/common';
-import playerModel from '../../../models/player';
-import voteModel from '../../../models/vote';
+import { PLAYER_JOINED, PLAYER_LEFT, ERROR, CONNECT } from '../../../../src/shared/constants/events';
+import common from '../../../../src/server/handlers/common';
+import playerModel from '../../../../src/server/models/player';
+import voteModel from '../../../../src/server/models/vote';
 
 describe('Common Handler', () => {
     let sandbox;
