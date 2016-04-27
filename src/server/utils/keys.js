@@ -1,6 +1,6 @@
 import { VOTES, GAME, PLAYERS } from '../../shared/constants/terms';
 
 export default {
-    votes: (gameId) => `${GAME}:${gameId}:${VOTES}`,
-    players: (gameId) => `${GAME}:${gameId}:${PLAYERS}`
+  votes: (gameId) => `${GAME}:${gameId}:${VOTES}`,
+  players: (gameId) => `${GAME}:${gameId}:${PLAYERS}`
 };

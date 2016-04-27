@@ -4,11 +4,12 @@
   "description": "Sprint planning tool to make agile estimating and planning faster and more efficient",
   "main": "src/index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha test --compilers js:babel-core/register --recursive --full-trace",
+    "test": "NODE_ENV=test npm run lint && mocha test --compilers js:babel-core/register --recursive --full-trace",
     "test:watch": "npm run test -- -w",
     "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover _mocha -- test --recursive",
     "start": "NODE_ENV=development DEBUG=socket.io* nodemon src/index.js",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "lint": "eslint src test"
   },
   "engines": {
     "node": "4.2.x",
@@ -25,13 +26,14 @@
     "config": "^1.19.0",
     "express": "^4.13.3",
     "helmet": "^1.1.0",
-    "redis": "^2.4.2",
+    "redis": "^2.6.0-1",
     "socket.io": "^1.4.4",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",
     "babel-core": "^6.5.1",
+    "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.2",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-transform-runtime": "^6.7.5",
@@ -40,10 +42,12 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.6",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^5.0.0",
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^8.0.0",
     "eslint-loader": "^1.2.1",
-    "eslint-plugin-react": "^3.16.1",
+    "eslint-plugin-import": "^1.6.0",
+    "eslint-plugin-jsx-a11y": "^1.0.3",
+    "eslint-plugin-react": "^5.0.1",
     "faker": "^3.0.1",
     "fakeredis": "^1.0.2",
     "http-status": "^0.2.0",
