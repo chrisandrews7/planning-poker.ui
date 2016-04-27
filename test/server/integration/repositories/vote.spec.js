@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import config from 'config';
 import faker from 'faker';
 import keys from '../../../../src/server/utils/keys';
-import voteModel from '../../../../src/server/models/vote';
+import voteRepository from '../../../../src/server/repositories/vote';
 import client from '../../../../src/server/db';
 
 describe('Vote Model', () => {
@@ -30,7 +30,7 @@ describe('Vote Model', () => {
         [params.playerId]: String(params.vote)
       };
 
-      voteModel.setVote(params.gameId, params.playerId, params.vote)
+      voteRepository.setVote(params.gameId, params.playerId, params.vote)
       .then(() => {
         client.hgetall(key, (err, res) => {
           expect(res).to.deep.equal(expectedResult);
@@ -42,7 +42,7 @@ describe('Vote Model', () => {
     it('should set the expiry on the vote record', (done) => {
       const expectedTtl = config.get('expiry.votes');
 
-      voteModel.setVote(params.gameId, params.playerId, params.vote)
+      voteRepository.setVote(params.gameId, params.playerId, params.vote)
       .then(() => {
         client.ttl(key, (err, res) => {
           expect(res).to.equal(expectedTtl);
@@ -64,7 +64,7 @@ describe('Vote Model', () => {
       .hmset(key, params.playerId, params.vote)
       .expire(key, expectedTtl)
       .exec(() => {
-        voteModel.getVotes(params.gameId)
+        voteRepository.getVotes(params.gameId)
         .then((results) => {
           expect(results).to.deep.equal(expectedResult);
           done();
@@ -73,7 +73,7 @@ describe('Vote Model', () => {
     });
 
     it('should return an empty object if no records exist', (done) => {
-      voteModel.getVotes(params.gameId)
+      voteRepository.getVotes(params.gameId)
       .then((results) => {
         expect(results).to.deep.equal({});
         done();

@@ -3,7 +3,7 @@ import config from 'config';
 import faker from 'faker';
 import client from '../../../../src/server/db';
 import keys from '../../../../src/server/utils/keys';
-import playerModel from '../../../../src/server/models/player';
+import playerRepository from '../../../../src/server/repositories/player';
 
 describe('Player Model', () => {
   let key;
@@ -27,7 +27,7 @@ describe('Player Model', () => {
     it('should add the player id to the current game players set', (done) => {
       const expectedResult = [params.playerId];
 
-      playerModel.addPlayer(params.gameId, params.playerId)
+      playerRepository.addPlayer(params.gameId, params.playerId)
       .then(() => {
         client.smembers(key, (err, res) => {
           expect(res).to.deep.equal(expectedResult);
@@ -39,7 +39,7 @@ describe('Player Model', () => {
     it('should set the expiry on the players record', (done) => {
       const expectedTtl = config.get('expiry.players');
 
-      playerModel.addPlayer(params.gameId, params.playerId)
+      playerRepository.addPlayer(params.gameId, params.playerId)
       .then(() => {
         client.ttl(key, (err, res) => {
           expect(res).to.equal(expectedTtl);
@@ -58,7 +58,7 @@ describe('Player Model', () => {
       .sadd(key, params.playerId)
       .expire(key, expectedTtl)
       .exec(() => {
-        playerModel.getPlayers(params.gameId)
+        playerRepository.getPlayers(params.gameId)
         .then((results) => {
           expect(results).to.deep.equal(expectedResult);
           done();
@@ -77,7 +77,7 @@ describe('Player Model', () => {
       .sadd(key, params.playerId, playerToChange)
       .expire(key, expectedTtl)
       .exec(() => {
-        playerModel.removePlayer(params.gameId, playerToChange)
+        playerRepository.removePlayer(params.gameId, playerToChange)
         .then(() => {
           client.smembers(key, (err, result) => {
             expect(result).to.deep.equal(expectedResult);

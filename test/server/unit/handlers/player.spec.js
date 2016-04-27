@@ -4,7 +4,7 @@ import faker from 'faker';
 
 import { VOTE_UPDATED, ERROR } from '../../../../src/shared/constants/events';
 import player from '../../../../src/server/handlers/player';
-import voteModel from '../../../../src/server/models/vote';
+import voteRepository from '../../../../src/server/repositories/vote';
 
 describe('Player Handler', () => {
   describe('Vote', () => {
@@ -33,7 +33,7 @@ describe('Player Handler', () => {
     });
 
     it('should broadcast VOTE_UPDATED to the room with vote and playerId when called', async () => {
-      sandbox.stub(voteModel, 'setVote').returns(Promise.resolve());
+      sandbox.stub(voteRepository, 'setVote').returns(Promise.resolve());
 
       await player.vote.call(socketMock, params.vote, params.playerId, params.gameId);
 
@@ -45,7 +45,7 @@ describe('Player Handler', () => {
     });
 
     it('should call the setVote function on the vote model', async () => {
-      const voteMock = sandbox.stub(voteModel, 'setVote').returns(Promise.resolve());
+      const voteMock = sandbox.stub(voteRepository, 'setVote').returns(Promise.resolve());
 
       await player.vote.call(socketMock, params.vote, params.playerId, params.gameId);
 
@@ -53,7 +53,7 @@ describe('Player Handler', () => {
     });
 
     it('should emit ERROR when a problem occurs', async () => {
-      sandbox.stub(voteModel, 'setVote').returns(Promise.reject());
+      sandbox.stub(voteRepository, 'setVote').returns(Promise.reject());
 
       await player.vote.call(socketMock, params.vote, params.playerId, params.gameId);
 

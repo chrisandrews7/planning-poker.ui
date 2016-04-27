@@ -3,8 +3,8 @@ import {
   CONNECT,
   PLAYER_LEFT,
   ERROR } from '../../shared/constants/events';
-import playerModel from '../models/player';
-import voteModel from '../models/vote';
+import playerModel from '../repositories/player';
+import voteModel from '../repositories/vote';
 
 async function join(gameId, playerId) {
   try {

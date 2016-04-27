@@ -1,9 +1,9 @@
 import { VOTE_UPDATED, ERROR } from '../../shared/constants/events';
-import voteModel from '../models/vote';
+import voteRepository from '../repositories/vote';
 
 async function vote(voteValue, playerId, gameId) {
   try {
-    await voteModel.setVote(gameId, playerId, voteValue);
+    await voteRepository.setVote(gameId, playerId, voteValue);
     this.broadcast
     .to(gameId)
     .emit(VOTE_UPDATED, {
