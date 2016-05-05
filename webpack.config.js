@@ -5,11 +5,11 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './src/client/index.jsx'
+    './src/client/index.js'
   ],
   module: {
     loaders: [{
-      test: /\.jsx?$/,
+      test: /\.js|jsx$/,
       exclude: /node_modules/,
       loader: 'react-hot!babel'
     }]
@@ -20,7 +20,7 @@ module.exports = {
   output: {
     path: 'dist',
     publicPath: '/',
-    filename: 'index_bundle.js'
+    filename: 'bundle.js'
   },
   devServer: {
     contentBase: 'dist',
