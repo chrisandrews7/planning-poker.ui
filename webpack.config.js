@@ -1,39 +1,35 @@
-var path = require('path');
-var fs = require('fs');
-
-var nodeModules = {};
-fs.readdirSync('node_modules')
-  .filter(function(x) {
-    return ['.bin'].indexOf(x) === -1;
-  })
-  .forEach(function(mod) {
-    nodeModules[mod] = 'commonjs ' + mod;
-  });
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/server'],
-  target: 'node',
-  output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'server.js'
-  },
+  entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    './src/client/index.jsx'
+  ],
   module: {
-      loaders: [
-        {
-          test: /(\.js|jsx)$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader'
-        },
-        {
-          test: /(\.jsx|\.js)$/,
-          loader: "eslint-loader",
-          exclude: /node_modules/
-        }
-      ]
+    loaders: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'react-hot!babel'
+    }]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+  output: {
+    path: 'dist',
+    publicPath: '/',
+    filename: 'index_bundle.js'
   },
   devServer: {
-    contentBase: './app/build'
+    contentBase: 'dist',
+    hot: true
   },
-  devtool: 'sourcemap',
-  externals: nodeModules
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Planning Poker'
+    })
+  ]
 };
