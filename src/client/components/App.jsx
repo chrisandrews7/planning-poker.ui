@@ -1,9 +1,14 @@
 import React from 'react';
+import Player from './Player';
 
-const App = () => (
-  <div>
-    <h1>Hello</h1>
-  </div>
-);
-
-export default App;
+export default class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello</h1>
+        <Player name="Dave" />
+        <Player name="Steve" vote={8} />
+      </div>
+    );
+  }
+}
