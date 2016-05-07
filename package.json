@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test --compilers js:babel-core/register --recursive --full-trace",
     "test:watch": "npm run test -- -w",
-    "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover _mocha -- test --recursive",
+    "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover --include '**/*.js' --include '**/*.jsx' _mocha -- test/** --recursive",
     "start": "NODE_ENV=development DEBUG=socket.io* nodemon src/index.js",
     "dev": "NODE_ENV=development webpack-dev-server",
     "lint": "eslint src test"
@@ -58,7 +58,7 @@
     "html-webpack-plugin": "^2.16.1",
     "http-status": "^0.2.0",
     "isparta": "^4.0.0",
-    "istanbul": "^0.4.2",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
     "nodemon": "^1.8.1",
     "react-addons-test-utils": "^15.0.2",

@@ -1,4 +1,9 @@
 reporting:
-    reports:
-        - text
-        - lcov
+  reports:
+    - text
+    - lcov
+instrumentation:
+  root: src
+  extensions:
+    - .jsx
+    - .js

@@ -1,1 +1,1 @@
-export const NO_SCORES = 'No scores yet!';
+export const NO_PLAYERS = 'No players yet!';

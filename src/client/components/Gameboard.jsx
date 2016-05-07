@@ -1,10 +1,10 @@
 import React from 'react';
-import { NO_SCORES } from '../../shared/constants/dictionary';
+import { NO_PLAYERS } from '../../shared/constants/dictionary';
 import Player from './Player';
 
-export default class Scoreboard extends React.Component {
+export default class Gameboard extends React.Component {
   static propTypes = {
-    scores: React.PropTypes.arrayOf(
+    players: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         name: React.PropTypes.string
       })
@@ -12,15 +12,15 @@ export default class Scoreboard extends React.Component {
   }
 
   static defaultProps = {
-    scores: []
+    players: []
   }
 
   render() {
     return (
-      <div className="scoreboard">
-        {this.props.scores.length ? this.props.scores.map((score, index) =>
+      <div className="gameboard">
+        {this.props.players.length ? this.props.players.map((score, index) =>
           <Player key={index} name={score.name} vote={score.vote} />
-        ) : NO_SCORES}
+        ) : NO_PLAYERS}
       </div>
     );
   }
