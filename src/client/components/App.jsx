@@ -1,13 +1,19 @@
 import React from 'react';
-import Player from './Player';
+import Scoreboard from './Scoreboard';
 
 export default class App extends React.Component {
   render() {
+    const scores = [{
+      name: 'Mr Test',
+      vote: 11
+    }, {
+      name: 'Mr Robot',
+      vote: 5
+    }];
+
     return (
       <div>
-        <h1>Hello</h1>
-        <Player name="Dave" />
-        <Player name="Steve" vote={8} />
+        <Scoreboard scores={scores} />
       </div>
     );
   }

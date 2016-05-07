@@ -5,7 +5,7 @@ import client from '../../../../src/server/db';
 import keys from '../../../../src/server/utils/keys';
 import playerRepository from '../../../../src/server/repositories/player';
 
-describe('Player Model', () => {
+describe('Player Repository', () => {
   let key;
   let params;
 

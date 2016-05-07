@@ -5,7 +5,7 @@ import keys from '../../../../src/server/utils/keys';
 import voteRepository from '../../../../src/server/repositories/vote';
 import client from '../../../../src/server/db';
 
-describe('Vote Model', () => {
+describe('Vote Repository', () => {
   let params;
   let key;
 

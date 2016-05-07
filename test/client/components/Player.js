@@ -4,7 +4,7 @@ import faker from 'faker';
 import React from 'react';
 import Player from '../../../src/client/components/Player';
 
-describe.only('Player Component', () => {
+describe('Player Component', () => {
   it('renders the players name', () => {
     const name = faker.name.firstName();
     const wrapper = shallow(<Player name={name} />);
