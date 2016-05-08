@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import faker from 'faker';
 import React from 'react';
 import _ from 'lodash';
-import { NO_PLAYERS } from '../../../src/shared/constants/dictionary';
-import Gameboard from '../../../src/client/components/Gameboard';
-import Player from '../../../src/client/components/Player';
+import { NO_PLAYERS } from '../../../../src/shared/constants/dictionary';
+import Gameboard from '../../../../src/client/components/Gameboard';
+import Player from '../../../../src/client/components/Player';
 
 describe('Gameboard Component', () => {
   it('renders a message when no player prop has been passed', () => {
@@ -28,10 +28,10 @@ describe('Gameboard Component', () => {
 
     // Name Prop
     const playerNames = wrapper.find(Player).map(node => node.props().name);
-    expect(playerNames).to.eql(_.map(players, 'name'));
+    expect(playerNames).to.deep.equal(_.map(players, 'name'));
 
     // Vote Prop
     const playerVotes = wrapper.find(Player).map(node => node.props().vote);
-    expect(playerVotes).to.eql(_.map(players, 'vote'));
+    expect(playerVotes).to.deep.equal(_.map(players, 'vote'));
   });
 });

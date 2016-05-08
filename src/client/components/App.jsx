@@ -1,9 +1,14 @@
 import React from 'react';
-import Scoreboard from './Scoreboard';
+import Gameboard from './Gameboard';
+import Voter from './Voter';
+import VoteOptions from '../../shared/constants/voting';
 
 export default class App extends React.Component {
+  onVote() {
+  }
+
   render() {
-    const scores = [{
+    const players = [{
       name: 'Mr Test',
       vote: 11
     }, {
@@ -13,7 +18,8 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <Scoreboard scores={scores} />
+        <Voter options={VoteOptions} onVote={this.onVote} />
+        <Gameboard players={players} />
       </div>
     );
   }
