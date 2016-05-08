@@ -3,7 +3,10 @@ import React from 'react';
 export default class Player extends React.Component {
   static propTypes = {
     name: React.PropTypes.string.isRequired,
-    vote: React.PropTypes.number
+    vote: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ])
   }
 
   render() {
