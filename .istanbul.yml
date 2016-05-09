@@ -4,6 +4,7 @@ reporting:
     - lcov
 instrumentation:
   root: src
+  include-all-sources: true
   extensions:
     - .jsx
     - .js

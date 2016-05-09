@@ -4,9 +4,9 @@
   "description": "Sprint planning tool to make agile estimating and planning faster and more efficient",
   "main": "src/index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha test --require test/setup.js --compilers js:babel-core/register --recursive --full-trace",
+    "test": "NODE_ENV=test mocha test --compilers js:babel-core/register --opts mocha.opts",
     "test:watch": "npm run test -- -w",
-    "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover --include-all-sources --include '**/*.js' --include '**/*.jsx' _mocha -- test/** --require test/setup.js --recursive",
+    "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover --include '**/*.js' --include '**/*.jsx' _mocha -- test --opts mocha.opts",
     "start": "NODE_ENV=development DEBUG=socket.io* nodemon src/index.js",
     "dev": "NODE_ENV=development webpack-dev-server",
     "lint": "eslint src test"
