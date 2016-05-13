@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './containers/App';
+import configureStore from './store/configureStore';
+import Root from './containers/Root';
+
+const store = configureStore();
 
 render(
-  <div>
-    <App />
-  </div>,
+  <Root store={store} />,
   document.body.appendChild(document.createElement('div'))
 );
