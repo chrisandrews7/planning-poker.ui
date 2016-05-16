@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test --compilers js:babel-core/register --opts mocha.opts",
     "test:watch": "npm run test -- -w",
-    "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover --include '**/*.js' --include '**/*.jsx' _mocha -- test --opts mocha.opts",
+    "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover _mocha -- test --opts mocha.opts",
     "start": "NODE_ENV=development DEBUG=socket.io* nodemon src/index.js",
     "dev": "NODE_ENV=development webpack-dev-server",
     "lint": "eslint src test"
@@ -29,6 +29,8 @@
     "lodash": "^4.11.2",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.0",
     "redis": "^2.6.0-1",
     "redux": "^3.5.2",
     "socket.io": "^1.4.4",

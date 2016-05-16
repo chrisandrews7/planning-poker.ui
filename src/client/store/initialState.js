@@ -1,6 +1,16 @@
 export default {
-  votes: {
-    dave: 4,
-    susan: 7
+  players: {
+    dave: {
+      name: 'dave',
+      vote: 5
+    },
+    susan: {
+      name: 'susan',
+      vote: 13
+    },
+    brian: {
+      name: 'brian',
+      vote: '?'
+    }
   }
 };
