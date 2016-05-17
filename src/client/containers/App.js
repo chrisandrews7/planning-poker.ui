@@ -10,16 +10,16 @@ import faker from 'faker';
 class App extends Component {
   static propTypes = {
     players: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    addPlayer: PropTypes.func.isRequired
   }
 
   render() {
-    const { players, actions } = this.props;
+    const { players, addPlayer } = this.props;
     return (
       <div>
         <Voter
           options={VoteOptions}
-          onVote={actions.addPlayer.bind(null, faker.name.firstName())}
+          onVote={addPlayer.bind(null, faker.name.firstName())}
         />
         <Gameboard players={players} />
       </div>
@@ -31,9 +31,7 @@ const mapStateToProps = state => ({
   players: state.get('players').toJS()
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(PlayerActions, dispatch)
-});
+const mapDispatchToProps = dispatch => bindActionCreators(PlayerActions, dispatch);
 
 export default connect(
   mapStateToProps,
