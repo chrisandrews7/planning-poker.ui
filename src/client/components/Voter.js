@@ -1,21 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-export default class Voter extends Component {
-  static propTypes = {
-    options: PropTypes.array.isRequired,
-    onVote: PropTypes.func.isRequired
-  };
+const Voter = props => (
+  <div className="voter">
+    {props.options.map((value, index) =>
+      <button key={index} onClick={props.onVote.bind(null, value)}>
+        {value}
+      </button>
+    )}
+  </div>
+);
 
-  render() {
-    const { options, onVote } = this.props;
-    return (
-      <div className="voter">
-        {options.map((value, index) =>
-          <button key={index} onClick={onVote.bind(null, value)}>
-            {value}
-          </button>
-        )}
-      </div>
-    );
-  }
-}
+Voter.propTypes = {
+  options: PropTypes.array.isRequired,
+  onVote: PropTypes.func.isRequired
+};
+
+export default Voter;
