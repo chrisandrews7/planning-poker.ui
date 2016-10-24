@@ -20,7 +20,7 @@ describe('Player Actions', () => {
     const name = faker.name.firstName();
     const expectedOutput = {
       type: types.REMOVE_PLAYER,
-      name,
+      name
     };
 
     expect(actions.removePlayer(name)).to.deep.equal(expectedOutput);
