@@ -1,8 +1,8 @@
-import * as types from '../constants/actionTypes';
+import { ADD_PLAYER, REMOVE_PLAYER, UPDATE_VOTE } from '../constants/actionTypes';
 
 export function addPlayer(name, vote) {
   return {
-    type: types.ADD_PLAYER,
+    type: ADD_PLAYER,
     name,
     vote
   };
@@ -10,14 +10,14 @@ export function addPlayer(name, vote) {
 
 export function removePlayer(name) {
   return {
-    type: types.REMOVE_PLAYER,
+    type: REMOVE_PLAYER,
     name
   };
 }
 
 export function updateVote(name, vote) {
   return {
-    type: types.UPDATE_VOTE,
+    type: UPDATE_VOTE,
     name,
     vote
   };

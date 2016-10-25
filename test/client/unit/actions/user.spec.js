@@ -13,4 +13,14 @@ describe('User Actions', () => {
 
     expect(actions.setUser(id)).to.deep.equal(expectedOutput);
   });
+
+  it('setUser should create SET_USER action', () => {
+    const room = faker.random.number();
+    const expectedOutput = {
+      type: types.SET_ROOM,
+      room
+    };
+
+    expect(actions.setRoom(room)).to.deep.equal(expectedOutput);
+  });
 });

@@ -3,11 +3,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PlayerActions from '../actions/players';
 import Gameboard from '../components/Gameboard';
-import Voter from '../components/Voter';
+import VotePanel from '../components/VotePanel';
 import VoteOptions from '../../shared/constants/voting';
 import faker from 'faker';
 
-class App extends Component {
+const mapStateToProps = state => ({
+  players: state.get('players').toJS()
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(PlayerActions, dispatch);
+
+@connect(mapStateToProps, mapDispatchToProps)
+export default class App extends Component {
   static propTypes = {
     players: PropTypes.object.isRequired,
     addPlayer: PropTypes.func.isRequired
@@ -17,7 +25,7 @@ class App extends Component {
     const { players, addPlayer } = this.props;
     return (
       <div>
-        <Voter
+        <VotePanel
           options={VoteOptions}
           onVote={addPlayer.bind(null, faker.name.firstName())}
         />
@@ -26,14 +34,3 @@ class App extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  players: state.get('players').toJS()
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators(PlayerActions, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);

@@ -21,4 +21,17 @@ describe('User Reducer', () => {
 
     expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
   });
+
+  it('should handle SET_ROOM', () => {
+    const room = faker.random.number();
+    const action = {
+      type: types.SET_ROOM,
+      room
+    };
+    const expectedOutput = fromJS({
+      room
+    });
+
+    expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
+  });
 });
