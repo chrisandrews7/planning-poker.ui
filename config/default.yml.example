@@ -1,3 +1,5 @@
+# Move config to use env vars
+
 port: 3333
 features:
     logging: true
