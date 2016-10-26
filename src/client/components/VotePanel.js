@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
-const VotePanel = props => (
+const VotePanel = ({ options, onVote }) => (
   <div className="voter">
-    {props.options.map((value, index) =>
-      <button key={index} onClick={props.onVote.bind(null, value)}>
+    {options.map((value, index) =>
+      <button key={index} onClick={onVote.bind(null, value)}>
         {value}
       </button>
     )}

@@ -3,15 +3,15 @@ import { map, isEmpty } from 'lodash';
 import { NO_PLAYERS } from '../../shared/constants/dictionary';
 import Player from './Player';
 
-const Gameboard = props => (
-  <div className="gameboard">
-    {!isEmpty(props.players) ? map(props.players, (player, index) =>
+const PlayerList = ({ players }) => (
+  <div className="player-list">
+    {!isEmpty(players) ? map(players, (player, index) =>
       <Player key={index} name={player.name} vote={player.vote} />
     ) : NO_PLAYERS}
   </div>
 );
 
-Gameboard.propTypes = {
+PlayerList.propTypes = {
   players: PropTypes.objectOf(
     PropTypes.shape({
       name: React.PropTypes.string,
@@ -23,4 +23,4 @@ Gameboard.propTypes = {
   )
 };
 
-export default Gameboard;
+export default PlayerList;
