@@ -18,14 +18,15 @@ const mapDispatchToProps = dispatch =>
 export default class Board extends Component {
   static propTypes = {
     players: PropTypes.object.isRequired,
-    addPlayer: PropTypes.func.isRequired
+    addPlayer: PropTypes.func.isRequired,
+    params: PropTypes.object.isRequired
   }
 
   render() {
-    const { players, addPlayer } = this.props;
+    const { players, addPlayer, params } = this.props;
     return (
       <div>
-        Room: {this.props.params.boardId}
+        Room: {params.boardId}
         <VotePanel
           options={VoteOptions}
           onVote={addPlayer.bind(null, faker.name.firstName())}
