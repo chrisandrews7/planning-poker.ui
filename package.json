@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test --compilers js:babel-core/register --opts mocha.opts",
     "test:watch": "npm run test -- -w",
-    "coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover _mocha -- test --opts mocha.opts",
+    "test:coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover _mocha -- test --opts mocha.opts",
     "start": "NODE_ENV=development DEBUG=socket.io* nodemon src/index.js",
     "dev": "NODE_ENV=development webpack-dev-server",
     "lint": "eslint src test"
