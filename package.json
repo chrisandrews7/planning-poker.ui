@@ -11,10 +11,6 @@
     "dev": "NODE_ENV=development webpack-dev-server",
     "lint": "eslint src test"
   },
-  "engines": {
-    "node": "4.2.x",
-    "npm": "3.4.x"
-  },
   "repository": {
     "type": "git",
     "url": "http://github.com/chrisandrews7/planning-poker.git"
