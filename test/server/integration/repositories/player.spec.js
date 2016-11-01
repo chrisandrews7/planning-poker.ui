@@ -15,7 +15,7 @@ describe('Player Repository', () => {
 
   after(() => {
     playerRepository.__ResetDependency__('db');
-  })
+  });
 
   beforeEach(() => {
     params = {

@@ -15,7 +15,7 @@ describe('Vote Repository', () => {
 
   after(() => {
     voteRepository.__ResetDependency__('db');
-  })
+  });
 
   beforeEach(() => {
     params = {
