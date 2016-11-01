@@ -3,7 +3,6 @@ db:
   host: "test.com"
   port: 1234
   fake: true
-  auth: false
 features:
   logging: false
 expiry:

@@ -3,11 +3,19 @@ import config from 'config';
 import faker from 'faker';
 import keys from '../../../../src/server/utils/keys';
 import voteRepository from '../../../../src/server/repositories/vote';
-import client from '../../../../src/server/db';
+import client from '../../../fixtures/mock/db';
 
 describe('Vote Repository', () => {
   let params;
   let key;
+
+  before(() => {
+    voteRepository.__Rewire__('db', client);
+  });
+
+  after(() => {
+    voteRepository.__ResetDependency__('db');
+  })
 
   beforeEach(() => {
     params = {
