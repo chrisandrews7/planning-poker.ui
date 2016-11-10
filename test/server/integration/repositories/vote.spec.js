@@ -5,13 +5,11 @@ import keys from '../../../../src/server/utils/keys';
 import voteRepository from '../../../../src/server/repositories/vote';
 import client from '../../../fixtures/mock/db';
 
+voteRepository.__Rewire__('db', client);
+
 describe('Vote Repository', () => {
   let params;
   let key;
-
-  before(() => {
-    voteRepository.__Rewire__('db', client);
-  });
 
   after(() => {
     voteRepository.__ResetDependency__('db');
@@ -39,24 +37,24 @@ describe('Vote Repository', () => {
       };
 
       voteRepository.setVote(params.gameId, params.playerId, params.vote)
-      .then(() => {
-        client.hgetall(key, (err, res) => {
-          expect(res).to.deep.equal(expectedResult);
-          done();
+        .then(() => {
+          client.hgetall(key, (err, res) => {
+            expect(res).to.deep.equal(expectedResult);
+            done();
+          });
         });
-      });
     });
 
     it('should set the expiry on the vote record', (done) => {
       const expectedTtl = config.get('expiry.votes');
 
       voteRepository.setVote(params.gameId, params.playerId, params.vote)
-      .then(() => {
-        client.ttl(key, (err, res) => {
-          expect(res).to.equal(expectedTtl);
-          done();
+        .then(() => {
+          client.ttl(key, (err, res) => {
+            expect(res).to.equal(expectedTtl);
+            done();
+          });
         });
-      });
     });
   });
 
@@ -69,23 +67,23 @@ describe('Vote Repository', () => {
       };
 
       client.multi()
-      .hmset(key, params.playerId, params.vote)
-      .expire(key, expectedTtl)
-      .exec(() => {
-        voteRepository.getVotes(params.gameId)
-        .then((results) => {
-          expect(results).to.deep.equal(expectedResult);
-          done();
+        .hmset(key, params.playerId, params.vote)
+        .expire(key, expectedTtl)
+        .exec(() => {
+          voteRepository.getVotes(params.gameId)
+          .then((results) => {
+            expect(results).to.deep.equal(expectedResult);
+            done();
+          });
         });
-      });
     });
 
     it('should return an empty object if no records exist', (done) => {
       voteRepository.getVotes(params.gameId)
-      .then((results) => {
-        expect(results).to.deep.equal({});
-        done();
-      });
+        .then((results) => {
+          expect(results).to.deep.equal({});
+          done();
+        });
     });
   });
 });

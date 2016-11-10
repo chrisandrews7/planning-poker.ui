@@ -9,14 +9,14 @@ function setVote(gameId, playerId, vote) {
     const key = keys.votes(gameId);
 
     db.multi()
-    .hmset(key, playerId, vote)
-    .expire(key, EXPIRY)
-    .exec((err, res) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(res);
-    });
+      .hmset(key, playerId, vote)
+      .expire(key, EXPIRY)
+      .exec((err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(res);
+      });
   });
 }
 

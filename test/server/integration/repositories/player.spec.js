@@ -5,13 +5,11 @@ import keys from '../../../../src/server/utils/keys';
 import client from '../../../fixtures/mock/db';
 import playerRepository from '../../../../src/server/repositories/player';
 
+playerRepository.__Rewire__('db', client);
+
 describe('Player Repository', () => {
   let key;
   let params;
-
-  before(() => {
-    playerRepository.__Rewire__('db', client);
-  });
 
   after(() => {
     playerRepository.__ResetDependency__('db');

@@ -9,14 +9,14 @@ function addPlayer(gameId, playerId) {
     const key = keys.players(gameId);
 
     db.multi()
-    .sadd(key, playerId)
-    .expire(key, EXPIRY)
-    .exec((err, res) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(res);
-    });
+      .sadd(key, playerId)
+      .expire(key, EXPIRY)
+      .exec((err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(res);
+      });
   });
 }
 
@@ -28,7 +28,7 @@ function removePlayer(gameId, playerId) {
       if (err) {
         return reject(err);
       }
-      return resolve(res);
+      return resolve(res);e
     });
   });
 }
