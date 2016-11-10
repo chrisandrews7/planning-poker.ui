@@ -10,4 +10,3 @@ db:
     host: "test.com"
     port: 12345
     password: "test"
-    fake: false
