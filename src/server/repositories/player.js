@@ -28,7 +28,7 @@ function removePlayer(gameId, playerId) {
       if (err) {
         return reject(err);
       }
-      return resolve(res);e
+      return resolve(res);
     });
   });
 }
