@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import * as actions from '../../../../src/client/actions/user';
-import * as types from '../../../../src/client/constants/actionTypes';
+import * as actions from '../../../src/client/actions/user';
+import * as types from '../../../src/client/constants/actionTypes';
 
 describe('User Actions', () => {
   it('setUser should create SET_USER action', () => {
