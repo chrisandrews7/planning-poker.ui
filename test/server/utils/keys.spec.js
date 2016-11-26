@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import keys from '../../../../src/server/utils/keys';
+import keys from '../../../src/server/utils/keys';
 
 describe('Keys Utils', () => {
   describe('Votes', () => {
