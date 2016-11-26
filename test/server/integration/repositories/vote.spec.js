@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import config from 'config';
 import faker from 'faker';
+import sinon from 'sinon';
 import keys from '../../../../src/server/utils/keys';
 import voteRepository from '../../../../src/server/repositories/vote';
 import client from '../../../fixtures/mock/db';
@@ -10,12 +11,14 @@ voteRepository.__Rewire__('db', client);
 describe('Vote Repository', () => {
   let params;
   let key;
+  let sandbox;
 
   after(() => {
     voteRepository.__ResetDependency__('db');
   });
 
-  beforeEach(() => {
+  before(() => {
+    sandbox = sinon.sandbox.create();
     params = {
       gameId: faker.random.number(),
       playerId: faker.name.firstName(),
@@ -28,6 +31,7 @@ describe('Vote Repository', () => {
     client.flushdb(() => {
       done();
     });
+    sandbox.restore();
   });
 
   describe('Set Vote', () => {
@@ -56,6 +60,20 @@ describe('Vote Repository', () => {
           });
         });
     });
+
+    it('should reject a promise if the db execution fails', (done) => {
+      sandbox.stub(client, 'multi').returns({
+        exec: sandbox.stub().yields('error'),
+        hmset: sandbox.stub().returnsThis(),
+        expire: sandbox.stub().returnsThis()
+      });
+
+      voteRepository.setVote(params.gameId, params.playerId, params.vote)
+        .catch((error) => {
+          expect(error).to.equal('error');
+          done();
+        });
+    });
   });
 
   describe('Get Votes', () => {
@@ -82,6 +100,16 @@ describe('Vote Repository', () => {
       voteRepository.getVotes(params.gameId)
         .then((results) => {
           expect(results).to.deep.equal({});
+          done();
+        });
+    });
+
+    it('should reject a promise if the db execution fails', (done) => {
+      sandbox.stub(client, 'hgetall').yields('error');
+
+      voteRepository.getVotes(params.gameId)
+        .catch((error) => {
+          expect(error).to.equal('error');
           done();
         });
     });
