@@ -21,7 +21,7 @@ describe('Root Container', () => {
   });
 
   it('should render a router with the history prop and route list', () => {
-    const history = 'testHistory';
+    const history = {};
     const wrapper = shallow(<RootContainer history={history} />);
 
     const props =
