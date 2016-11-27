@@ -5,9 +5,8 @@ import configureStore from './store/configureStore';
 import Root from './containers/Root';
 
 const store = configureStore();
-const history = browserHistory;
 
 render(
-  <Root store={store} history={history} />,
+  <Root store={store} history={browserHistory} />,
   document.body.appendChild(document.createElement('div'))
 );

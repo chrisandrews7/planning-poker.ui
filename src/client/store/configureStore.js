@@ -10,6 +10,6 @@ export default function (initialState) {
   return createStoreWithMiddleware(
     rootReducer,
     initialState,
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    window.devToolsExtension()
   );
 }

@@ -4,7 +4,7 @@ import faker from 'faker';
 import sinon from 'sinon';
 import keys from '../../../src/server/utils/keys';
 import voteRepository from '../../../src/server/repositories/vote';
-import client from '../../fixtures/mock/db';
+import client from '../../fixtures/mocks/db';
 
 voteRepository.__Rewire__('db', client);
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import { Map, fromJS } from 'immutable';
+import { Map } from 'immutable';
 import reducer from '../../../src/client/reducers/user';
 import * as types from '../../../src/client/constants/actionTypes';
 
@@ -15,11 +15,8 @@ describe('User Reducer', () => {
       type: types.SET_USER,
       id
     };
-    const expectedOutput = fromJS({
-      id
-    });
 
-    expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
+    expect(reducer(undefined, action).get('id')).to.equal(id);
   });
 
   it('should handle SET_ROOM', () => {
@@ -28,10 +25,7 @@ describe('User Reducer', () => {
       type: types.SET_ROOM,
       room
     };
-    const expectedOutput = fromJS({
-      room
-    });
 
-    expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
+    expect(reducer(undefined, action).get('room')).to.equal(room);
   });
 });
