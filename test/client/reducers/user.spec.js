@@ -10,17 +10,17 @@ describe('User Reducer', () => {
   });
 
   it('should handle SET_USER', () => {
-    const id = faker.name.firstName();
+    const name = faker.name.firstName();
     const action = {
       type: types.SET_USER,
-      id
+      name
     };
 
-    expect(reducer(undefined, action).get('id')).to.equal(id);
+    expect(reducer(undefined, action).get('name')).to.equal(name);
   });
 
   it('should handle SET_ROOM', () => {
-    const room = faker.random.number();
+    const room = faker.lorem.word();
     const action = {
       type: types.SET_ROOM,
       room

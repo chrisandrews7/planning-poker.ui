@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const VotePanel = ({ options, onVote }) => (
-  <div className="voter">
+  <div className="vote-panel">
     {options.map((value, index) =>
       <button key={index} onClick={onVote.bind(null, value)}>
         {value}

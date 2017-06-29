@@ -27,6 +27,22 @@ describe('Players Reducer', () => {
     expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
   });
 
+  it('should handle SET_USER', () => {
+    const name = faker.name.firstName();
+    const action = {
+      type: types.SET_USER,
+      name
+    };
+    const expectedOutput = fromJS({
+      [name]: {
+        name,
+        vote: undefined
+      }
+    });
+
+    expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
+  });
+
   it('should handle REMOVE_PLAYER', () => {
     const name = faker.name.firstName();
     const initialState = fromJS({

@@ -1,9 +1,9 @@
 import { SET_USER, SET_ROOM } from '../constants/actionTypes';
 
-export function setUser(id) {
+export function setUser(name) {
   return {
     type: SET_USER,
-    id
+    name
   };
 }
 

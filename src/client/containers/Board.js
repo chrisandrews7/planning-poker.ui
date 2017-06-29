@@ -1,36 +1,41 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as PlayerActions from '../actions/players';
+import * as playerActions from '../actions/players';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import VoteOptions from '../../shared/constants/voting';
 
-const mapStateToProps = state => ({
-  players: state.get('players').toJS()
+export const mapStateToProps = state => ({
+  players: state.get('players').toJS(),
+  user: state.getIn(['user', 'name']),
+  room: state.getIn(['user', 'room'])
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(PlayerActions, dispatch);
+export const mapDispatchToProps = dispatch =>
+  bindActionCreators(playerActions, dispatch);
 
-@connect(mapStateToProps, mapDispatchToProps)
-export default class Board extends Component {
+export class Board extends Component {
   static propTypes = {
     players: PropTypes.object,
-    params: PropTypes.object
+    room: PropTypes.string,
+    user: PropTypes.string,
+    updateVote: PropTypes.func
   }
 
   render() {
-    const { players, params } = this.props;
+    const { players, room, user, updateVote } = this.props;
     return (
       <div>
-        Room: {params.boardId}
+        <h1>Room: {room}</h1>
         <VotePanel
           options={VoteOptions}
-          onVote={() => {}}
+          onVote={updateVote.bind(null, user)}
         />
         <PlayerList players={players} />
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

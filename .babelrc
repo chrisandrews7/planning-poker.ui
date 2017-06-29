@@ -1,6 +1,6 @@
 {
   "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["add-module-exports", "transform-runtime", "transform-decorators-legacy"],
+  "plugins": ["add-module-exports", "transform-runtime"],
   "env": {
     "test": {
       "plugins": ["rewire"]
