@@ -1,5 +1,5 @@
 import idGenerator from '../utils/idGenerator';
-import { SET_USER, SET_ROOM } from '../constants/actionTypes';
+import { SET_USER, SET_GAME } from '../constants/actionTypes';
 
 function setUser(name) {
   return {
@@ -8,19 +8,19 @@ function setUser(name) {
   };
 }
 
-function setRoom(room) {
+function setGame(gameId) {
   return {
-    type: SET_ROOM,
-    room
+    type: SET_GAME,
+    gameId
   };
 }
 
-function startNewRoom() {
-  return setRoom(idGenerator.generateShortId());
+function startNewGame() {
+  return setGame(idGenerator.generateShortId());
 }
 
 export default {
   setUser,
-  setRoom,
-  startNewRoom
+  setGame,
+  startNewGame
 };

@@ -19,13 +19,13 @@ describe('User Reducer', () => {
     expect(reducer(undefined, action).get('name')).to.equal(name);
   });
 
-  it('should handle SET_ROOM', () => {
-    const room = faker.lorem.word();
+  it('should handle SET_GAME', () => {
+    const gameId = faker.random.number();
     const action = {
-      type: types.SET_ROOM,
-      room
+      type: types.SET_GAME,
+      gameId
     };
 
-    expect(reducer(undefined, action).get('room')).to.equal(room);
+    expect(reducer(undefined, action).get('gameId')).to.equal(gameId);
   });
 });

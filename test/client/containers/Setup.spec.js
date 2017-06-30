@@ -16,15 +16,15 @@ describe('Setup Container', () => {
 
   it('should bind the action creators to dispatch', () => {
     const spy = sinon.spy();
-    mapDispatchToProps(spy).startNewRoom();
+    mapDispatchToProps(spy).startNewGame();
 
-    expect(spy.calledWith(userActions.startNewRoom())).to.be.ok;
+    expect(spy.calledWith(userActions.startNewGame())).to.be.ok;
   });
 
-  it('should render a Start New Room button', () => {
+  it('should render a Start New Game button', () => {
     const spy = sinon.spy();
     const wrapper = connect({}, {
-      startNewRoom: spy
+      startNewGame: spy
     });
 
     wrapper.find('button').simulate('click');

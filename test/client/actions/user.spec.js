@@ -16,27 +16,27 @@ describe('User Actions', () => {
     expect(actions.setUser(name)).to.deep.equal(expectedOutput);
   });
 
-  it('setRoom should create SET_ROOM action', () => {
-    const room = faker.random.number();
+  it('setRoom should create SET_GAME action', () => {
+    const gameId = faker.random.number();
     const expectedOutput = {
-      type: types.SET_ROOM,
-      room
+      type: types.SET_GAME,
+      gameId
     };
 
-    expect(actions.setRoom(room)).to.deep.equal(expectedOutput);
+    expect(actions.setGame(gameId)).to.deep.equal(expectedOutput);
   });
 
-  it('startNewRoom should create SET_ROOM action with a random ID', () => {
-    const room = faker.random.number();
+  it('startNewRoom should create SET_GAME action with a random ID', () => {
+    const gameId = faker.random.number();
     sinon
       .stub(idGenerator, 'generateShortId')
-      .returns(room);
+      .returns(gameId);
 
     const expectedOutput = {
-      type: types.SET_ROOM,
-      room
+      type: types.SET_GAME,
+      gameId
     };
 
-    expect(actions.startNewRoom()).to.deep.equal(expectedOutput);
+    expect(actions.startNewGame()).to.deep.equal(expectedOutput);
   });
 });

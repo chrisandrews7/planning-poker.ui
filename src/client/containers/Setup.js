@@ -6,18 +6,27 @@ import userActions from '../actions/user';
 export const mapDispatchToProps = dispatch =>
   bindActionCreators(userActions, dispatch);
 
-export const mapStateToProps = () => ({});
+export const mapStateToProps = () => ({
+
+});
 
 export class Setup extends Component {
   static propTypes = {
-    startNewRoom: PropTypes.func
+    startNewGame: PropTypes.func
   }
 
   render() {
-    const { startNewRoom } = this.props;
+    const { startNewGame } = this.props;
     return (
       <div>
-        <button onClick={startNewRoom}>Create New Room</button>
+        <div>
+          <h2>Setup</h2>
+          <button onClick={startNewGame}>Create New Game</button>
+        </div>
+        <div>
+          <h2>Join Game</h2>
+
+        </div>
       </div>
     );
   }
