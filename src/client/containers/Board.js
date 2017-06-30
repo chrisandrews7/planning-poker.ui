@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as playerActions from '../actions/players';
+import playerActions from '../actions/players';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import VoteOptions from '../../shared/constants/voting';

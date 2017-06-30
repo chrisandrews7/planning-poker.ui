@@ -8,7 +8,7 @@ import PlayerList from '../../../src/client/components/PlayerList';
 import VotePanel from '../../../src/client/components/VotePanel';
 import VoteOptions from '../../../src/shared/constants/voting';
 import { mapStateToProps, mapDispatchToProps, Board } from '../../../src/client/containers/Board';
-import * as playerActions from '../../../src/client/actions/players';
+import playerActions from '../../../src/client/actions/players';
 
 describe('Board Container', () => {
   const initialState = {

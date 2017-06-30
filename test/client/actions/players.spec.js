@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import * as actions from '../../../src/client/actions/players';
+import actions from '../../../src/client/actions/players';
 import * as types from '../../../src/client/constants/actionTypes';
 
 describe('Player Actions', () => {
