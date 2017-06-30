@@ -28,7 +28,7 @@ describe('User Actions', () => {
 
   it('startNewRoom should create SET_ROOM action with a random ID', () => {
     const room = faker.random.number();
-    const stub = sinon
+    sinon
       .stub(idGenerator, 'generateShortId')
       .returns(room);
 

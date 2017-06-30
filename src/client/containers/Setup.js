@@ -6,7 +6,7 @@ import userActions from '../actions/user';
 export const mapDispatchToProps = dispatch =>
   bindActionCreators(userActions, dispatch);
 
-export const mapStateToProps = state => ({});
+export const mapStateToProps = () => ({});
 
 export class Setup extends Component {
   static propTypes = {

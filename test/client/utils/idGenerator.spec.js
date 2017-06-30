@@ -8,6 +8,6 @@ describe('Id Generator', () => {
 
       expect(result).to.be.a('number');
       expect(result).to.be.within(10000, 99999);
-    })
+    });
   });
 });
