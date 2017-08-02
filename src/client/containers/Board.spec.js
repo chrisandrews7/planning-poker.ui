@@ -5,14 +5,14 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { fromJS } from 'immutable';
 import * as redux from 'redux';
-import PlayerList from '../../../src/client/components/PlayerList';
-import VotePanel from '../../../src/client/components/VotePanel';
-import VoteOptions from '../../../src/shared/constants/voting';
-import { mapStateToProps, mapDispatchToProps, Board } from '../../../src/client/containers/Board';
-import { updateVote } from '../../../src/client/actions/players';
-import { setGame } from '../../../src/client/actions/user';
+import PlayerList from '../components/PlayerList';
+import VotePanel from '../components/VotePanel';
+import VoteOptions from '../../shared/constants/voting';
+import { mapStateToProps, mapDispatchToProps, Board } from './Board';
+import playerActions from '../actions/players';
+import userActions from '../actions/user';
 
-describe.only('Board Container', () => {
+describe('Board Container', () => {
   const initialState = {
     players: {}
   };
@@ -40,15 +40,13 @@ describe.only('Board Container', () => {
   });
 
   it('should bind the action creators to dispatch', () => {
-    const bindACStub = sinon.stub(redux, 'bindActionCreators');
-    const fakeDispatch = sinon.spy();
-    mapDispatchToProps(fakeDispatch);
+    const spy = sinon.spy();
+    const result = mapDispatchToProps(spy);
+    result.updateVote(1, 1);
+    result.setGame(1);
 
-    console.log(bindACStub.called)
-
-    expect(
-      bindACStub.calledWith({ updateVote, setGame }, fakeDispatch)
-    ).to.be.ok;
+    expect(spy.calledWith(playerActions.updateVote(1, 1))).to.be.ok;
+    expect(spy.calledWith(userActions.setGame(1))).to.be.ok;
   });
 
   it('should render the game ID', () => {

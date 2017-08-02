@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import faker from 'faker';
 
-import { VOTE_UPDATED, ERROR } from '../../../src/shared/constants/events';
-import player from '../../../src/server/handlers/player';
-import voteRepository from '../../../src/server/repositories/vote';
+import { VOTE_UPDATED, ERROR } from '../../shared/constants/events';
+import player from './player';
+import voteRepository from '../repositories/vote';
 
 describe('Player Handler', () => {
   describe('Vote', () => {

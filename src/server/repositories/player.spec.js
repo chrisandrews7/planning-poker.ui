@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import config from 'config';
 import sinon from 'sinon';
 import faker from 'faker';
-import keys from '../../../src/server/utils/keys';
-import client from '../../fixtures/mocks/db';
-import playerRepository from '../../../src/server/repositories/player';
+import keys from '../utils/keys';
+import client from '../../../test/mocks/db';
+import playerRepository from './player';
 
 playerRepository.__Rewire__('db', client);
 

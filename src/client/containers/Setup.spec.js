@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import React from 'react';
-import userActions from '../../../src/client/actions/user';
-import { Setup, mapStateToProps, mapDispatchToProps } from '../../../src/client/containers/Setup';
+import userActions from '../actions/user';
+import { Setup, mapStateToProps, mapDispatchToProps } from './Setup';
 
 describe('Setup Container', () => {
   const connect = (state, props) => shallow(

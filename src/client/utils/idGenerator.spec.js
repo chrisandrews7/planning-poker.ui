@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { generateShortId } from '../../../src/client/utils/idGenerator';
+import { generateShortId } from './idGenerator';
 
 describe('Id Generator', () => {
   describe('Generate Short ID', () => {

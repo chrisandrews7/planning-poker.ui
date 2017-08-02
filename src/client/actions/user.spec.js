@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import faker from 'faker';
 import sinon from 'sinon';
-import idGenerator from '../../../src/client/utils/idGenerator';
-import actions from '../../../src/client/actions/user';
-import * as types from '../../../src/client/constants/actionTypes';
+import idGenerator from '../utils/idGenerator';
+import actions from './user';
+import * as types from '../constants/actionTypes';
 
 describe('User Actions', () => {
   it('setUser should create SET_USER action', () => {

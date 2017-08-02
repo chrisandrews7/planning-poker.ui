@@ -4,10 +4,10 @@ import faker from 'faker';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
-  ERROR, CONNECT } from '../../../src/shared/constants/events';
-import common from '../../../src/server/handlers/common';
-import playerRepository from '../../../src/server/repositories/player';
-import voteRepository from '../../../src/server/repositories/vote';
+  ERROR, CONNECT } from '../../shared/constants/events';
+import common from './common';
+import playerRepository from '../repositories/player';
+import voteRepository from '../repositories/vote';
 
 describe('Common Handler', () => {
   let sandbox;

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import faker from 'faker';
 import React from 'react';
-import Player from '../../../src/client/components/Player';
+import Player from './Player';
 
 describe('Player Component', () => {
   it('renders the players name', () => {

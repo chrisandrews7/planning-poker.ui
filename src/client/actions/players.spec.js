@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import actions from '../../../src/client/actions/players';
-import * as types from '../../../src/client/constants/actionTypes';
+import actions from './players';
+import * as types from '../constants/actionTypes';
 
 describe('Player Actions', () => {
   it('addPlayer should create ADD_PLAYER action', () => {

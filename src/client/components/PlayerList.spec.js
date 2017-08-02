@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import faker from 'faker';
 import React from 'react';
 import { map } from 'lodash';
-import { NO_PLAYERS } from '../../../src/shared/constants/dictionary';
-import PlayerList from '../../../src/client/components/PlayerList';
-import Player from '../../../src/client/components/Player';
+import { NO_PLAYERS } from '../../shared/constants/dictionary';
+import PlayerList from './PlayerList';
+import Player from './Player';
 
 describe('PlayerList Component', () => {
   it('renders a message when no player prop has been passed', () => {

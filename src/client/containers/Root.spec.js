@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
-import fakeStore from '../../fixtures/mocks/fakeStore';
-import RootContainer from '../../../src/client/containers/Root';
-import routes from '../../../src/client/routes';
+import fakeStore from '../../../test/mocks/fakeStore';
+import RootContainer from './Root';
+import routes from '../routes';
 
 describe('Root Container', () => {
   it('should render the redux provider with the store', () => {

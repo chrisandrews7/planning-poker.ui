@@ -4,7 +4,7 @@ import _ from 'lodash';
 import faker from 'faker';
 import sinon from 'sinon';
 import React from 'react';
-import VotePanel from '../../../src/client/components/VotePanel';
+import VotePanel from './VotePanel';
 
 describe('VotePanel Component', () => {
   it('renders a list of vote buttons using the options prop values', () => {

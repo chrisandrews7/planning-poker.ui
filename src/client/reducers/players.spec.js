@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import faker from 'faker';
 import { Map, fromJS } from 'immutable';
-import reducer from '../../../src/client/reducers/players';
-import * as types from '../../../src/client/constants/actionTypes';
+import reducer from './players';
+import * as types from '../constants/actionTypes';
 
 describe('Players Reducer', () => {
   it('should return the initial state', () => {

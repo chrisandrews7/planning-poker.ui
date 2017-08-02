@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import faker from 'faker';
 import { browserHistory } from 'react-router';
-import redirect from '../../../src/client/middleware/redirect';
+import redirect from './redirect';
 
 describe('Redirect Middleware', () => {
   let historyStub;
