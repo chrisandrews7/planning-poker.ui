@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import playerActions from '../actions/players';
+import { connect } from 'react-redux';
+import { updateVote } from '../actions/players';
+import { setGame } from '../actions/user';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import VoteOptions from '../../shared/constants/voting';
@@ -9,25 +10,33 @@ import VoteOptions from '../../shared/constants/voting';
 export const mapStateToProps = state => ({
   players: state.get('players').toJS(),
   user: state.getIn(['user', 'name']),
-  room: state.getIn(['user', 'room'])
+  gameId: state.getIn(['user', 'gameId'])
 });
 
 export const mapDispatchToProps = dispatch =>
-  bindActionCreators(playerActions, dispatch);
+  bindActionCreators({ updateVote, setGame }, dispatch);
 
 export class Board extends Component {
   static propTypes = {
     players: PropTypes.object,
-    room: PropTypes.string,
+    gameId: PropTypes.number,
     user: PropTypes.string,
-    updateVote: PropTypes.func
+    updateVote: PropTypes.func,
+    setGame: PropTypes.func,
+    params: PropTypes.object
+  }
+
+  componentWillMount() {
+    if (!this.props.gameId) {
+      this.props.setGame(this.props.params.gameId);
+    }
   }
 
   render() {
-    const { players, room, user, updateVote } = this.props;
+    const { players, gameId, user, updateVote } = this.props;
     return (
       <div>
-        <h1>Room: {room}</h1>
+        <h1>Game: {gameId}</h1>
         <VotePanel
           options={VoteOptions}
           onVote={updateVote.bind(null, user)}

@@ -4,13 +4,15 @@ import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import React from 'react';
 import { fromJS } from 'immutable';
+import * as redux from 'redux';
 import PlayerList from '../../../src/client/components/PlayerList';
 import VotePanel from '../../../src/client/components/VotePanel';
 import VoteOptions from '../../../src/shared/constants/voting';
 import { mapStateToProps, mapDispatchToProps, Board } from '../../../src/client/containers/Board';
-import playerActions from '../../../src/client/actions/players';
+import { updateVote } from '../../../src/client/actions/players';
+import { setGame } from '../../../src/client/actions/user';
 
-describe('Board Container', () => {
+describe.only('Board Container', () => {
   const initialState = {
     players: {}
   };
@@ -26,28 +28,33 @@ describe('Board Container', () => {
       players: {},
       user: {
         name: faker.name.firstName(),
-        room: faker.lorem.word()
+        gameId: faker.random.number()
       }
     };
 
     expect(mapStateToProps(fromJS(testData))).to.deep.equal({
       players: {},
       user: testData.user.name,
-      room: testData.user.room
+      gameId: testData.user.gameId
     });
   });
 
   it('should bind the action creators to dispatch', () => {
-    const spy = sinon.spy();
-    mapDispatchToProps(spy).updateVote(1, 1);
+    const bindACStub = sinon.stub(redux, 'bindActionCreators');
+    const fakeDispatch = sinon.spy();
+    mapDispatchToProps(fakeDispatch);
 
-    expect(spy.calledWith(playerActions.updateVote(1, 1))).to.be.ok;
+    console.log(bindACStub.called)
+
+    expect(
+      bindACStub.calledWith({ updateVote, setGame }, fakeDispatch)
+    ).to.be.ok;
   });
 
-  it('should render the room', () => {
-    const room = faker.lorem.word();
+  it('should render the game ID', () => {
+    const gameId = faker.random.number();
     const state = {
-      room
+      gameId
     };
     const wrapper = connect(state);
 
@@ -55,7 +62,7 @@ describe('Board Container', () => {
       wrapper
         .find('h1')
         .text()
-    ).to.equal(`Room: ${room}`);
+    ).to.equal(`Game: ${gameId}`);
   });
 
   it('should render the PlayerList component with the list of players', () => {
@@ -66,7 +73,8 @@ describe('Board Container', () => {
       }
     };
     const state = {
-      players: expectedResults
+      players: expectedResults,
+      gameId: faker.random.number()
     };
     const wrapper = connect(state);
 
@@ -79,7 +87,9 @@ describe('Board Container', () => {
   });
 
   it('should render the VotePanel component with the options', () => {
-    const wrapper = connect();
+    const wrapper = connect({
+      gameId: faker.random.number()
+    });
 
     expect(
       wrapper
@@ -93,7 +103,10 @@ describe('Board Container', () => {
     const spy = sinon.spy();
     const user = faker.name.firstName();
     const wrapper = connect(
-      { user },
+      {
+        user,
+        gameId: faker.random.number()
+      },
       { updateVote: spy }
     );
 

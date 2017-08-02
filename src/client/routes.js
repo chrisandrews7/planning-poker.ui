@@ -6,6 +6,6 @@ import Board from './containers/Board';
 export default (
   <Route>
     <Route path="/" component={Setup} />
-    <Route path="/:boardId" component={Board} />
+    <Route path="/:gameId" component={Board} />
   </Route>
 );

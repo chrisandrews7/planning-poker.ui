@@ -11,7 +11,8 @@ function setUser(name) {
 function setGame(gameId) {
   return {
     type: SET_GAME,
-    gameId
+    gameId,
+    redirect: gameId
   };
 }
 

@@ -8,7 +8,7 @@
     "test:watch": "npm run test -- -w",
     "test:coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover _mocha -- test --opts mocha.opts",
     "start": "NODE_ENV=development DEBUG=socket.io* nodemon src/index.js",
-    "dev": "NODE_ENV=development webpack-dev-server",
+    "dev": "NODE_ENV=development webpack-dev-server -d",
     "lint": "eslint src test"
   },
   "repository": {

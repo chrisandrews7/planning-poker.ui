@@ -20,7 +20,8 @@ describe('User Actions', () => {
     const gameId = faker.random.number();
     const expectedOutput = {
       type: types.SET_GAME,
-      gameId
+      gameId,
+      redirect: gameId
     };
 
     expect(actions.setGame(gameId)).to.deep.equal(expectedOutput);
@@ -34,7 +35,8 @@ describe('User Actions', () => {
 
     const expectedOutput = {
       type: types.SET_GAME,
-      gameId
+      gameId,
+      redirect: gameId
     };
 
     expect(actions.startNewGame()).to.deep.equal(expectedOutput);
