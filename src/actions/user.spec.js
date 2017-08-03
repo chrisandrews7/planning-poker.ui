@@ -2,43 +2,50 @@ import { expect } from 'chai';
 import faker from 'faker';
 import sinon from 'sinon';
 import idGenerator from '../utils/idGenerator';
-import actions from './user';
-import * as types from '../constants/actionTypes';
+import {
+  setUser,
+  setGame,
+  startNewGame
+} from './user';
+import {
+  SET_GAME,
+  SET_USER
+} from '../constants/actionTypes';
 
 describe('User Actions', () => {
-  it('setUser should create SET_USER action', () => {
+  it('setUser() should create SET_USER action', () => {
     const name = faker.name.firstName();
     const expectedOutput = {
-      type: types.SET_USER,
+      type: SET_USER,
       name
     };
 
-    expect(actions.setUser(name)).to.deep.equal(expectedOutput);
+    expect(setUser(name)).to.deep.equal(expectedOutput);
   });
 
-  it('setRoom should create SET_GAME action', () => {
+  it('setRoom() should create SET_GAME action', () => {
     const gameId = faker.random.number();
     const expectedOutput = {
-      type: types.SET_GAME,
+      type: SET_GAME,
       gameId,
       redirect: gameId
     };
 
-    expect(actions.setGame(gameId)).to.deep.equal(expectedOutput);
+    expect(setGame(gameId)).to.deep.equal(expectedOutput);
   });
 
-  it('startNewRoom should create SET_GAME action with a random ID', () => {
+  it('startNewRoom() should create SET_GAME action with a random ID', () => {
     const gameId = faker.random.number();
     sinon
       .stub(idGenerator, 'generateShortId')
       .returns(gameId);
 
     const expectedOutput = {
-      type: types.SET_GAME,
+      type: SET_GAME,
       gameId,
       redirect: gameId
     };
 
-    expect(actions.startNewGame()).to.deep.equal(expectedOutput);
+    expect(startNewGame()).to.deep.equal(expectedOutput);
   });
 });

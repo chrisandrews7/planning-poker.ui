@@ -1,10 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
-import freeze from 'redux-freeze';
-import rootReducer from '../reducers';
+import rootReducer from '../reducers/index';
 import redirect from '../middleware/redirect';
 
 const createStoreWithMiddleware = applyMiddleware(
-  freeze,
   redirect
 )(createStore);
 

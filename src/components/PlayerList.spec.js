@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import faker from 'faker';
 import React from 'react';
 import { map } from 'lodash';
-import { NO_PLAYERS } from '../../shared/constants/dictionary';
+import { NO_PLAYERS } from '../constants/dictionary';
 import PlayerList from './PlayerList';
 import Player from './Player';
 

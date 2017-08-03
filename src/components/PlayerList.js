@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { map, isEmpty } from 'lodash';
-import { NO_PLAYERS } from '../../shared/constants/dictionary';
+import { NO_PLAYERS } from '../constants/dictionary';
 import Player from './Player';
 
 const PlayerList = ({ players }) => (

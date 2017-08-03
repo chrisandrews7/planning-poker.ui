@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import playerActions from '../actions/players';
-import userActions from '../actions/user';
+import { updateVote } from '../actions/players';
+import { setGame } from '../actions/user';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
-import VoteOptions from '../../shared/constants/voting';
+import VoteOptions from '../constants/voting';
 
 export const mapStateToProps = state => ({
   players: state.get('players').toJS(),
@@ -14,7 +14,7 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...playerActions, ...userActions }, dispatch);
+  bindActionCreators({ setGame, updateVote }, dispatch);
 
 export class Board extends Component {
   static propTypes = {

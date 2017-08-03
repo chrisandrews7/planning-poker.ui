@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { generateShortId } from './idGenerator';
 
 describe('Id Generator', () => {
-  describe('Generate Short ID', () => {
+  describe('generateShortId()', () => {
     it('should generate a number 5 digits long', () => {
       const result = generateShortId();
 
