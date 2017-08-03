@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import faker from 'faker';
 import sinon from 'sinon';
-import idGenerator from '../utils/idGenerator';
+import * as idGenerator from '../utils/idGenerator';
 import {
   setUser,
   setGame,

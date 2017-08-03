@@ -43,13 +43,11 @@ describe('Board Container', () => {
 
   describe('mapDispatchToProps()', () => {
     it('should return updateVote and setGame bound to the dispatch', () => {
-      const spy = sinon.spy();
-      const result = mapDispatchToProps(spy);
-      result.updateVote(1, 1);
-      result.setGame(1);
+      const bindACStub = sinon.stub(redux, 'bindActionCreators');
+      const fakeDispatch = sinon.spy();
 
-      expect(spy.calledWith(updateVote(1, 1))).to.be.ok;
-      expect(spy.calledWith(setGame(1))).to.be.ok;
+      mapDispatchToProps(fakeDispatch);
+      expect(bindACStub.calledWith({ updateVote, setGame}, fakeDispatch)).to.be.ok;
     });
   });
 

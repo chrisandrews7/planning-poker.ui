@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import React from 'react';
+import * as redux from 'redux';
 import { startNewGame } from '../actions/user';
 import { Setup, mapStateToProps, mapDispatchToProps } from './Setup';
 
@@ -18,10 +19,11 @@ describe('Setup Container', () => {
 
   describe('mapDispatchToProps()', () => {
     it('should return startNewGame bound to the dispatch', () => {
-      const spy = sinon.spy();
-      mapDispatchToProps(spy).startNewGame();
+      const bindACStub = sinon.stub(redux, 'bindActionCreators');
+      const fakeDispatch = sinon.spy();
 
-      expect(spy.calledWith(startNewGame())).to.be.ok;
+      mapDispatchToProps(fakeDispatch);
+      expect(bindACStub.calledWith({ startNewGame }, fakeDispatch)).to.be.ok;
     });
   });
 
