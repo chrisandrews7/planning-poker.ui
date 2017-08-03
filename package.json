@@ -7,9 +7,8 @@
     "test": "NODE_ENV=test mocha src/**/**/*.spec.js --compilers js:babel-core/register --opts mocha.opts",
     "test:watch": "npm run test -- -w",
     "test:coverage": "NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover _mocha -- src/**/**/*.spec.js --opts mocha.opts",
-    "start": "NODE_ENV=development DEBUG=socket.io* nodemon src/index.js",
-    "dev": "NODE_ENV=development webpack-dev-server -d",
-    "lint": "eslint src test"
+    "dev": "NODE_ENV=development webpack-dev-server --config webpack.dev.config.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -55,6 +54,7 @@
     "react-hot-loader": "^1.3.1",
     "sinon": "^2.4.1",
     "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.6.1"
+    "webpack-dev-server": "^2.6.1",
+    "webpack-merge": "^4.1.0"
   }
 }
