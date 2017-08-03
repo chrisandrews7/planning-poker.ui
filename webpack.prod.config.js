@@ -1,37 +1,20 @@
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var merge = require('webpack-merge');
+var baseConfig = require('./webpack.config');
 
-module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
-    './src/client/index.js'
-  ],
-  module: {
-    loaders: [{
-      test: /\.js|jsx$/,
-      exclude: /node_modules/,
-      loader: 'react-hot!babel'
-    }]
-  },
-  resolve: {
-    extensions: ['.js', '.jsx']
-  },
-  output: {
-    path: 'dist',
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: 'dist',
-    hot: true,
-    inline: true,
-    historyApiFallback: true
-  },
+module.exports = merge(baseConfig, {
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'Planning Poker'
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'commons',
+      filename: 'vendor.js',
+      minChunks: function(module) {
+        if (module.resource && (/^.*\css|scss$/).test(module.resource)) {
+          return false;
+        }
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      }
     })
   ]
-};
+});
