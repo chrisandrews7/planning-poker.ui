@@ -1,4 +1,4 @@
-import idGenerator from '../utils/idGenerator';
+import * as idGenerator from '../utils/idGenerator';
 import { SET_USER, SET_GAME } from '../constants/actionTypes';
 
 export const setUser = (name) => ({
