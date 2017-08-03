@@ -1,1 +1,6 @@
-{}
+{
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/test/"
+  ]
+}
