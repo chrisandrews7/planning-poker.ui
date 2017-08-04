@@ -8,9 +8,11 @@ import RootContainer from './Root';
 import routes from '../routes';
 
 describe('Root Container', () => {
+  const store = fakeStore({ 1: 'test' });
+  const history = {};
+
   it('should render the redux provider with the store', () => {
-    const store = fakeStore({ 1: 'test' });
-    const wrapper = shallow(<RootContainer store={store} />);
+    const wrapper = shallow(<RootContainer history={history} store={store} />);
 
     expect(
       wrapper
@@ -21,8 +23,7 @@ describe('Root Container', () => {
   });
 
   it('should render a router with the history prop and route list', () => {
-    const history = {};
-    const wrapper = shallow(<RootContainer history={history} />);
+    const wrapper = shallow(<RootContainer history={history} store={store} />);
 
     const props =
       wrapper

@@ -16,7 +16,7 @@ describe('VotePanel Component', () => {
   });
 
   it('fires the callback function in props on click of an option', () => {
-    const options = [faker.random.number()];
+    const options = [String(faker.random.number())];
     const spy = sinon.spy();
     const wrapper = mount(<VotePanel options={options} onVote={spy} />);
 

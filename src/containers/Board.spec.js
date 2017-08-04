@@ -17,7 +17,8 @@ describe('Board Container', () => {
   const initialProps = {
     updateVote: () => {},
     setGame: () => {},
-    params: {}
+    params: {},
+    user: faker.name.firstName()
   };
   const connect = (state, props) => shallow(
     <Board {...initialState} {...state} {...initialProps} {...props} />
@@ -103,16 +104,15 @@ describe('Board Container', () => {
     describe('onVote()', () => {
       it('should call props.updateVote with the user and vote', () => {
         const updateVoteSpy = sinon.spy();
-        const user = faker.name.firstName();
         const args = [1, 3];
         const wrapper = connect(
-          { user },
+          undefined,
           { updateVote: updateVoteSpy }
         );
 
         // Invoke the function
         wrapper.instance().onVote(args);
-        expect(updateVoteSpy.calledWithExactly(user, 1, 3)).to.be.ok;
+        expect(updateVoteSpy.calledWithExactly(initialProps.user, 1, 3)).to.be.ok;
       });
     });
   });
