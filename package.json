@@ -1,5 +1,5 @@
 {
-  "name": "planning-poker",
+  "name": "planning-poker-ui",
   "version": "0.0.1",
   "description": "Sprint planning tool to make agile estimating and planning faster and more efficient",
   "main": "src/index.js",
