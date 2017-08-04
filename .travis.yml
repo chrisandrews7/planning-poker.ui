@@ -6,6 +6,4 @@ env:
 sudo: false
 script:
   - npm run lint
-  - npm run test:coverage
-after_script:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
