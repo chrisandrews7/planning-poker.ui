@@ -2,7 +2,7 @@ env:
     browser: true
     node: true
     es6: true
-    mocha: true
+    jest: true
 
 parser: babel-eslint
 
@@ -14,3 +14,5 @@ rules:
       - never
     react/prefer-stateless-function: 0
     no-unused-expressions: 0
+    react/jsx-filename-extension: 0
+    import/prefer-default-export: 0
