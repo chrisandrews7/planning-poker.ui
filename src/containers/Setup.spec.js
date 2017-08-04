@@ -27,7 +27,7 @@ describe('Setup Container', () => {
     });
   });
 
-  describe('Setup()', () => {
+  describe('Setup', () => {
     it('should render a Start New Game button', () => {
       const spy = sinon.spy();
       const wrapper = connect({}, {

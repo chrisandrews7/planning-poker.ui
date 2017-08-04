@@ -5,8 +5,8 @@ import routes from '../routes';
 
 export default class Root extends Component {
   static propTypes = {
-    store: PropTypes.object,
-    history: PropTypes.object
+    store: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    history: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
   }
 
   render() {

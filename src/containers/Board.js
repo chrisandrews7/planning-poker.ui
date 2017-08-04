@@ -5,7 +5,7 @@ import { updateVote } from '../actions/players';
 import { setGame } from '../actions/user';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
-import VoteOptions from '../constants/voting';
+import voteOptions from '../constants/voting';
 
 export const mapStateToProps = state => ({
   players: state.get('players').toJS(),
@@ -18,12 +18,22 @@ export const mapDispatchToProps = dispatch =>
 
 export class Board extends Component {
   static propTypes = {
-    players: PropTypes.object,
+    players: PropTypes.shape({
+      name: PropTypes.string,
+      vote: PropTypes.string
+    }),
     gameId: PropTypes.number,
-    user: PropTypes.string,
-    updateVote: PropTypes.func,
-    setGame: PropTypes.func,
-    params: PropTypes.object
+    user: PropTypes.string.isRequired,
+    updateVote: PropTypes.func.isRequired,
+    setGame: PropTypes.func.isRequired,
+    params: PropTypes.shape({
+      gameId: PropTypes.number
+    }).isRequired
+  }
+
+  static defaultProps = {
+    gameId: undefined,
+    players: {}
   }
 
   componentWillMount() {
@@ -32,14 +42,18 @@ export class Board extends Component {
     }
   }
 
+  onVote = (args) => {
+    this.props.updateVote(this.props.user, ...args);
+  }
+
   render() {
-    const { players, gameId, user, updateVote } = this.props;
+    const { players, gameId } = this.props;
     return (
       <div>
         <h1>Game: {gameId}</h1>
         <VotePanel
-          options={VoteOptions}
-          onVote={updateVote.bind(null, user)}
+          options={voteOptions}
+          onVote={this.onVote}
         />
         <PlayerList players={players} />
       </div>

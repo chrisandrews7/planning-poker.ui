@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import faker from 'faker';
 import { browserHistory } from 'react-router';
 import redirect from './redirect';
 
@@ -12,7 +11,7 @@ describe('Redirect Middleware', () => {
   });
 
   afterEach(() => {
-    historyStub.restore()
+    historyStub.restore();
   });
 
   it('should call the next action', () => {

@@ -26,8 +26,8 @@ describe('Root Container', () => {
 
     const props =
       wrapper
-      .find(Router)
-      .props();
+        .find(Router)
+        .props();
 
     expect(props.history).to.equal(history);
     expect(props.routes).to.equal(routes);

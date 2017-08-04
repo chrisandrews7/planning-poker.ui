@@ -15,4 +15,8 @@ Player.propTypes = {
   ])
 };
 
+Player.defaultProps = {
+  vote: undefined
+};
+
 export default Player;

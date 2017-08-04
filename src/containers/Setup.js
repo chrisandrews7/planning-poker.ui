@@ -10,7 +10,7 @@ export const mapStateToProps = () => ({});
 
 export class Setup extends Component {
   static propTypes = {
-    startNewGame: PropTypes.func
+    startNewGame: PropTypes.func.isRequired
   }
 
   handleChange(key) {
@@ -22,11 +22,10 @@ export class Setup extends Component {
   }
 
   render() {
-    const { startNewGame } = this.props;
     return (
       <div>
         <h1>Setup</h1>
-        <button onClick={startNewGame}>Create New Game</button>
+        <button onClick={this.props.startNewGame}>Create New Game</button>
       </div>
     );
   }

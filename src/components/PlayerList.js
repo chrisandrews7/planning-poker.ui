@@ -12,15 +12,15 @@ const PlayerList = ({ players }) => (
 );
 
 PlayerList.propTypes = {
-  players: PropTypes.objectOf(
-    PropTypes.shape({
-      name: React.PropTypes.string,
-      vote: PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
-      ])
-    })
-  )
+  players: PropTypes.shape({
+    name: PropTypes.string,
+    vote: PropTypes.string
+  })
+};
+
+
+PlayerList.defaultProps = {
+  players: undefined
 };
 
 export default PlayerList;

@@ -13,11 +13,11 @@ import { updateVote } from '../actions/players';
 import { setGame } from '../actions/user';
 
 describe('Board Container', () => {
-  const initialState = {
-    players: {}
-  };
+  const initialState = {};
   const initialProps = {
-    updateVote: () => {}
+    updateVote: () => {},
+    setGame: () => {},
+    params: {}
   };
   const connect = (state, props) => shallow(
     <Board {...initialState} {...state} {...initialProps} {...props} />
@@ -47,11 +47,11 @@ describe('Board Container', () => {
       const fakeDispatch = sinon.spy();
 
       mapDispatchToProps(fakeDispatch);
-      expect(bindACStub.calledWith({ updateVote, setGame}, fakeDispatch)).to.be.ok;
+      expect(bindACStub.calledWith({ updateVote, setGame }, fakeDispatch)).to.be.ok;
     });
   });
 
-  describe('Board()', () => {
+  describe('Board', () => {
     it('should render the game ID', () => {
       const gameId = faker.random.number();
       const state = {
@@ -87,34 +87,35 @@ describe('Board Container', () => {
       ).to.deep.equal(expectedResults);
     });
 
-    it('should render the VotePanel component with the options', () => {
+    it('should render the VotePanel component with the options and the onVote method', () => {
       const wrapper = connect({
         gameId: faker.random.number()
       });
 
-      expect(
-        wrapper
-          .find(VotePanel)
-          .props()
-          .options
-      ).to.deep.equal(VoteOptions);
+      const props = wrapper
+        .find(VotePanel)
+        .props();
+
+      expect(props.options).to.deep.equal(VoteOptions);
+      expect(props.onVote).to.equal(wrapper.instance().onVote);
     });
 
-    it('should pass the updateVote action with the user to the VotePanel component', () => {
-      const spy = sinon.spy();
-      const user = faker.name.firstName();
-      const wrapper = connect(
-        {
-          user,
-          gameId: faker.random.number()
-        },
-        { updateVote: spy }
-      );
+    describe('onVote()', () => {
+      it('should call props.updateVote with the user and vote', () => {
+        const updateVoteSpy = sinon.spy();
+        const user = faker.name.firstName();
+        const args = {
+          test: 1
+        };
+        const wrapper = connect(
+          { user },
+          { updateVote: updateVoteSpy }
+        );
 
-      // Invoke the onVote function
-      wrapper.find(VotePanel).props().onVote(1);
-
-      expect(spy.calledWith(user, 1)).to.be.ok;
+        // Invoke the function
+        wrapper.instance().onVote(args);
+        expect(updateVoteSpy.calledWith(user, ...args)).to.be.ok;
+      });
     });
   });
 });
