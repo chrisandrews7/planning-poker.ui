@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import { shallow } from 'enzyme';
 import React from 'react';
 import { fromJS } from 'immutable';
@@ -44,8 +44,8 @@ describe('Board Container', () => {
 
   describe('mapDispatchToProps()', () => {
     it('should return updateVote and setGame bound to the dispatch', () => {
-      const bindACStub = sinon.stub(redux, 'bindActionCreators');
-      const fakeDispatch = sinon.spy();
+      const bindACStub = stub(redux, 'bindActionCreators');
+      const fakeDispatch = spy();
 
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub.calledWith({ updateVote, setGame }, fakeDispatch)).to.be.ok;
@@ -103,7 +103,7 @@ describe('Board Container', () => {
 
     describe('onVote()', () => {
       it('should call props.updateVote with the user and vote', () => {
-        const updateVoteSpy = sinon.spy();
+        const updateVoteSpy = spy();
         const args = [1, 3];
         const wrapper = connect(
           undefined,

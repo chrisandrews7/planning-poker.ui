@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import _ from 'lodash';
 import faker from 'faker';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 import React from 'react';
 import VotePanel from './VotePanel';
 
@@ -17,10 +17,10 @@ describe('VotePanel Component', () => {
 
   it('fires the callback function in props on click of an option', () => {
     const options = [String(faker.random.number())];
-    const spy = sinon.spy();
-    const wrapper = mount(<VotePanel options={options} onVote={spy} />);
+    const callbackSpy = spy();
+    const wrapper = mount(<VotePanel options={options} onVote={callbackSpy} />);
 
     wrapper.find('button').simulate('click');
-    expect(spy.calledWith(options[0])).to.equal(true);
+    expect(callbackSpy.calledWith(options[0])).to.equal(true);
   });
 });

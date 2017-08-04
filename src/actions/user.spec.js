@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import * as idGenerator from '../utils/idGenerator';
 import {
   setUser,
@@ -36,9 +36,7 @@ describe('User Actions', () => {
 
   it('startNewRoom() should create SET_GAME action with a random ID', () => {
     const gameId = faker.random.number();
-    sinon
-      .stub(idGenerator, 'generateShortId')
-      .returns(gameId);
+    stub(idGenerator, 'generateShortId').returns(gameId);
 
     const expectedOutput = {
       type: SET_GAME,
