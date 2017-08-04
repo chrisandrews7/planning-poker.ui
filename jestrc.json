@@ -2,5 +2,6 @@
   "coveragePathIgnorePatterns": [
     "/node_modules/",
     "/test/"
-  ]
+  ],
+  "coverageDirectory": "./coverage/"
 }

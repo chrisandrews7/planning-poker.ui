@@ -14,14 +14,6 @@ export class Setup extends Component {
     startNewGame: PropTypes.func.isRequired
   }
 
-  handleChange(key) {
-    return ({ target }) => {
-      this.setState({
-        [key]: target.value
-      });
-    };
-  }
-
   render() {
     return (
       <div>
