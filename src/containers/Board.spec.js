@@ -104,9 +104,7 @@ describe('Board Container', () => {
       it('should call props.updateVote with the user and vote', () => {
         const updateVoteSpy = sinon.spy();
         const user = faker.name.firstName();
-        const args = {
-          test: 1
-        };
+        const args = [1, 3];
         const wrapper = connect(
           { user },
           { updateVote: updateVoteSpy }
@@ -114,7 +112,7 @@ describe('Board Container', () => {
 
         // Invoke the function
         wrapper.instance().onVote(args);
-        expect(updateVoteSpy.calledWith(user, ...args)).to.be.ok;
+        expect(updateVoteSpy.calledWithExactly(user, 1, 3)).to.be.ok;
       });
     });
   });
