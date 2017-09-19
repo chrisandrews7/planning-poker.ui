@@ -6,9 +6,9 @@ const initialState = Map();
 export default function user(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return state.set('name', action.name);
+      return state.set('name', action.payload.name);
     case SET_GAME:
-      return state.set('gameId', action.gameId);
+      return state.set('gameId', action.payload.gameId);
     default:
       return state;
   }

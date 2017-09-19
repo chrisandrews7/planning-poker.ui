@@ -13,7 +13,9 @@ describe('User Reducer', () => {
     const name = faker.name.firstName();
     const action = {
       type: types.SET_USER,
-      name
+      payload: {
+        name
+      }
     };
 
     expect(reducer(undefined, action).get('name')).to.equal(name);
@@ -23,7 +25,9 @@ describe('User Reducer', () => {
     const gameId = faker.random.number();
     const action = {
       type: types.SET_GAME,
-      gameId
+      payload:{
+        gameId
+      }
     };
 
     expect(reducer(undefined, action).get('gameId')).to.equal(gameId);

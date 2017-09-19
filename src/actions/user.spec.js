@@ -17,7 +17,9 @@ describe('User Actions', () => {
     const name = faker.name.firstName();
     const expectedOutput = {
       type: SET_USER,
-      name
+      payload: {
+        name
+      }
     };
 
     expect(setUser(name)).to.deep.equal(expectedOutput);
@@ -27,8 +29,12 @@ describe('User Actions', () => {
     const gameId = faker.random.number();
     const expectedOutput = {
       type: SET_GAME,
-      gameId,
-      redirect: gameId
+      payload: {
+        gameId
+      },
+      meta: {
+        redirect: gameId
+      }
     };
 
     expect(setGame(gameId)).to.deep.equal(expectedOutput);
@@ -40,8 +46,12 @@ describe('User Actions', () => {
 
     const expectedOutput = {
       type: SET_GAME,
-      gameId,
-      redirect: gameId
+      payload: {
+        gameId
+      },
+      meta: {
+        redirect: gameId
+      }
     };
 
     expect(startNewGame()).to.deep.equal(expectedOutput);

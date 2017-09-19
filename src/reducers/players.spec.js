@@ -14,8 +14,10 @@ describe('Players Reducer', () => {
     const vote = faker.random.number();
     const action = {
       type: types.ADD_PLAYER,
-      name,
-      vote
+      payload: {
+        name,
+        vote
+      }
     };
     const expectedOutput = fromJS({
       [name]: {
@@ -31,7 +33,9 @@ describe('Players Reducer', () => {
     const name = faker.name.firstName();
     const action = {
       type: types.SET_USER,
-      name
+      payload: {
+        name
+      }
     };
     const expectedOutput = fromJS({
       [name]: {
@@ -54,7 +58,9 @@ describe('Players Reducer', () => {
 
     const action = {
       type: types.REMOVE_PLAYER,
-      name
+      payload: {
+        name
+      }
     };
 
     expect(reducer(initialState, action).has(name)).to.be.false;
@@ -73,8 +79,10 @@ describe('Players Reducer', () => {
 
     const action = {
       type: types.UPDATE_VOTE,
-      name,
-      vote
+      payload: {
+        name,
+        vote
+      }
     };
 
     expect(reducer(initialState, action).getIn([name, 'vote'])).to.equal(vote);

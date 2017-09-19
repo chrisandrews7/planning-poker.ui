@@ -17,8 +17,10 @@ describe('Player Actions', () => {
     const vote = faker.random.number();
     const expectedOutput = {
       type: ADD_PLAYER,
-      name,
-      vote
+      payload: {
+        name,
+        vote
+      }
     };
 
     expect(addPlayer(name, vote)).to.deep.equal(expectedOutput);
@@ -28,7 +30,9 @@ describe('Player Actions', () => {
     const name = faker.name.firstName();
     const expectedOutput = {
       type: REMOVE_PLAYER,
-      name
+      payload: {
+        name
+      }
     };
 
     expect(removePlayer(name)).to.deep.equal(expectedOutput);
@@ -39,8 +43,10 @@ describe('Player Actions', () => {
     const vote = faker.random.number();
     const expectedOutput = {
       type: UPDATE_VOTE,
-      name,
-      vote
+      payload: {
+        name,
+        vote
+      }
     };
 
     expect(updateVote(name, vote)).to.deep.equal(expectedOutput);

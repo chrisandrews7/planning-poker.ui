@@ -7,14 +7,14 @@ export default function players(state = initialState, action) {
   switch (action.type) {
     case ADD_PLAYER:
     case SET_USER:
-      return state.set(action.name, Map({
-        name: action.name,
-        vote: action.vote
+      return state.set(action.payload.name, Map({
+        name: action.payload.name,
+        vote: action.payload.vote
       }));
     case REMOVE_PLAYER:
-      return state.delete(action.name);
+      return state.delete(action.payload.name);
     case UPDATE_VOTE:
-      return state.setIn([action.name, 'vote'], action.vote);
+      return state.setIn([action.payload.name, 'vote'], action.payload.vote);
     default:
       return state;
   }

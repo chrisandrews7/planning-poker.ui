@@ -3,13 +3,19 @@ import { SET_USER, SET_GAME } from '../constants/actionTypes';
 
 export const setUser = name => ({
   type: SET_USER,
-  name
+  payload: {
+    name
+  }
 });
 
 export const setGame = gameId => ({
   type: SET_GAME,
-  gameId,
-  redirect: gameId
+  payload: {
+    gameId
+  },
+  meta: {
+    redirect: gameId
+  }
 });
 
 export const startNewGame = () => setGame(idGenerator.generateShortId());

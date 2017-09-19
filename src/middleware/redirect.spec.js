@@ -23,17 +23,20 @@ describe('Redirect Middleware', () => {
 
   it('should not redirect if a redirect is not found in the action', () => {
     redirect()(() => {})({});
+    redirect()(() => {})({ meta: {} });
 
     expect(historyStub.called).to.be.false;
   });
 
   it('should redirect if a redirect is found in the action', () => {
     const action = {
-      redirect: '12345'
+      meta: {
+        redirect: '12345'
+      }
     };
 
     redirect()(() => {})(action);
 
-    expect(historyStub.calledWith(action.redirect)).to.be.ok;
+    expect(historyStub.calledWith(action.meta.redirect)).to.be.ok;
   });
 });
