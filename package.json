@@ -19,7 +19,6 @@
   "author": "Chris Andrews",
   "license": "ISC",
   "dependencies": {
-    "config": "^1.19.0",
     "immutable": "^3.8.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
