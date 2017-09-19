@@ -25,7 +25,7 @@ describe('User Reducer', () => {
     const gameId = faker.random.number();
     const action = {
       type: types.SET_GAME,
-      payload:{
+      payload: {
         gameId
       }
     };
