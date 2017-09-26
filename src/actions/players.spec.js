@@ -14,16 +14,14 @@ import {
 describe('Player Actions', () => {
   it('addPlayer() should create ADD_PLAYER action', () => {
     const name = faker.name.firstName();
-    const vote = faker.random.number();
     const expectedOutput = {
       type: ADD_PLAYER,
       payload: {
-        name,
-        vote
+        name
       }
     };
 
-    expect(addPlayer(name, vote)).to.deep.equal(expectedOutput);
+    expect(addPlayer(name)).to.deep.equal(expectedOutput);
   });
 
   it('removePlayer() should create REMOVE_PLAYER action', () => {
