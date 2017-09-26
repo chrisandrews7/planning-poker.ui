@@ -4,6 +4,11 @@ import { EventEmitter } from 'events';
 
 import socketListener from './socket';
 import { addPlayer, updateVote, removePlayer } from '../actions/players';
+import {
+  PLAYER_JOINED,
+  PLAYER_LEFT,
+  VOTE_UPDATED
+} from '../constants/eventTypes';
 
 describe('Socket Listener', () => {
   let socketMock;
@@ -15,8 +20,8 @@ describe('Socket Listener', () => {
     socketListener(socketMock, dispatchMock);
   });
 
-  it('should dispatch addPlayer when newPlayer event is fired', () => {
-    socketMock.emit('playerJoined', {
+  it('should dispatch addPlayer when PLAYER_JOINED event is fired', () => {
+    socketMock.emit(PLAYER_JOINED, {
       playerId: 'Steve'
     });
 
@@ -26,8 +31,8 @@ describe('Socket Listener', () => {
     ).to.be.true;
   });
 
-  it('should dispatch updateVote when voteUpdated event is fired', () => {
-    socketMock.emit('voteUpdated', {
+  it('should dispatch updateVote when VOTE_UPDATED event is fired', () => {
+    socketMock.emit(VOTE_UPDATED, {
       playerId: 'Simon',
       vote: 5
     });
@@ -38,8 +43,8 @@ describe('Socket Listener', () => {
     ).to.be.true;
   });
 
-  it('should dispatch removePlayer when playerLeft event is fired', () => {
-    socketMock.emit('playerLeft', {
+  it('should dispatch removePlayer when PLAYER_LEFT event is fired', () => {
+    socketMock.emit(PLAYER_LEFT, {
       playerId: 'Dave'
     });
 
