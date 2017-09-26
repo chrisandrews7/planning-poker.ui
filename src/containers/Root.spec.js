@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
-import fakeStore from '../../test/mocks/fakeStore';
+import fakeStore from '../../test/mocks/store';
 import RootContainer from './Root';
 import routes from '../routes';
 
