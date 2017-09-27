@@ -19,6 +19,7 @@
   "author": "Chris Andrews",
   "license": "ISC",
   "dependencies": {
+    "enviro-conf": "^0.3.1",
     "immutable": "^3.8.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
@@ -28,6 +29,7 @@
     "react-router": "^2.4.0",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
+    "socket.io-client": "^2.0.3",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
