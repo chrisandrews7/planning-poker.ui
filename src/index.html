@@ -4,7 +4,7 @@
 </head>
 <body>
   <p>
-    <input class="room" name="room" value="t4d2a" placeholder="Room" />
+    <input class="room" name="room" value="roomname" placeholder="Room" />
     <button class="join">Join</button>
   </p>
   <p>
@@ -20,7 +20,7 @@
   </p>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
   <script>
   var game = {};
 
@@ -32,11 +32,11 @@
     var socket = io.connect('http://localhost:3333');
 
     socket.on('connect', function() {
-        socket.emit('join', $('.room').val(), $('.user').val());
+        socket.emit('join', { gameId: $('.room').val(), playerId: $('.user').val() });
     });
 
     socket.on('disconnect', function() {
-      io.to($('.room').val()).emit('leave', $('.room').val(), $('.user').val());
+      io.to($('.room').val()).emit('leave', { gameId: $('.room').val(), playerId: $('.user').val() });
     });
 
     socket.on('error', function (data) {
@@ -62,7 +62,7 @@
 
     $('.send').on('click', function() {
       game[$('.user').val()] = $('.vote').val();
-      socket.emit('vote', $('.vote').val(), $('.user').val(), $('.room').val());
+      socket.emit('vote', { gameId: $('.room').val(), playerId: $('.user').val(), vote: $('.vote').val() });
     });
   });
   </script>
