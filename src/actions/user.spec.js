@@ -5,11 +5,13 @@ import * as idGenerator from '../utils/idGenerator';
 import {
   setUser,
   setGame,
-  startNewGame
+  startNewGame,
+  setVote
 } from './user';
 import {
   SET_GAME,
-  SET_USER
+  SET_USER,
+  SET_VOTE
 } from '../constants/actionTypes';
 
 describe('User Actions', () => {
@@ -23,6 +25,18 @@ describe('User Actions', () => {
     };
 
     expect(setUser(name)).to.deep.equal(expectedOutput);
+  });
+
+  it('setVote() should create SET_VOTE action', () => {
+    const vote = faker.random.number();
+    const expectedOutput = {
+      type: SET_VOTE,
+      payload: {
+        vote
+      }
+    };
+
+    expect(setVote(vote)).to.deep.equal(expectedOutput);
   });
 
   it('setRoom() should create SET_GAME action', () => {
