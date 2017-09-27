@@ -1,5 +1,10 @@
 import * as idGenerator from '../utils/idGenerator';
-import { SET_USER, SET_GAME, SET_VOTE } from '../constants/actionTypes';
+import {
+  SET_USER,
+  SET_GAME,
+  SET_VOTE
+} from '../constants/actionTypes';
+import { JOIN } from '../constants/eventTypes';
 
 export const setUser = name => ({
   type: SET_USER,
@@ -21,7 +26,13 @@ export const setGame = gameId => ({
     gameId
   },
   meta: {
-    redirect: gameId
+    redirect: gameId,
+    emit: {
+      type: JOIN,
+      params: {
+        gameId
+      }
+    }
   }
 });
 
