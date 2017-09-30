@@ -13,7 +13,6 @@ import {
   SET_USER,
   SET_VOTE
 } from '../constants/actionTypes';
-import { JOIN } from '../constants/eventTypes';
 
 describe('User Actions', () => {
   it('setUser() should create SET_USER action', () => {
@@ -46,15 +45,6 @@ describe('User Actions', () => {
       type: SET_GAME,
       payload: {
         gameId
-      },
-      meta: {
-        redirect: gameId,
-        emit: {
-          type: JOIN,
-          params: {
-            gameId
-          }
-        }
       }
     };
 
@@ -69,15 +59,6 @@ describe('User Actions', () => {
       type: SET_GAME,
       payload: {
         gameId
-      },
-      meta: {
-        redirect: gameId,
-        emit: {
-          type: JOIN,
-          params: {
-            gameId
-          }
-        }
       }
     };
 

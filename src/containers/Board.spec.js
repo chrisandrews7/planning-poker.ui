@@ -26,7 +26,7 @@ describe('Board Container', () => {
 
   describe('mapStateToProps()', () => {
     it('should return the players, user and gameId', () => {
-      const testData = {
+      const mockState = {
         players: {},
         user: {
           name: faker.name.firstName(),
@@ -34,10 +34,10 @@ describe('Board Container', () => {
         }
       };
 
-      expect(mapStateToProps(fromJS(testData))).to.deep.equal({
+      expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
         players: {},
-        user: testData.user.name,
-        gameId: testData.user.gameId
+        user: mockState.user.name,
+        gameId: mockState.user.gameId
       });
     });
   });

@@ -4,7 +4,6 @@ import {
   SET_GAME,
   SET_VOTE
 } from '../constants/actionTypes';
-import { JOIN } from '../constants/eventTypes';
 
 export const setUser = name => ({
   type: SET_USER,
@@ -24,15 +23,6 @@ export const setGame = gameId => ({
   type: SET_GAME,
   payload: {
     gameId
-  },
-  meta: {
-    redirect: gameId,
-    emit: {
-      type: JOIN,
-      params: {
-        gameId
-      }
-    }
   }
 });
 
