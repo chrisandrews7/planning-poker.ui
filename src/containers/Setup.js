@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { startNewGame, setUser, setGame } from '../actions/user';
+import { setUser } from '../actions/user';
+import { setRandomGame, setGame } from '../actions/game';
 import { ENTER_NAME, ENTER_GAME } from '../constants/dictionary';
 
 export const mapDispatchToProps = dispatch =>
-  bindActionCreators({ startNewGame, setUser, setGame }, dispatch);
+  bindActionCreators({ setRandomGame, setUser, setGame }, dispatch);
 
 export const mapStateToProps = state => ({
   name: state.getIn(['user', 'name']),
-  gameId: state.getIn(['user', 'gameId'])
+  gameId: state.getIn(['game', 'id'])
 });
 
 export class Setup extends Component {
   static propTypes = {
-    startNewGame: PropTypes.func.isRequired,
+    setRandomGame: PropTypes.func.isRequired,
     setUser: PropTypes.func.isRequired,
     setGame: PropTypes.func.isRequired,
     name: PropTypes.string,
@@ -31,7 +32,7 @@ export class Setup extends Component {
     return (
       <div>
         <h1>Setup</h1>
-        <button onClick={this.props.startNewGame}>Create New Game</button>
+        <button onClick={this.props.setRandomGame}>Create New Game</button>
         <input
           type="text"
           placeholder={ENTER_NAME}

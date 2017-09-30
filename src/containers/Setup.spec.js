@@ -5,7 +5,8 @@ import faker from 'faker';
 import React from 'react';
 import * as redux from 'redux';
 import { fromJS } from 'immutable';
-import { startNewGame, setGame, setUser } from '../actions/user';
+import { setUser } from '../actions/user';
+import { setRandomGame, setGame } from '../actions/game';
 import { Setup, mapStateToProps, mapDispatchToProps } from './Setup';
 
 describe('Setup Container', () => {
@@ -16,26 +17,28 @@ describe('Setup Container', () => {
   describe('mapStateToProps()', () => {
     it('should map the name, gameId', () => {
       const mockState = {
+        game: {
+          id: faker.random.number()
+        },
         user: {
-          name: faker.name.firstName(),
-          gameId: faker.random.number()
+          name: faker.name.firstName()
         }
       };
       expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
         name: mockState.user.name,
-        gameId: mockState.user.gameId
+        gameId: mockState.game.id
       });
     });
   });
 
   describe('mapDispatchToProps()', () => {
-    it('should return startNewGame, setUser bound to the dispatch', () => {
+    it('should return setRandomGame, setUser bound to the dispatch', () => {
       const bindACStub = stub(redux, 'bindActionCreators');
       const fakeDispatch = spy();
 
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub.calledWith({
-        startNewGame,
+        setRandomGame,
         setUser,
         setGame
       }, fakeDispatch)).to.be.ok;
@@ -44,22 +47,22 @@ describe('Setup Container', () => {
 
   describe('Setup', () => {
     it('should render a Start New Game button', () => {
-      const startGameSpy = spy();
+      const setRandomGameSpy = spy();
       const wrapper = connect({}, {
-        startNewGame: startGameSpy,
+        setRandomGame: setRandomGameSpy,
         setUser: () => {},
         setGame: () => {}
       });
 
       wrapper.find('button').simulate('click');
-      expect(startGameSpy.called).to.be.ok;
+      expect(setRandomGameSpy.called).to.be.ok;
     });
 
     it('should call setUser when the username is changed', () => {
       const name = faker.name.firstName();
       const setUserSpy = spy();
       const wrapper = connect({}, {
-        startNewGame: () => {},
+        setRandomGame: () => {},
         setGame: () => {},
         setUser: setUserSpy
       });
@@ -72,7 +75,7 @@ describe('Setup Container', () => {
       const gameId = faker.random.number();
       const setGameSpy = spy();
       const wrapper = connect({}, {
-        startNewGame: () => {},
+        setRandomGame: () => {},
         setGame: setGameSpy,
         setUser: () => {}
       });

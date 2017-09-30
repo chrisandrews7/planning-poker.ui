@@ -6,7 +6,10 @@ import * as types from '../constants/actionTypes';
 
 describe('User Reducer', () => {
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).to.equal(Map());
+    expect(reducer(undefined, {})).to.deep.equal(Map({
+      name: undefined,
+      vote: undefined
+    }));
   });
 
   it('should handle SET_USER', () => {
@@ -21,15 +24,15 @@ describe('User Reducer', () => {
     expect(reducer(undefined, action).get('name')).to.equal(name);
   });
 
-  it('should handle SET_GAME', () => {
-    const gameId = faker.random.number();
+  it('should handle SET_VOTE', () => {
+    const vote = faker.random.number();
     const action = {
-      type: types.SET_GAME,
+      type: types.SET_VOTE,
       payload: {
-        gameId
+        vote
       }
     };
 
-    expect(reducer(undefined, action).get('gameId')).to.equal(gameId);
+    expect(reducer(undefined, action).get('vote')).to.equal(vote);
   });
 });

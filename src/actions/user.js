@@ -1,7 +1,5 @@
-import * as idGenerator from '../utils/idGenerator';
 import {
   SET_USER,
-  SET_GAME,
   SET_VOTE
 } from '../constants/actionTypes';
 
@@ -18,12 +16,3 @@ export const setVote = vote => ({
     vote
   }
 });
-
-export const setGame = gameId => ({
-  type: SET_GAME,
-  payload: {
-    gameId
-  }
-});
-
-export const startNewGame = () => setGame(idGenerator.generateShortId());

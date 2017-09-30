@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateVote } from '../actions/players';
-import { setGame } from '../actions/user';
+import { setVote } from '../actions/user';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import voteOptions from '../constants/voting';
 
 export const mapStateToProps = state => ({
   players: state.get('players').toJS(),
-  user: state.getIn(['user', 'name']),
-  gameId: state.getIn(['user', 'gameId'])
+  gameId: state.getIn(['game', 'id'])
 });
 
 export const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setGame, updateVote }, dispatch);
+  bindActionCreators({ setVote }, dispatch);
 
 export class Board extends Component {
   static propTypes = {
@@ -24,12 +22,7 @@ export class Board extends Component {
       vote: PropTypes.string
     }),
     gameId: PropTypes.number,
-    user: PropTypes.string.isRequired,
-    updateVote: PropTypes.func.isRequired,
-    setGame: PropTypes.func.isRequired,
-    params: PropTypes.shape({
-      gameId: PropTypes.number
-    }).isRequired
+    setVote: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -37,14 +30,8 @@ export class Board extends Component {
     players: {}
   }
 
-  componentWillMount() {
-    if (!this.props.gameId) {
-      this.props.setGame(this.props.params.gameId);
-    }
-  }
-
-  onVote = (args) => {
-    this.props.updateVote(this.props.user, ...args);
+  onVote = (vote) => {
+    this.props.setVote(vote);
   }
 
   render() {

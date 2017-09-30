@@ -9,46 +9,41 @@ import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import VoteOptions from '../constants/voting';
 import { mapStateToProps, mapDispatchToProps, Board } from './Board';
-import { updateVote } from '../actions/players';
-import { setGame } from '../actions/user';
+import { setVote } from '../actions/user';
 
 describe('Board Container', () => {
   const initialState = {};
   const initialProps = {
-    updateVote: () => {},
-    setGame: () => {},
-    params: {},
-    user: faker.name.firstName()
+    setVote: () => {},
+    params: {}
   };
   const connect = (state, props) => shallow(
     <Board {...initialState} {...state} {...initialProps} {...props} />
   );
 
   describe('mapStateToProps()', () => {
-    it('should return the players, user and gameId', () => {
+    it('should return the players and gameId', () => {
       const mockState = {
         players: {},
-        user: {
-          name: faker.name.firstName(),
-          gameId: faker.random.number()
+        game: {
+          id: faker.random.number()
         }
       };
 
       expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
         players: {},
-        user: mockState.user.name,
-        gameId: mockState.user.gameId
+        gameId: mockState.game.id
       });
     });
   });
 
   describe('mapDispatchToProps()', () => {
-    it('should return updateVote and setGame bound to the dispatch', () => {
+    it('should return setVote bound to the dispatch', () => {
       const bindACStub = stub(redux, 'bindActionCreators');
       const fakeDispatch = spy();
 
       mapDispatchToProps(fakeDispatch);
-      expect(bindACStub.calledWith({ updateVote, setGame }, fakeDispatch)).to.be.ok;
+      expect(bindACStub.calledWith({ setVote }, fakeDispatch)).to.be.ok;
     });
   });
 
@@ -102,17 +97,17 @@ describe('Board Container', () => {
     });
 
     describe('onVote()', () => {
-      it('should call props.updateVote with the user and vote', () => {
-        const updateVoteSpy = spy();
-        const args = [1, 3];
+      it('should call props.setVote with the user and vote', () => {
+        const setVoteSpy = spy();
+        const vote = 5;
         const wrapper = connect(
           undefined,
-          { updateVote: updateVoteSpy }
+          { setVote: setVoteSpy }
         );
 
         // Invoke the function
-        wrapper.instance().onVote(args);
-        expect(updateVoteSpy.calledWithExactly(initialProps.user, 1, 3)).to.be.ok;
+        wrapper.instance().onVote(vote);
+        expect(setVoteSpy.calledWithExactly(5)).to.be.ok;
       });
     });
   });
