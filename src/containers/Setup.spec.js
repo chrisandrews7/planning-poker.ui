@@ -6,7 +6,7 @@ import React from 'react';
 import * as redux from 'redux';
 import { fromJS } from 'immutable';
 import { setUser } from '../actions/user';
-import { setRandomGame, setGame } from '../actions/game';
+import { setRandomGame, setGame, join } from '../actions/game';
 import { Setup, mapStateToProps, mapDispatchToProps } from './Setup';
 
 describe('Setup Container', () => {
@@ -40,7 +40,8 @@ describe('Setup Container', () => {
       expect(bindACStub.calledWith({
         setRandomGame,
         setUser,
-        setGame
+        setGame,
+        join
       }, fakeDispatch)).to.be.ok;
     });
   });
@@ -50,11 +51,12 @@ describe('Setup Container', () => {
       const setRandomGameSpy = spy();
       const wrapper = connect({}, {
         setRandomGame: setRandomGameSpy,
+        join: () => {},
         setUser: () => {},
         setGame: () => {}
       });
 
-      wrapper.find('button').simulate('click');
+      wrapper.find('.setup__random-game').simulate('click');
       expect(setRandomGameSpy.called).to.be.ok;
     });
 
@@ -63,6 +65,7 @@ describe('Setup Container', () => {
       const setUserSpy = spy();
       const wrapper = connect({}, {
         setRandomGame: () => {},
+        join: () => {},
         setGame: () => {},
         setUser: setUserSpy
       });
@@ -76,12 +79,31 @@ describe('Setup Container', () => {
       const setGameSpy = spy();
       const wrapper = connect({}, {
         setRandomGame: () => {},
+        join: () => {},
         setGame: setGameSpy,
         setUser: () => {}
       });
 
       wrapper.find('input[name="gameId"]').simulate('change', { target: { value: gameId } });
       expect(setGameSpy.calledWithExactly(gameId)).to.be.ok;
+    });
+
+    it('should call join when the join button is clicked', () => {
+      const gameId = faker.random.number();
+      const name = faker.name.firstName();
+
+      const joinSpy = spy();
+      const wrapper = connect({}, {
+        setRandomGame: () => {},
+        join: joinSpy,
+        setUser: () => {},
+        setGame: () => {},
+        gameId,
+        name
+      });
+
+      wrapper.find('.setup__join').simulate('click');
+      expect(joinSpy.calledWith(gameId, name)).to.be.ok;
     });
   });
 });

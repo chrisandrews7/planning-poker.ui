@@ -19,7 +19,6 @@ PlayerList.propTypes = {
   })
 };
 
-
 PlayerList.defaultProps = {
   players: undefined
 };

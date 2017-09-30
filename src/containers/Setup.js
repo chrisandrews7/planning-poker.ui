@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUser } from '../actions/user';
-import { setRandomGame, setGame } from '../actions/game';
+import { setRandomGame, setGame, join } from '../actions/game';
 import { ENTER_NAME, ENTER_GAME } from '../constants/dictionary';
 
 export const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setRandomGame, setUser, setGame }, dispatch);
+  bindActionCreators({ setRandomGame, setUser, setGame, join }, dispatch);
 
 export const mapStateToProps = state => ({
   name: state.getIn(['user', 'name']),
@@ -19,6 +19,7 @@ export class Setup extends Component {
     setRandomGame: PropTypes.func.isRequired,
     setUser: PropTypes.func.isRequired,
     setGame: PropTypes.func.isRequired,
+    join: PropTypes.func.isRequired,
     name: PropTypes.string,
     gameId: PropTypes.number
   }
@@ -28,11 +29,20 @@ export class Setup extends Component {
     gameId: undefined
   }
 
+  joinGame = () => {
+    this.props.join(this.props.gameId, this.props.name);
+  }
+
   render() {
     return (
       <div>
         <h1>Setup</h1>
-        <button onClick={this.props.setRandomGame}>Create New Game</button>
+        <button
+          className="setup__random-game"
+          onClick={this.props.setRandomGame}
+        >
+          Create New Game
+        </button>
         <input
           type="text"
           placeholder={ENTER_NAME}
@@ -47,6 +57,12 @@ export class Setup extends Component {
           value={this.props.gameId}
           onChange={event => this.props.setGame(event.target.value)}
         />
+        <button
+          className="setup__join"
+          onClick={this.joinGame}
+        >
+          Join
+        </button>
       </div>
     );
   }

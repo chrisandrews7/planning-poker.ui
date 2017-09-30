@@ -5,12 +5,13 @@ import * as idGenerator from '../utils/idGenerator';
 import {
   setGame,
   setRandomGame,
-  joinGame
+  join
 } from './game';
 import {
   SET_GAME,
   JOIN_GAME
 } from '../constants/actionTypes';
+import { JOIN } from '../constants/eventTypes';
 
 describe('Game Actions', () => {
   it('setRoom() should create SET_GAME action', () => {
@@ -39,16 +40,23 @@ describe('Game Actions', () => {
     expect(setRandomGame()).to.deep.equal(expectedOutput);
   });
 
-  it('joinGame() should create JOIN_GAME action', () => {
+  it('join() should create JOIN_GAME action', () => {
+    const id = faker.random.number();
+    const name = faker.name.firstName();
     const expectedOutput = {
       type: JOIN_GAME,
       meta: {
+        redirect: `/${id}`,
         emit: {
-          type: 'poo'
+          type: JOIN,
+          params: {
+            playerId: name,
+            gameId: id
+          }
         }
       }
     };
 
-    expect(joinGame()).to.deep.equal(expectedOutput);
+    expect(join(id, name)).to.deep.equal(expectedOutput);
   });
 });
