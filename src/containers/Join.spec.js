@@ -14,7 +14,9 @@ describe('Join Container', () => {
     join: () => {},
     setGame: () => {},
     setUser: () => {},
-    params: {}
+    match: {
+      params: {}
+    }
   };
   const connect = (state, props) => shallow(
     <Join {...state} {...defaultProps} {...props} />
@@ -56,7 +58,7 @@ describe('Join Container', () => {
       const gameId = faker.random.number();
       const setGameSpy = spy();
       mount(
-        <Join {...defaultProps} params={{ gameId }} setGame={setGameSpy} />
+        <Join {...defaultProps} match={{ params: { gameId } }} setGame={setGameSpy} />
       );
 
       expect(setGameSpy.calledWithExactly(gameId)).to.be.true;

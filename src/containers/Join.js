@@ -21,8 +21,10 @@ export class Join extends Component {
     join: PropTypes.func.isRequired,
     name: PropTypes.string,
     gameId: PropTypes.number,
-    params: PropTypes.shape({
-      gameId: PropTypes.number
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        gameId: PropTypes.number
+      }).isRequired
     }).isRequired
   }
 
@@ -32,8 +34,8 @@ export class Join extends Component {
   }
 
   componentDidMount() {
-    if (this.props.params.gameId) {
-      this.props.setGame(this.props.params.gameId);
+    if (this.props.match.params.gameId) {
+      this.props.setGame(this.props.match.params.gameId);
     }
   }
 

@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Router } from 'react-router';
 import { Provider } from 'react-redux';
-import routes from '../routes';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
+
+import JoinContainer from './Join';
 
 export default class Root extends Component {
   static propTypes = {
-    store: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-    history: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
+    store: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
   }
 
   render() {
-    const { store, history } = this.props;
+    const { store } = this.props;
     return (
       <Provider store={store}>
-        <Router history={history} routes={routes} />
+        <Router>
+          <Route path="/:gameId" component={JoinContainer} />
+        </Router>
       </Provider>
     );
   }

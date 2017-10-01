@@ -2,17 +2,16 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { Route } from 'react-router-dom';
 import fakeStore from '../../test/mocks/store';
 import RootContainer from './Root';
-import routes from '../routes';
+import JoinContainer from './Join';
 
 describe('Root Container', () => {
   const store = fakeStore({ 1: 'test' });
-  const history = {};
 
   it('should render the redux provider with the store', () => {
-    const wrapper = shallow(<RootContainer history={history} store={store} />);
+    const wrapper = shallow(<RootContainer store={store} />);
 
     expect(
       wrapper
@@ -22,15 +21,13 @@ describe('Root Container', () => {
     ).to.deep.equal(store);
   });
 
-  it('should render a router with the history prop and route list', () => {
-    const wrapper = shallow(<RootContainer history={history} store={store} />);
-
-    const props =
+  it('should render the Join Route', () => {
+    const wrapper = shallow(<RootContainer store={store} />);
+    expect(
       wrapper
-        .find(Router)
-        .props();
-
-    expect(props.history).to.equal(history);
-    expect(props.routes).to.equal(routes);
+        .find(Route)
+        .props()
+        .component
+    ).to.equal(JoinContainer);
   });
 });

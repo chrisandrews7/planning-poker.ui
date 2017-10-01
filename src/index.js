@@ -1,5 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { render } from 'react-dom';
 import io from 'socket.io-client';
 import config from 'enviro-conf';
@@ -12,6 +11,6 @@ const socket = io(SERVER_URL);
 const store = configureStore(undefined, socket);
 
 render(
-  <Root store={store} history={browserHistory} />,
+  <Root store={store} />,
   document.body.appendChild(document.createElement('div'))
 );
