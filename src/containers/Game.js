@@ -15,7 +15,7 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch =>
   bindActionCreators({ setVote }, dispatch);
 
-export class Board extends Component {
+export class Game extends Component {
   static propTypes = {
     players: PropTypes.shape({
       name: PropTypes.string,
@@ -49,4 +49,4 @@ export class Board extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

@@ -8,17 +8,17 @@ import * as redux from 'redux';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import VoteOptions from '../constants/voting';
-import { mapStateToProps, mapDispatchToProps, Board } from './Board';
+import { mapStateToProps, mapDispatchToProps, Game } from './Game';
 import { setVote } from '../actions/user';
 
-describe('Board Container', () => {
+describe('Game Container', () => {
   const initialState = {};
   const initialProps = {
     setVote: () => {},
     params: {}
   };
   const connect = (state, props) => shallow(
-    <Board {...initialState} {...state} {...initialProps} {...props} />
+    <Game {...initialState} {...state} {...initialProps} {...props} />
   );
 
   describe('mapStateToProps()', () => {
