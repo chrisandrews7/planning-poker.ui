@@ -43,7 +43,7 @@ describe('Game Container', () => {
       const fakeDispatch = spy();
 
       mapDispatchToProps(fakeDispatch);
-      expect(bindACStub.calledWith({ setVote }, fakeDispatch)).to.be.ok;
+      expect(bindACStub.calledWith({ setVote }, fakeDispatch)).to.be.true;
     });
   });
 
@@ -107,7 +107,7 @@ describe('Game Container', () => {
 
         // Invoke the function
         wrapper.instance().onVote(vote);
-        expect(setVoteSpy.calledWithExactly(5)).to.be.ok;
+        expect(setVoteSpy.calledWithExactly(5)).to.be.true;
       });
     });
   });
