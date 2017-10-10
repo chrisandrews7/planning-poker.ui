@@ -46,7 +46,6 @@ describe('Game Actions', () => {
     const expectedOutput = {
       type: JOIN_GAME,
       meta: {
-        redirect: `/${id}`,
         emit: {
           type: JOIN,
           params: {

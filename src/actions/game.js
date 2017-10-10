@@ -15,7 +15,6 @@ export const setGame = id => ({
 export const join = (gameId, playerId) => ({
   type: JOIN_GAME,
   meta: {
-    redirect: `/${gameId}`,
     emit: {
       type: JOIN,
       params: {
