@@ -1,9 +1,9 @@
-import { addPlayer, updateVote, removePlayer } from '../actions/players';
+import { addPlayer, updateVote, removePlayer } from '../../actions/players';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
   VOTE_UPDATED
-} from '../constants/eventTypes';
+} from '../../constants/eventTypes';
 
 export default (socket, dispatch) => {
   socket.on(PLAYER_JOINED, ({ playerId }) =>

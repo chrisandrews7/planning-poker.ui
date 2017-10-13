@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../reducers/index';
 
-import socketMiddleware from '../middleware/socket';
-import socketListener from '../listeners/socket';
+import socketMiddleware from '../middleware/socket/';
 
 export default function (initialState, socket) {
+  // @todo: Use new dev tool extention method
   const createStoreWithMiddleware = applyMiddleware(
     socketMiddleware(socket)
   )(createStore);
@@ -14,7 +14,6 @@ export default function (initialState, socket) {
     initialState,
     window.devToolsExtension()
   );
-  socketListener(socket, store.dispatch);
 
   return store;
 }

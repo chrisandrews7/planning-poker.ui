@@ -2,15 +2,15 @@ import { expect } from 'chai';
 import { spy } from 'sinon';
 import { EventEmitter } from 'events';
 
-import socketListener from './socket';
-import { addPlayer, updateVote, removePlayer } from '../actions/players';
+import socketListener from './listeners';
+import { addPlayer, updateVote, removePlayer } from '../../actions/players';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
   VOTE_UPDATED
-} from '../constants/eventTypes';
+} from '../../constants/eventTypes';
 
-describe('Socket Listener', () => {
+describe('Socket Middleware - Listeners', () => {
   let socketMock;
   let dispatchMock;
 
