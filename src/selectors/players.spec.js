@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { fromJS } from 'immutable';
-import faker from 'faker';
 import { selectAllPlayers } from './players';
 
 describe('Players Selectors', () => {
