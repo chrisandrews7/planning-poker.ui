@@ -29,7 +29,7 @@ describe('Board Container', () => {
       const mockState = {
         players: {},
         user: {
-          gameId: faker.random.number()
+          gameId: `${faker.random.number()}`
         }
       };
 
@@ -52,7 +52,7 @@ describe('Board Container', () => {
 
   describe('Board', () => {
     it('should render the game ID', () => {
-      const gameId = faker.random.number();
+      const gameId = `${faker.random.number()}`;
       const state = {
         gameId
       };
@@ -74,7 +74,7 @@ describe('Board Container', () => {
       };
       const state = {
         players: expectedResults,
-        gameId: faker.random.number()
+        gameId: `${faker.random.number()}`
       };
       const wrapper = connect(state);
 
@@ -88,7 +88,7 @@ describe('Board Container', () => {
 
     it('should render the VotePanel component with the options and the onVote method', () => {
       const wrapper = connect({
-        gameId: faker.random.number()
+        gameId: `${faker.random.number()}`
       });
 
       const props = wrapper

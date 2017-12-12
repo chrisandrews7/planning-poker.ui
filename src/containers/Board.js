@@ -22,7 +22,7 @@ export class Board extends Component {
       name: PropTypes.string,
       vote: PropTypes.string
     }),
-    gameId: PropTypes.number,
+    gameId: PropTypes.string,
     setVote: PropTypes.func.isRequired
   }
 
