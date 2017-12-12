@@ -5,8 +5,7 @@ import faker from 'faker';
 import React from 'react';
 import * as redux from 'redux';
 import { fromJS } from 'immutable';
-import { setUser } from '../actions/user';
-import { setGame, join } from '../actions/game';
+import { setUser, setGame, join } from '../actions/user';
 import { Join, mapStateToProps, mapDispatchToProps } from './Join';
 
 describe('Join Container', () => {
@@ -23,18 +22,14 @@ describe('Join Container', () => {
   );
 
   describe('mapStateToProps()', () => {
-    it('should map the name, gameId', () => {
+    it('should map the name', () => {
       const mockState = {
-        game: {
-          id: faker.random.number()
-        },
         user: {
           name: faker.name.firstName()
         }
       };
       expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
-        name: mockState.user.name,
-        gameId: mockState.game.id
+        name: mockState.user.name
       });
     });
   });
@@ -53,9 +48,9 @@ describe('Join Container', () => {
     });
   });
 
-  describe('Setup', () => {
+  describe('Join', () => {
     it('should call setGame if the URL param is found', () => {
-      const gameId = faker.random.number();
+      const gameId = String(faker.random.number());
       const setGameSpy = spy();
       mount(
         <Join {...defaultProps} match={{ params: { gameId } }} setGame={setGameSpy} />
@@ -85,18 +80,13 @@ describe('Join Container', () => {
     });
 
     it('should call join when the join button is clicked', () => {
-      const gameId = faker.random.number();
-      const name = faker.name.firstName();
-
       const joinSpy = spy();
       const wrapper = connect({}, {
-        join: joinSpy,
-        gameId,
-        name
+        join: joinSpy
       });
 
       wrapper.find('button').simulate('click');
-      expect(joinSpy.calledWith(gameId, name)).to.be.true;
+      expect(joinSpy.calledWith()).to.be.true;
     });
   });
 });

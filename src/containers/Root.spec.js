@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
 import fakeStore from '../../test/mocks/store';
 import RootContainer from './Root';
-import JoinContainer from './Join';
+import GameContainer from './Game';
 
 describe('Root Container', () => {
   const store = fakeStore({ 1: 'test' });
@@ -21,13 +21,13 @@ describe('Root Container', () => {
     ).to.deep.equal(store);
   });
 
-  it('should render the Join Route', () => {
+  it('should render the Game Route', () => {
     const wrapper = shallow(<RootContainer store={store} />);
     expect(
       wrapper
         .find(Route)
         .props()
         .component
-    ).to.equal(JoinContainer);
+    ).to.equal(GameContainer);
   });
 });

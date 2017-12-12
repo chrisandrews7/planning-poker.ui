@@ -6,7 +6,7 @@ import {
   Route
 } from 'react-router-dom';
 
-import JoinContainer from './Join';
+import GameContainer from './Game';
 
 export default class Root extends Component {
   static propTypes = {
@@ -18,7 +18,7 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <Route path="/:gameId" component={JoinContainer} />
+          <Route path="/:gameId" component={GameContainer} />
         </Router>
       </Provider>
     );
