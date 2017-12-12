@@ -1,11 +1,4 @@
-import { ADD_PLAYER, REMOVE_PLAYER, UPDATE_VOTE } from '../constants/actionTypes';
-
-export const addPlayer = name => ({
-  type: ADD_PLAYER,
-  payload: {
-    name
-  }
-});
+import { REMOVE_PLAYER, UPDATE_VOTE } from '../constants/actionTypes';
 
 export const removePlayer = name => ({
   type: REMOVE_PLAYER,
