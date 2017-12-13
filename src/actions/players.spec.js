@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import faker from 'faker';
 import {
   removePlayer,
-  updateVote
+  updatePlayer
 } from './players';
 import {
   REMOVE_PLAYER,
-  UPDATE_VOTE
+  UPDATE_PLAYER
 } from '../constants/actionTypes';
 
 describe('Player Actions', () => {
@@ -22,17 +22,17 @@ describe('Player Actions', () => {
     expect(removePlayer(name)).to.deep.equal(expectedOutput);
   });
 
-  it('updateVote() should create UPDATE_VOTE action', () => {
+  it('updatePlayer() should create UPDATE_PLAYER action', () => {
     const name = faker.name.firstName();
     const vote = faker.random.number();
     const expectedOutput = {
-      type: UPDATE_VOTE,
+      type: UPDATE_PLAYER,
       payload: {
         name,
         vote
       }
     };
 
-    expect(updateVote(name, vote)).to.deep.equal(expectedOutput);
+    expect(updatePlayer(name, vote)).to.deep.equal(expectedOutput);
   });
 });

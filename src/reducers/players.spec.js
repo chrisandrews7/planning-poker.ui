@@ -28,11 +28,11 @@ describe('Players Reducer', () => {
     expect(reducer(initialState, action).has(name)).to.be.false;
   });
 
-  it('should handle UPDATE_VOTE', () => {
+  it('should handle UPDATE_PLAYER', () => {
     const name = faker.name.firstName();
     const vote = faker.random.number();
     const action = {
-      type: types.UPDATE_VOTE,
+      type: types.UPDATE_PLAYER,
       payload: {
         name,
         vote

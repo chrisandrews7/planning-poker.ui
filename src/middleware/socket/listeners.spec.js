@@ -3,7 +3,7 @@ import { spy } from 'sinon';
 import { EventEmitter } from 'events';
 
 import socketListener from './listeners';
-import { updateVote, removePlayer } from '../../actions/players';
+import { updatePlayer, removePlayer } from '../../actions/players';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
@@ -20,18 +20,18 @@ describe('Socket Middleware - Listeners', () => {
     socketListener(socketMock, dispatchMock);
   });
 
-  it('should dispatch updateVote when PLAYER_JOINED event is fired', () => {
+  it('should dispatch updatePlayer when PLAYER_JOINED event is fired', () => {
     socketMock.emit(PLAYER_JOINED, {
       playerId: 'Steve'
     });
 
     expect(
       dispatchMock
-        .calledWithExactly(updateVote('Steve'))
+        .calledWithExactly(updatePlayer('Steve'))
     ).to.be.true;
   });
 
-  it('should dispatch updateVote when VOTE_UPDATED event is fired', () => {
+  it('should dispatch updatePlayer when VOTE_UPDATED event is fired', () => {
     socketMock.emit(VOTE_UPDATED, {
       playerId: 'Simon',
       vote: 5
@@ -39,7 +39,7 @@ describe('Socket Middleware - Listeners', () => {
 
     expect(
       dispatchMock
-        .calledWithExactly(updateVote('Simon', 5))
+        .calledWithExactly(updatePlayer('Simon', 5))
     ).to.be.true;
   });
 
