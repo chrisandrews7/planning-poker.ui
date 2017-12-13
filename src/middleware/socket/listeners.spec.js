@@ -7,7 +7,8 @@ import { updatePlayer, removePlayer } from '../../actions/players';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
-  VOTE_UPDATED
+  VOTE_UPDATED,
+  CONNECT
 } from '../../constants/eventTypes';
 
 describe('Socket Middleware - Listeners', () => {
@@ -18,6 +19,27 @@ describe('Socket Middleware - Listeners', () => {
     socketMock = new EventEmitter();
     dispatchMock = spy();
     socketListener(socketMock, dispatchMock);
+  });
+
+  it('should dispatch updatePlayer with the votes/players when CONNECT event is fired', () => {
+    socketMock.emit(CONNECT, {
+      votes: {
+        Simon: 5,
+        Steve: 10
+      }
+    });
+
+    expect(
+      dispatchMock
+        .firstCall
+        .calledWith(updatePlayer('Simon', 5))
+    ).to.be.true;
+
+    expect(
+      dispatchMock
+        .secondCall
+        .calledWith(updatePlayer('Steve', 10))
+    ).to.be.true;
   });
 
   it('should dispatch updatePlayer when PLAYER_JOINED event is fired', () => {
