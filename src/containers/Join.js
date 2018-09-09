@@ -11,7 +11,6 @@ export const mapDispatchToProps = dispatch =>
 export class Join extends Component {
   static propTypes = {
     joinGame: PropTypes.func.isRequired,
-    name: PropTypes.string,
     match: PropTypes.shape({
       params: PropTypes.shape({
         gameId: PropTypes.string
@@ -19,9 +18,6 @@ export class Join extends Component {
     }).isRequired
   }
 
-  static defaultProps = {
-    name: ''
-  }
 
   constructor(props) {
     super(props);
@@ -49,7 +45,7 @@ export class Join extends Component {
         <input
           type="text"
           placeholder={ENTER_NAME}
-          value={this.props.name}
+          value={this.state.name}
           onChange={this.setName}
         />
         <button
