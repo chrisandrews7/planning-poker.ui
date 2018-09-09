@@ -1,18 +1,15 @@
 import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import { shallow } from 'enzyme';
+import { spy, stub, match } from 'sinon';
 import faker from 'faker';
 import React from 'react';
 import * as redux from 'redux';
-import { fromJS } from 'immutable';
-import { setUser, setGame, join } from '../actions/user';
-import { Join, mapStateToProps, mapDispatchToProps } from './Join';
+import { joinGame } from '../actions/user';
+import { Join, mapDispatchToProps } from './Join';
 
 describe('Join Container', () => {
   const defaultProps = {
-    join: () => {},
-    setGame: () => {},
-    setUser: () => {},
+    joinGame: () => {},
     match: {
       params: {}
     }
@@ -21,19 +18,6 @@ describe('Join Container', () => {
     <Join {...state} {...defaultProps} {...props} />
   );
 
-  describe('mapStateToProps()', () => {
-    it('should map the name', () => {
-      const mockState = {
-        user: {
-          name: faker.name.firstName()
-        }
-      };
-      expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
-        name: mockState.user.name
-      });
-    });
-  });
-
   describe('mapDispatchToProps()', () => {
     it('should return the actions bound to the dispatch', () => {
       const bindACStub = stub(redux, 'bindActionCreators');
@@ -41,52 +25,45 @@ describe('Join Container', () => {
 
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub.calledWith({
-        setUser,
-        setGame,
-        join
+        joinGame
       }, fakeDispatch)).to.be.ok;
     });
   });
 
   describe('Join', () => {
-    it('should call setGame if the URL param is found', () => {
-      const gameId = String(faker.random.number());
-      const setGameSpy = spy();
-      mount(
-        <Join {...defaultProps} match={{ params: { gameId } }} setGame={setGameSpy} />
-      );
+    describe('when the join button is clicked', () => {
+      it('should call joinGame with the users name', () => {
+        const name = faker.name.firstName();
+        const joinGameSpy = spy();
+        const wrapper = connect({}, {
+          joinGame: joinGameSpy
+        });
 
-      expect(setGameSpy.calledWithExactly(gameId)).to.be.true;
-    });
+        wrapper.find('input').simulate('change', { target: { value: name } });
 
-    it('should not call setGame if the URL param is not provided', () => {
-      const setGameSpy = spy();
-      mount(
-        <Join {...defaultProps} setGame={setGameSpy} />
-      );
-
-      expect(setGameSpy.called).to.be.false;
-    });
-
-    it('should call setUser when the username is changed', () => {
-      const name = faker.name.firstName();
-      const setUserSpy = spy();
-      const wrapper = connect({}, {
-        setUser: setUserSpy
+        wrapper.find('button').simulate('click');
+        expect(joinGameSpy.calledWith(match({
+          name
+        }))).to.be.true;
       });
 
-      wrapper.find('input').simulate('change', { target: { value: name } });
-      expect(setUserSpy.calledWithExactly(name)).to.be.true;
-    });
+      it('should call joinGame with the gameId url param', () => {
+        const gameId = faker.random.uuid();
+        const joinGameSpy = spy();
+        const wrapper = connect({}, {
+          joinGame: joinGameSpy,
+          match: {
+            params: {
+              gameId
+            }
+          }
+        });
 
-    it('should call join when the join button is clicked', () => {
-      const joinSpy = spy();
-      const wrapper = connect({}, {
-        join: joinSpy
+        wrapper.find('button').simulate('click');
+        expect(joinGameSpy.calledWith(match({
+          gameId
+        }))).to.be.true;
       });
-
-      wrapper.find('button').simulate('click');
-      expect(joinSpy.calledWith()).to.be.true;
     });
   });
 });

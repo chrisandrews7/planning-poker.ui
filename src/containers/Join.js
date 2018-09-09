@@ -2,21 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser, setGame, join } from '../actions/user';
+import { joinGame } from '../actions/user';
 import { ENTER_NAME } from '../constants/dictionary';
 
 export const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setUser, setGame, join }, dispatch);
-
-export const mapStateToProps = state => ({
-  name: state.getIn(['user', 'name'])
-});
+  bindActionCreators({ joinGame }, dispatch);
 
 export class Join extends Component {
   static propTypes = {
-    setUser: PropTypes.func.isRequired,
-    setGame: PropTypes.func.isRequired,
-    join: PropTypes.func.isRequired,
+    joinGame: PropTypes.func.isRequired,
     name: PropTypes.string,
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -26,17 +20,27 @@ export class Join extends Component {
   }
 
   static defaultProps = {
-    name: undefined
+    name: ''
   }
 
-  componentDidMount() {
-    if (this.props.match.params.gameId) {
-      this.props.setGame(this.props.match.params.gameId);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: undefined
+    };
+  }
+
+  setName = ({ target }) => {
+    this.setState({
+      name: target.value
+    });
   }
 
   joinGame = () => {
-    this.props.join();
+    this.props.joinGame({
+      gameId: this.props.match.params.gameId,
+      name: this.state.name
+    });
   }
 
   render() {
@@ -46,7 +50,7 @@ export class Join extends Component {
           type="text"
           placeholder={ENTER_NAME}
           value={this.props.name}
-          onChange={event => this.props.setUser(event.target.value)}
+          onChange={this.setName}
         />
         <button
           onClick={this.joinGame}
@@ -58,4 +62,4 @@ export class Join extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Join);
+export default connect(undefined, mapDispatchToProps)(Join);
