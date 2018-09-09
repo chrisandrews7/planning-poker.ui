@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import faker from 'faker';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import reducer from './user';
 import * as types from '../constants/actionTypes';
 
@@ -10,26 +10,14 @@ describe('User Reducer', () => {
       name: undefined,
       vote: undefined,
       gameId: undefined,
-      loading: false
+      connected: false
     }));
   });
 
-  it('should handle SET_USER', () => {
-    const name = faker.name.firstName();
-    const action = {
-      type: types.SET_USER,
-      payload: {
-        name
-      }
-    };
-
-    expect(reducer(undefined, action).get('name')).to.equal(name);
-  });
-
-  it('should handle SET_VOTE', () => {
+  it('should handle USER_VOTED', () => {
     const vote = faker.random.number();
     const action = {
-      type: types.SET_VOTE,
+      type: types.USER_VOTED,
       payload: {
         vote
       }
@@ -38,23 +26,24 @@ describe('User Reducer', () => {
     expect(reducer(undefined, action).get('vote')).to.equal(vote);
   });
 
-  it('should handle SET_GAME', () => {
-    const gameId = faker.random.number();
+  it('should handle USER_JOINED_GAME', () => {
+    const gameId = faker.random.uuid();
+    const name = faker.name.firstName();
+
     const action = {
-      type: types.SET_GAME,
+      type: types.USER_JOINED_GAME,
       payload: {
-        gameId
+        gameId,
+        name
       }
     };
+    const expectedOutput = fromJS({
+      gameId,
+      name,
+      vote: undefined,
+      connected: true
+    });
 
-    expect(reducer(undefined, action).get('gameId')).to.equal(gameId);
-  });
-
-  it('should handle JOIN_GAME', () => {
-    const action = {
-      type: types.JOIN_GAME
-    };
-
-    expect(reducer(undefined, action).get('loading')).to.be.true;
+    expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
   });
 });

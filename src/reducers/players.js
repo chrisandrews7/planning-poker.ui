@@ -1,17 +1,19 @@
 import { Map } from 'immutable';
-import { REMOVE_PLAYER, UPDATE_PLAYER } from '../constants/actionTypes';
+import { PLAYER_LEFT, PLAYER_VOTED, PLAYER_JOINED } from '../constants/actionTypes';
 
 const initialState = Map();
 
 export default function players(state = initialState, action) {
   switch (action.type) {
-    case REMOVE_PLAYER:
-      return state.delete(action.payload.name);
-    case UPDATE_PLAYER:
-      return state.set(action.payload.name, Map({
+    case PLAYER_JOINED:
+      return state.set(action.payload.id, Map({
         name: action.payload.name,
         vote: action.payload.vote
       }));
+    case PLAYER_LEFT:
+      return state.delete(action.payload.id);
+    case PLAYER_VOTED:
+      return state.setIn([action.payload.id, 'vote'], action.payload.vote);
     default:
       return state;
   }
