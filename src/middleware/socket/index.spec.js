@@ -26,39 +26,8 @@ describe('Socket Middleware', () => {
 
   it('should call the next action', () => {
     const mockNext = spy();
-    socket()(mockStore)(mockNext)({});
+    socket()(mockStore)(mockNext)('action');
 
-    expect(mockNext.callCount).to.equal(1);
-  });
-
-  it('should not emit anything if a value is not found in the action', () => {
-    const mockSocket = {
-      emit: spy()
-    };
-    socket(mockSocket)(mockStore)(() => {})({});
-    socket(mockSocket)(mockStore)(() => {})({ meta: {} });
-
-    expect(mockSocket.emit.called).to.be.false;
-  });
-
-  it('should emit an event with the params', () => {
-    const mockSocket = {
-      emit: spy()
-    };
-    socket(mockSocket)(mockStore)(() => {})({
-      meta: {
-        emit: {
-          type: 'testEvent',
-          params: {
-            test: 1
-          }
-        }
-      }
-    });
-
-    expect(mockSocket.emit.calledWithExactly(
-      'testEvent',
-      { test: 1 }
-    )).to.be.ok;
+    expect(mockNext.calledWith('action')).to.be.ok;
   });
 });

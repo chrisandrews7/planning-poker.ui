@@ -1,8 +1,6 @@
-export const REMOVE_PLAYER = '@@REMOVE_PLAYER';
-export const UPDATE_PLAYER = '@@UPDATE_PLAYER';
+export const PLAYER_JOINED = '@@PLAYER_JOINED';
+export const PLAYER_LEFT = '@@PLAYER_LEFT';
+export const PLAYER_VOTED = '@@PLAYER_VOTED';
 
-export const SET_USER = '@@SET_USER';
-export const SET_VOTE = '@@SET_VOTE';
-
-export const SET_GAME = '@@SET_GAME';
-export const JOIN_GAME = '@@JOIN_GAME';
+export const USER_JOINED_GAME = '@@USER_JOINED_GAME';
+export const USER_VOTED = '@@USER_VOTED';

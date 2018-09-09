@@ -1,24 +1,39 @@
 import { each } from 'lodash';
-import { updatePlayer, removePlayer } from '../../actions/players';
+import { newPlayer, playerVote, removePlayer } from '../../actions/players';
 import {
   PLAYER_JOINED,
+  PLAYER_VOTED,
   PLAYER_LEFT,
-  VOTE_UPDATED,
-  CONNECT
+  GAME_UPDATED
 } from '../../constants/eventTypes';
 
 export default (socket, dispatch) => {
-  socket.on(CONNECT, ({ votes }) =>
-    each(votes, (vote, player) => {
-      dispatch(updatePlayer(player, vote));
-    }));
+  socket.on(GAME_UPDATED, ({ game }) => {
+    each(game, ({ vote, name }, id) => {
+      if (id !== socket.id) {
+        dispatch(newPlayer({
+          id,
+          name,
+          vote
+        }));
+      }
+    });
+  });
 
-  socket.on(PLAYER_JOINED, ({ playerId }) =>
-    dispatch(updatePlayer(playerId)));
+  socket.on(PLAYER_JOINED, ({ id, name }) =>
+    dispatch(newPlayer({
+      id,
+      name
+    })));
 
-  socket.on(PLAYER_LEFT, ({ playerId }) =>
-    dispatch(removePlayer(playerId)));
+  socket.on(PLAYER_VOTED, ({ id, vote }) =>
+    dispatch(playerVote({
+      id,
+      vote
+    })));
 
-  socket.on(VOTE_UPDATED, ({ playerId, vote }) =>
-    dispatch(updatePlayer(playerId, vote)));
+  socket.on(PLAYER_LEFT, ({ id }) =>
+    dispatch(removePlayer({
+      id
+    })));
 };

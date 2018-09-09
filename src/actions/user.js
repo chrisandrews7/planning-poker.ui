@@ -1,54 +1,19 @@
-import * as idGenerator from '../utils/idGenerator';
 import {
-  SET_USER,
-  SET_VOTE,
-  SET_GAME,
-  JOIN_GAME
+  USER_JOINED_GAME,
+  USER_VOTED
 } from '../constants/actionTypes';
-import { VOTE, JOIN } from '../constants/eventTypes';
 
-export const setUser = name => ({
-  type: SET_USER,
+export const joinGame = ({ gameId, name }) => ({
+  type: USER_JOINED_GAME,
   payload: {
+    gameId,
     name
   }
 });
 
-export const setVote = vote => state => ({
-  type: SET_VOTE,
+export const setVote = vote => ({
+  type: USER_VOTED,
   payload: {
     vote
-  },
-  meta: {
-    emit: {
-      type: VOTE,
-      params: {
-        vote,
-        playerId: state.getIn(['user', 'name']),
-        gameId: state.getIn(['user', 'gameId'])
-      }
-    }
   }
 });
-
-export const setGame = gameId => ({
-  type: SET_GAME,
-  payload: {
-    gameId
-  }
-});
-
-export const join = () => state => ({
-  type: JOIN_GAME,
-  meta: {
-    emit: {
-      type: JOIN,
-      params: {
-        playerId: state.getIn(['user', 'name']),
-        gameId: state.getIn(['user', 'gameId'])
-      }
-    }
-  }
-});
-
-export const setRandomGame = () => setGame(idGenerator.generateShortId());

@@ -3,12 +3,12 @@ import { spy } from 'sinon';
 import { EventEmitter } from 'events';
 
 import socketListener from './listeners';
-import { updatePlayer, removePlayer } from '../../actions/players';
+import { newPlayer, playerVote, removePlayer } from '../../actions/players';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
-  VOTE_UPDATED,
-  CONNECT
+  PLAYER_VOTED,
+  GAME_UPDATED
 } from '../../constants/eventTypes';
 
 describe('Socket Middleware - Listeners', () => {
@@ -21,58 +21,81 @@ describe('Socket Middleware - Listeners', () => {
     socketListener(socketMock, dispatchMock);
   });
 
-  it('should dispatch updatePlayer with the votes/players when CONNECT event is fired', () => {
-    socketMock.emit(CONNECT, {
-      votes: {
-        Simon: 5,
-        Steve: 10
+  it('should dispatch newPlayer with the players when GAME_UPDATED event is fired', () => {
+    socketMock.emit(GAME_UPDATED, {
+      game: {
+        123: {
+          name: 'Simon',
+          vote: 5
+        },
+        456: {
+          name: 'Susan',
+          vote: 10
+        }
       }
     });
 
     expect(
       dispatchMock
         .firstCall
-        .calledWith(updatePlayer('Simon', 5))
+        .calledWith(newPlayer({
+          id: '123',
+          name: 'Simon',
+          vote: 5
+        }))
     ).to.be.true;
 
     expect(
       dispatchMock
         .secondCall
-        .calledWith(updatePlayer('Steve', 10))
+        .calledWith(newPlayer({
+          id: '456',
+          name: 'Susan',
+          vote: 10
+        }))
     ).to.be.true;
   });
 
-  it('should dispatch updatePlayer when PLAYER_JOINED event is fired', () => {
+  it('should dispatch newPlayer when PLAYER_JOINED event is fired', () => {
     socketMock.emit(PLAYER_JOINED, {
-      playerId: 'Steve'
+      id: 234,
+      name: 'David'
     });
 
     expect(
       dispatchMock
-        .calledWithExactly(updatePlayer('Steve'))
+        .calledWithExactly(newPlayer({
+          id: 234,
+          name: 'David'
+        }))
     ).to.be.true;
   });
 
-  it('should dispatch updatePlayer when VOTE_UPDATED event is fired', () => {
-    socketMock.emit(VOTE_UPDATED, {
-      playerId: 'Simon',
+  it('should dispatch playerVote when PLAYER_VOTED event is fired', () => {
+    socketMock.emit(PLAYER_VOTED, {
+      id: 567,
       vote: 5
     });
 
     expect(
       dispatchMock
-        .calledWithExactly(updatePlayer('Simon', 5))
+        .calledWithExactly(playerVote({
+          id: 567,
+          vote: 5
+        }))
     ).to.be.true;
   });
 
   it('should dispatch removePlayer when PLAYER_LEFT event is fired', () => {
     socketMock.emit(PLAYER_LEFT, {
-      playerId: 'Dave'
+      id: 789
     });
 
     expect(
       dispatchMock
-        .calledWithExactly(removePlayer('Dave'))
+        .calledWithExactly(removePlayer({
+          id: 789
+        }))
     ).to.be.true;
   });
 });
