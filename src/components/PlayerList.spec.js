@@ -21,10 +21,12 @@ describe('PlayerList Component', () => {
   it('renders a list of player components with the relevant props', () => {
     const votes = {
       [faker.name.firstName()]: {
+        id: faker.random.uuid(),
         name: faker.name.firstName(),
         vote: faker.random.number()
       },
       [faker.name.firstName()]: {
+        id: faker.random.uuid(),
         name: faker.name.firstName(),
         vote: faker.random.number()
       }
