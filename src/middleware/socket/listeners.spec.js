@@ -17,8 +17,35 @@ describe('Socket Middleware - Listeners', () => {
 
   beforeEach(() => {
     socketMock = new EventEmitter();
+
     dispatchMock = spy();
     socketListener(socketMock, dispatchMock);
+  });
+
+  it('omits dispatching the current user in newPlayer when GAME_UPDATED is fired', () => {
+    socketMock.id = '111';
+    socketMock.emit(GAME_UPDATED, {
+      game: {
+        111: {
+          name: 'Simon',
+          vote: 5
+        },
+        456: {
+          name: 'Susan',
+          vote: 10
+        }
+      }
+    });
+
+    expect(
+      dispatchMock
+        .calledWith(newPlayer({
+          id: '456',
+          name: 'Susan',
+          vote: 10
+        }))
+    ).to.be.true;
+    expect(dispatchMock.calledOnce).to.be.true;
   });
 
   it('should dispatch newPlayer with the players when GAME_UPDATED event is fired', () => {
