@@ -87,16 +87,20 @@ describe('Board Container', () => {
     });
 
     it('should render the VotePanel component with the options and the onVote method', () => {
+      const setVoteSpy = spy();
+
       const wrapper = connect({
         gameId: `${faker.random.number()}`
-      });
+      }, { setVote: setVoteSpy });
 
       const props = wrapper
         .find(VotePanel)
         .props();
 
       expect(props.options).to.deep.equal(VoteOptions);
-      expect(props.onVote).to.equal(wrapper.instance().props.setVote);
+
+      props.onVote('vote');
+      expect(setVoteSpy.calledWith('vote')).to.be.true;
     });
   });
 });

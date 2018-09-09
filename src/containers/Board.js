@@ -38,7 +38,7 @@ export class Board extends Component {
         <h1>Game: {gameId}</h1>
         <VotePanel
           options={voteOptions}
-          onVote={this.props.setVote}
+          onVote={vote => this.props.setVote(vote)}
         />
         <PlayerList players={players} />
       </div>
