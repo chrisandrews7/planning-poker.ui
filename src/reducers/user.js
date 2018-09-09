@@ -7,8 +7,7 @@ import {
 const initialState = Map({
   name: undefined,
   vote: undefined,
-  gameId: undefined,
-  connected: false
+  gameId: undefined
 });
 
 export default function user(state = initialState, action) {
@@ -18,8 +17,7 @@ export default function user(state = initialState, action) {
     case USER_JOINED_GAME:
       return state
         .set('gameId', action.payload.gameId)
-        .set('name', action.payload.name)
-        .set('connected', true);
+        .set('name', action.payload.name);
     default:
       return state;
   }

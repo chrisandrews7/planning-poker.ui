@@ -14,23 +14,23 @@ describe('Game Container', () => {
   );
 
   describe('mapStateToProps()', () => {
-    it('should return the loading status', () => {
+    it('should return the gameId', () => {
       const mockState = {
         user: {
-          loading: true
+          gameId: 'game12345'
         }
       };
 
       expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
-        loading: true
+        gameId: 'game12345'
       });
     });
   });
 
   describe('Game', () => {
-    it('should render the Board if its loading', () => {
+    it('should render the Board if a gameId is provided', () => {
       const props = {
-        loading: true
+        gameId: 'game12345'
       };
       const wrapper = connect(undefined, props);
 
@@ -42,9 +42,9 @@ describe('Game Container', () => {
       expect(wrapper.contains(<JoinContainer />)).to.be.false;
     });
 
-    it('should render the Join if its not loading', () => {
+    it('should render the Join if no gameId is provided', () => {
       const props = {
-        loading: false
+        gameId: undefined
       };
       const wrapper = connect(undefined, props);
 

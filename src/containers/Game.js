@@ -5,16 +5,20 @@ import JoinContainer from '../containers/Join';
 import BoardContainer from '../containers/Board';
 
 export const mapStateToProps = state => ({
-  loading: state.getIn(['user', 'loading'])
+  gameId: state.getIn(['user', 'gameId'])
 });
 
 export class Game extends Component {
   static propTypes = {
-    loading: PropTypes.bool.isRequired
+    gameId: PropTypes.string
+  }
+
+  static defaultProps = {
+    gameId: undefined
   }
 
   render() {
-    if (this.props.loading === true) {
+    if (this.props.gameId) {
       return <BoardContainer {...this.props} />;
     }
 

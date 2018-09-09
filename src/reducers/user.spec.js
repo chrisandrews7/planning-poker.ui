@@ -9,8 +9,7 @@ describe('User Reducer', () => {
     expect(reducer(undefined, {})).to.deep.equal(Map({
       name: undefined,
       vote: undefined,
-      gameId: undefined,
-      connected: false
+      gameId: undefined
     }));
   });
 
@@ -40,8 +39,7 @@ describe('User Reducer', () => {
     const expectedOutput = fromJS({
       gameId,
       name,
-      vote: undefined,
-      connected: true
+      vote: undefined
     });
 
     expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
