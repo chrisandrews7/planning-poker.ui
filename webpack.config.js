@@ -18,11 +18,13 @@ module.exports = {
         ]
       },
       {
-        test: /\.css$/,
+        test: /\.less|css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            'css-loader'
+              'css-loader',
+              'autoprefixer-loader',
+              'less-loader'
           ]
         })
       },

@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Card from './Card';
 
 const VotePanel = ({ options, onVote }) => (
   <div className="vote-panel">
     {options.map(value => (
-      <button key={`option-${value}`} onClick={() => onVote(value)}>
-        {value}
-      </button>
+      <Card key={`option-${value}`} onClick={() => onVote(value)} value={value} />
     ))}
   </div>
 );

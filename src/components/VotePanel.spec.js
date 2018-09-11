@@ -3,13 +3,14 @@ import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import React from 'react';
 import VotePanel from './VotePanel';
+import Card from './Card';
 
 describe('VotePanel Component', () => {
   it('renders a list of vote buttons using the options prop values', () => {
     const options = ['1', '5', '13'];
     const wrapper = shallow(<VotePanel options={options} onVote={() => {}} />);
 
-    const voteOptions = wrapper.find('button').map(node => node.text());
+    const voteOptions = wrapper.find(Card).map(node => node.props().value);
     expect(voteOptions).to.deep.equal(options);
   });
 
@@ -19,7 +20,7 @@ describe('VotePanel Component', () => {
       const callbackSpy = spy();
       const wrapper = mount(<VotePanel options={options} onVote={callbackSpy} />);
 
-      wrapper.find('button').simulate('click');
+      wrapper.find(Card).simulate('click');
       expect(callbackSpy).to.have.been.calledWith('13');
     });
   });

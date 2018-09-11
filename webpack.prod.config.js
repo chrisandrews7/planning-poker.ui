@@ -10,7 +10,7 @@ module.exports = merge(baseConfig, {
       name: 'commons',
       filename: 'vendor.js',
       minChunks: function(module) {
-        if (module.resource && (/^.*\css|scss$/).test(module.resource)) {
+        if (module.resource && (/^.*\css|less$/).test(module.resource)) {
           return false;
         }
         return module.context && module.context.indexOf('node_modules') !== -1;
