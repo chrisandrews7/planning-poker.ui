@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import Card from './Card';
+import Card from '.';
 
 describe('Card Component', () => {
   it('renders a card', () => {
