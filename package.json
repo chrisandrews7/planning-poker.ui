@@ -29,8 +29,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
-    "socket.io-client": "^2.0.3",
-    "uuid": "^3.1.0"
+    "socket.io-client": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -51,7 +50,6 @@
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.0.1",
     "extract-text-webpack-plugin": "^3.0.0",
-    "faker": "^4.1.0",
     "html-webpack-plugin": "^2.30.1",
     "http-status": "^1.0.1",
     "jest": "^20.0.4",
@@ -60,6 +58,7 @@
     "regenerator-runtime": "^0.10.5",
     "rimraf": "^2.6.1",
     "sinon": "^3.0.0",
+    "sinon-chai": "^3.2.0",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1",
     "webpack-merge": "^4.1.0"

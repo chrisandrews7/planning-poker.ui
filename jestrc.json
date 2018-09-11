@@ -3,5 +3,6 @@
     "/node_modules/",
     "/test/"
   ],
-  "coverageDirectory": "./coverage/"
+  "coverageDirectory": "./coverage/",
+  "setupFiles": ["<rootDir>/test/setup.js"]
 }

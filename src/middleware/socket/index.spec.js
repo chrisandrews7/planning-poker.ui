@@ -21,13 +21,13 @@ describe('Socket Middleware', () => {
     const mockSocket = spy();
     socket(mockSocket)(mockStore)(() => {})();
 
-    expect(stubListeners.calledWithExactly(mockSocket, mockStore.dispatch)).to.be.ok;
+    expect(stubListeners).to.have.been.calledWithExactly(mockSocket, mockStore.dispatch);
   });
 
   it('invokes the next action', () => {
     const mockNext = spy();
     socket()(mockStore)(mockNext)('action');
 
-    expect(mockNext.calledWith('action')).to.be.ok;
+    expect(mockNext).to.have.been.calledWith('action');
   });
 });

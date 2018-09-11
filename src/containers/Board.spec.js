@@ -45,7 +45,7 @@ describe('Board Container', () => {
       const fakeDispatch = spy();
 
       mapDispatchToProps(fakeDispatch);
-      expect(bindACStub.calledWith({ setVote }, fakeDispatch)).to.be.true;
+      expect(bindACStub).to.have.been.calledWith({ setVote }, fakeDispatch);
     });
   });
 
@@ -99,7 +99,7 @@ describe('Board Container', () => {
       expect(props.options).to.deep.equal(VoteOptions);
 
       props.onVote('vote');
-      expect(setVoteSpy.calledWith('vote')).to.be.true;
+      expect(setVoteSpy).to.have.been.calledWith('vote');
     });
   });
 });

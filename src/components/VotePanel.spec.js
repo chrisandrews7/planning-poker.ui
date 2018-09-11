@@ -20,7 +20,7 @@ describe('VotePanel Component', () => {
       const wrapper = mount(<VotePanel options={options} onVote={callbackSpy} />);
 
       wrapper.find('button').simulate('click');
-      expect(callbackSpy.calledWith('13')).to.equal(true);
+      expect(callbackSpy).to.have.been.calledWith('13');
     });
   });
 });

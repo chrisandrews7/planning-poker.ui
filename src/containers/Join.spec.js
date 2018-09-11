@@ -23,9 +23,9 @@ describe('Join Container', () => {
       const fakeDispatch = spy();
 
       mapDispatchToProps(fakeDispatch);
-      expect(bindACStub.calledWith({
+      expect(bindACStub).to.have.been.calledWith({
         joinGame
-      }, fakeDispatch)).to.be.ok;
+      }, fakeDispatch);
     });
   });
 
@@ -41,9 +41,9 @@ describe('Join Container', () => {
         wrapper.find('input').simulate('change', { target: { value: name } });
 
         wrapper.find('button').simulate('click');
-        expect(joinGameSpy.calledWith(match({
+        expect(joinGameSpy).to.have.been.calledWith(match({
           name
-        }))).to.be.true;
+        }));
       });
 
       it('invokes joinGame with the gameId url param', () => {
@@ -59,9 +59,9 @@ describe('Join Container', () => {
         });
 
         wrapper.find('button').simulate('click');
-        expect(joinGameSpy.calledWith(match({
+        expect(joinGameSpy).to.have.been.calledWith(match({
           gameId
-        }))).to.be.true;
+        }));
       });
     });
   });

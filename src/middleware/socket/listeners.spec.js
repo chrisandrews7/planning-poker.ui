@@ -42,15 +42,12 @@ describe('Socket Middleware - Listeners', () => {
         }
       });
 
-      expect(
-      dispatchSpy
-        .calledWith(newPlayer({
-          id: '456',
-          name: 'Susan',
-          vote: 10
-        }))
-    ).to.be.true;
-      expect(dispatchSpy.calledOnce).to.be.true;
+      expect(dispatchSpy).to.have.been.calledWith(newPlayer({
+        id: '456',
+        name: 'Susan',
+        vote: 10
+      }));
+      expect(dispatchSpy).to.have.been.calledOnce;
     });
 
     it('dispatches newPlayer() with the players', () => {
@@ -67,25 +64,16 @@ describe('Socket Middleware - Listeners', () => {
         }
       });
 
-      expect(
-        dispatchSpy
-          .firstCall
-          .calledWith(newPlayer({
-            id: '123',
-            name: 'Simon',
-            vote: 5
-          }))
-      ).to.be.true;
-
-      expect(
-        dispatchSpy
-          .secondCall
-          .calledWith(newPlayer({
-            id: '456',
-            name: 'Susan',
-            vote: 10
-          }))
-      ).to.be.true;
+      expect(dispatchSpy.firstCall).to.have.been.calledWith(newPlayer({
+        id: '123',
+        name: 'Simon',
+        vote: 5
+      }));
+      expect(dispatchSpy.secondCall).to.have.been.calledWith(newPlayer({
+        id: '456',
+        name: 'Susan',
+        vote: 10
+      }));
     });
   });
 
@@ -96,13 +84,10 @@ describe('Socket Middleware - Listeners', () => {
         name: 'David'
       });
 
-      expect(
-      dispatchSpy
-        .calledWithExactly(newPlayer({
-          id: 234,
-          name: 'David'
-        }))
-    ).to.be.true;
+      expect(dispatchSpy).to.have.been.calledWithExactly(newPlayer({
+        id: 234,
+        name: 'David'
+      }));
     });
   });
 
@@ -113,13 +98,10 @@ describe('Socket Middleware - Listeners', () => {
         vote: 5
       });
 
-      expect(
-      dispatchSpy
-        .calledWithExactly(playerVote({
-          id: 567,
-          vote: 5
-        }))
-    ).to.be.true;
+      expect(dispatchSpy).to.have.been.calledWithExactly(playerVote({
+        id: 567,
+        vote: 5
+      }));
     });
   });
 
@@ -129,12 +111,9 @@ describe('Socket Middleware - Listeners', () => {
         id: 789
       });
 
-      expect(
-      dispatchSpy
-        .calledWithExactly(removePlayer({
-          id: 789
-        }))
-    ).to.be.true;
+      expect(dispatchSpy).to.have.been.calledWithExactly(removePlayer({
+        id: 789
+      }));
     });
   });
 });

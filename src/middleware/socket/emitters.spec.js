@@ -22,14 +22,10 @@ describe('Socket Middleware - Emitters', () => {
       });
       socketEmitter(socketMock)()(() => {})(action);
 
-      expect(
-        socketMock
-          .emit
-          .calledWithExactly(JOIN, {
-            name: action.payload.name,
-            gameId: action.payload.gameId
-          })
-      ).to.be.true;
+      expect(socketMock.emit).to.have.been.calledWithExactly(JOIN, {
+        name: action.payload.name,
+        gameId: action.payload.gameId
+      });
     });
   });
 
@@ -40,13 +36,9 @@ describe('Socket Middleware - Emitters', () => {
       });
       socketEmitter(socketMock)()(() => {})(action);
 
-      expect(
-      socketMock
-        .emit
-        .calledWithExactly(VOTE, {
-          vote: action.payload.vote
-        })
-    ).to.be.true;
+      expect(socketMock.emit).to.have.been.calledWithExactly(VOTE, {
+        vote: action.payload.vote
+      });
     });
   });
 
@@ -57,11 +49,7 @@ describe('Socket Middleware - Emitters', () => {
       };
       socketEmitter(socketMock)()(() => {})(action);
 
-      expect(
-      socketMock
-        .emit
-        .notCalled
-    ).to.be.true;
+      expect(socketMock.emit).to.have.not.been.called;
     });
   });
 
@@ -69,6 +57,6 @@ describe('Socket Middleware - Emitters', () => {
     const mockNext = spy();
     socketEmitter(socketMock)()(mockNext)('action');
 
-    expect(mockNext.calledWith('action')).to.be.ok;
+    expect(mockNext).to.have.been.calledWith('action');
   });
 });
