@@ -10,13 +10,11 @@ import {
 export default (socket, dispatch) => {
   socket.on(GAME_UPDATED, ({ game }) => {
     each(game, ({ vote, name }, id) => {
-      if (id !== socket.id) {
-        dispatch(newPlayer({
-          id,
-          name,
-          vote
-        }));
-      }
+      dispatch(newPlayer({
+        id,
+        name,
+        vote
+      }));
     });
   });
 

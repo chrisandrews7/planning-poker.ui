@@ -14,7 +14,7 @@ describe('Game Container', () => {
   );
 
   describe('mapStateToProps()', () => {
-    it('should return the gameId', () => {
+    it('returns the gameId', () => {
       const mockState = {
         user: {
           gameId: 'game12345'
@@ -28,32 +28,36 @@ describe('Game Container', () => {
   });
 
   describe('Game', () => {
-    it('should render the Board if a gameId is provided', () => {
-      const props = {
-        gameId: 'game12345'
-      };
-      const wrapper = connect(undefined, props);
+    describe('when a gameId prop is provided', () => {
+      it('renders the Board container', () => {
+        const props = {
+          gameId: 'game12345'
+        };
+        const wrapper = connect(undefined, props);
 
-      expect(
-        wrapper
-          .find(BoardContainer)
-          .props()
-      ).to.equal(wrapper.props());
-      expect(wrapper.contains(<JoinContainer />)).to.be.false;
+        expect(
+          wrapper
+            .find(BoardContainer)
+            .props()
+        ).to.equal(wrapper.props());
+        expect(wrapper.contains(<JoinContainer />)).to.be.false;
+      });
     });
 
-    it('should render the Join if no gameId is provided', () => {
-      const props = {
-        gameId: undefined
-      };
-      const wrapper = connect(undefined, props);
+    describe('when a gameId prop is not provided', () => {
+      it('renders the Join container', () => {
+        const props = {
+          gameId: undefined
+        };
+        const wrapper = connect(undefined, props);
 
-      expect(
+        expect(
         wrapper
           .find(JoinContainer)
           .props()
       ).to.equal(wrapper.props());
-      expect(wrapper.contains(<BoardContainer />)).to.be.false;
+        expect(wrapper.contains(<BoardContainer />)).to.be.false;
+      });
     });
   });
 });

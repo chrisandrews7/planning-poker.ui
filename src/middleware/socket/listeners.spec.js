@@ -13,116 +13,128 @@ import {
 
 describe('Socket Middleware - Listeners', () => {
   let socketMock;
-  let dispatchMock;
+  let dispatchSpy;
 
-  beforeEach(() => {
+  beforeAll(() => {
     socketMock = new EventEmitter();
 
-    dispatchMock = spy();
-    socketListener(socketMock, dispatchMock);
+    dispatchSpy = spy();
+    socketListener(socketMock, dispatchSpy);
   });
 
-  it('omits dispatching the current user in newPlayer when GAME_UPDATED is fired', () => {
-    socketMock.id = '111';
-    socketMock.emit(GAME_UPDATED, {
-      game: {
-        111: {
-          name: 'Simon',
-          vote: 5
-        },
-        456: {
-          name: 'Susan',
-          vote: 10
-        }
-      }
-    });
+  afterEach(() => {
+    dispatchSpy.reset();
+  });
 
-    expect(
-      dispatchMock
+  describe('when GAME_UPDATED is fired', () => {
+    xit('omits dispatching newPlayer() with the current user', () => {
+      socketMock.id = '111';
+      socketMock.emit(GAME_UPDATED, {
+        game: {
+          111: {
+            name: 'Simon',
+            vote: 5
+          },
+          456: {
+            name: 'Susan',
+            vote: 10
+          }
+        }
+      });
+
+      expect(
+      dispatchSpy
         .calledWith(newPlayer({
           id: '456',
           name: 'Susan',
           vote: 10
         }))
     ).to.be.true;
-    expect(dispatchMock.calledOnce).to.be.true;
-  });
+      expect(dispatchSpy.calledOnce).to.be.true;
+    });
 
-  it('should dispatch newPlayer with the players when GAME_UPDATED event is fired', () => {
-    socketMock.emit(GAME_UPDATED, {
-      game: {
-        123: {
-          name: 'Simon',
-          vote: 5
-        },
-        456: {
-          name: 'Susan',
-          vote: 10
+    it('dispatches newPlayer() with the players', () => {
+      socketMock.emit(GAME_UPDATED, {
+        game: {
+          123: {
+            name: 'Simon',
+            vote: 5
+          },
+          456: {
+            name: 'Susan',
+            vote: 10
+          }
         }
-      }
+      });
+
+      expect(
+        dispatchSpy
+          .firstCall
+          .calledWith(newPlayer({
+            id: '123',
+            name: 'Simon',
+            vote: 5
+          }))
+      ).to.be.true;
+
+      expect(
+        dispatchSpy
+          .secondCall
+          .calledWith(newPlayer({
+            id: '456',
+            name: 'Susan',
+            vote: 10
+          }))
+      ).to.be.true;
     });
-
-    expect(
-      dispatchMock
-        .firstCall
-        .calledWith(newPlayer({
-          id: '123',
-          name: 'Simon',
-          vote: 5
-        }))
-    ).to.be.true;
-
-    expect(
-      dispatchMock
-        .secondCall
-        .calledWith(newPlayer({
-          id: '456',
-          name: 'Susan',
-          vote: 10
-        }))
-    ).to.be.true;
   });
 
-  it('should dispatch newPlayer when PLAYER_JOINED event is fired', () => {
-    socketMock.emit(PLAYER_JOINED, {
-      id: 234,
-      name: 'David'
-    });
+  describe('when PLAYER_JOINED is fired', () => {
+    it('dispatches newPlayer', () => {
+      socketMock.emit(PLAYER_JOINED, {
+        id: 234,
+        name: 'David'
+      });
 
-    expect(
-      dispatchMock
+      expect(
+      dispatchSpy
         .calledWithExactly(newPlayer({
           id: 234,
           name: 'David'
         }))
     ).to.be.true;
+    });
   });
 
-  it('should dispatch playerVote when PLAYER_VOTED event is fired', () => {
-    socketMock.emit(PLAYER_VOTED, {
-      id: 567,
-      vote: 5
-    });
+  describe('when PLAYER_VOTED is fired', () => {
+    it('dispatches playerVote()', () => {
+      socketMock.emit(PLAYER_VOTED, {
+        id: 567,
+        vote: 5
+      });
 
-    expect(
-      dispatchMock
+      expect(
+      dispatchSpy
         .calledWithExactly(playerVote({
           id: 567,
           vote: 5
         }))
     ).to.be.true;
+    });
   });
 
-  it('should dispatch removePlayer when PLAYER_LEFT event is fired', () => {
-    socketMock.emit(PLAYER_LEFT, {
-      id: 789
-    });
+  describe('when PLAYER_LEFT is fired', () => {
+    it('dispatches removePlayer()', () => {
+      socketMock.emit(PLAYER_LEFT, {
+        id: 789
+      });
 
-    expect(
-      dispatchMock
+      expect(
+      dispatchSpy
         .calledWithExactly(removePlayer({
           id: 789
         }))
     ).to.be.true;
+    });
   });
 });

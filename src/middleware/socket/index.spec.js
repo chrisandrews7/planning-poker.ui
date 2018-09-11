@@ -17,14 +17,14 @@ describe('Socket Middleware', () => {
     stubListeners.restore();
   });
 
-  it('should start listening to events', () => {
+  it('starts listening to events', () => {
     const mockSocket = spy();
     socket(mockSocket)(mockStore)(() => {})();
 
     expect(stubListeners.calledWithExactly(mockSocket, mockStore.dispatch)).to.be.ok;
   });
 
-  it('should call the next action', () => {
+  it('invokes the next action', () => {
     const mockNext = spy();
     socket()(mockStore)(mockNext)('action');
 

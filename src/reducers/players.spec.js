@@ -1,18 +1,17 @@
 import { expect } from 'chai';
-import faker from 'faker';
 import { Map, fromJS } from 'immutable';
 import reducer from './players';
 import * as types from '../constants/actionTypes';
 
 describe('Players Reducer', () => {
-  it('should return the initial state', () => {
+  it('returns the initial state', () => {
     expect(reducer(undefined, {})).to.equal(Map());
   });
 
-  it('should handle PLAYER_JOINED', () => {
-    const id = faker.random.uuid();
-    const name = faker.name.firstName();
-    const vote = faker.random.number();
+  it('handles PLAYER_JOINED', () => {
+    const id = '123456';
+    const name = 'Susan';
+    const vote = 20;
 
     const action = {
       type: types.PLAYER_JOINED,
@@ -33,10 +32,10 @@ describe('Players Reducer', () => {
   });
 
   it('should handle PLAYER_LEFT', () => {
-    const id = faker.random.uuid();
+    const id = '45678';
     const initialState = fromJS({
       [id]: {
-        name: faker.name.firstName()
+        name: 'Julie'
       }
     });
 
@@ -51,12 +50,12 @@ describe('Players Reducer', () => {
   });
 
   it('should handle PLAYER_VOTED', () => {
-    const id = faker.random.uuid();
-    const vote = faker.random.number();
+    const id = '987654';
+    const vote = 13;
 
     const initialState = fromJS({
       [id]: {
-        name: faker.name.firstName(),
+        name: 'Brian',
         vote: undefined
       }
     });

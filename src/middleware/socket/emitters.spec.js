@@ -14,54 +14,58 @@ describe('Socket Middleware - Emitters', () => {
     socketMock.emit.reset();
   });
 
-  it('should emit a JOIN event when a USER_JOINED_GAME action is dispatched', () => {
-    const action = joinGame({
-      name: 'Sharon',
-      gameId: 345678
+  describe('when a USER_JOINED_GAME action is fired', () => {
+    it('emits a JOIN event', () => {
+      const action = joinGame({
+        name: 'Sharon',
+        gameId: 345678
+      });
+      socketEmitter(socketMock)()(() => {})(action);
+
+      expect(
+        socketMock
+          .emit
+          .calledWithExactly(JOIN, {
+            name: action.payload.name,
+            gameId: action.payload.gameId
+          })
+      ).to.be.true;
     });
-    socketEmitter(socketMock)()(() => {})(action);
-
-
-    expect(
-      socketMock
-        .emit
-        .calledWithExactly(JOIN, {
-          name: action.payload.name,
-          gameId: action.payload.gameId
-        })
-    ).to.be.true;
   });
 
-  it('should emit a VOTE event when a USER_VOTED action is dispatched', () => {
-    const action = setVote({
-      vote: 13
-    });
-    socketEmitter(socketMock)()(() => {})(action);
+  describe('when a USER_VOTED action is fired', () => {
+    it('emits a VOTE event', () => {
+      const action = setVote({
+        vote: 13
+      });
+      socketEmitter(socketMock)()(() => {})(action);
 
-
-    expect(
+      expect(
       socketMock
         .emit
         .calledWithExactly(VOTE, {
           vote: action.payload.vote
         })
     ).to.be.true;
+    });
   });
 
-  it('should emit nothing if the action isnt USER_JOINED_GAME or USER_VOTED', () => {
-    const action = {
-      type: 'ANOTHER_ACTION_TYPE'
-    };
-    socketEmitter(socketMock)()(() => {})(action);
+  describe('when an action isnt USER_JOINED_GAME or USER_VOTED', () => {
+    it('emits nothing ', () => {
+      const action = {
+        type: 'ANOTHER_ACTION_TYPE'
+      };
+      socketEmitter(socketMock)()(() => {})(action);
 
-    expect(
+      expect(
       socketMock
         .emit
         .notCalled
     ).to.be.true;
+    });
   });
 
-  it('should call the next action', () => {
+  it('should invoke the next action', () => {
     const mockNext = spy();
     socketEmitter(socketMock)()(mockNext)('action');
 

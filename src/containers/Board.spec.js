@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import faker from 'faker';
 import { spy, stub } from 'sinon';
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -24,12 +23,12 @@ describe('Board Container', () => {
   );
 
   describe('mapStateToProps()', () => {
-    it('should return the players and gameId', () => {
+    it('returns the players and gameId', () => {
       stub(playerSelectors, 'selectAllPlayers').returns('players');
       const mockState = {
         players: {},
         user: {
-          gameId: `${faker.random.number()}`
+          gameId: 'Game123'
         }
       };
 
@@ -41,7 +40,7 @@ describe('Board Container', () => {
   });
 
   describe('mapDispatchToProps()', () => {
-    it('should return setVote bound to the dispatch', () => {
+    it('returns setVote bound to the dispatch', () => {
       const bindACStub = stub(redux, 'bindActionCreators');
       const fakeDispatch = spy();
 
@@ -51,8 +50,8 @@ describe('Board Container', () => {
   });
 
   describe('Board', () => {
-    it('should render the game ID', () => {
-      const gameId = `${faker.random.number()}`;
+    it('renders the game ID', () => {
+      const gameId = 'Game456';
       const state = {
         gameId
       };
@@ -65,16 +64,16 @@ describe('Board Container', () => {
       ).to.equal(`Game: ${gameId}`);
     });
 
-    it('should render the PlayerList component with the list of players', () => {
+    it('renders the PlayerList component with the list of players', () => {
       const expectedResults = {
-        [faker.name.firstName()]: {
-          name: faker.name.firstName(),
-          vote: faker.random.number()
+        1234: {
+          name: 'Usain',
+          vote: 15
         }
       };
       const state = {
         players: expectedResults,
-        gameId: `${faker.random.number()}`
+        gameId: 'Game789'
       };
       const wrapper = connect(state);
 
@@ -86,11 +85,11 @@ describe('Board Container', () => {
       ).to.deep.equal(expectedResults);
     });
 
-    it('should render the VotePanel component with the options and the onVote method', () => {
+    it('renders the VotePanel component with the options and the onVote method', () => {
       const setVoteSpy = spy();
 
       const wrapper = connect({
-        gameId: `${faker.random.number()}`
+        gameId: 'Game9876'
       }, { setVote: setVoteSpy });
 
       const props = wrapper

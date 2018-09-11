@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { spy, stub, match } from 'sinon';
-import faker from 'faker';
 import React from 'react';
 import * as redux from 'redux';
 import { joinGame } from '../actions/user';
@@ -19,7 +18,7 @@ describe('Join Container', () => {
   );
 
   describe('mapDispatchToProps()', () => {
-    it('should return the actions bound to the dispatch', () => {
+    it('returns the actions bound to the dispatch', () => {
       const bindACStub = stub(redux, 'bindActionCreators');
       const fakeDispatch = spy();
 
@@ -32,8 +31,8 @@ describe('Join Container', () => {
 
   describe('Join', () => {
     describe('when the join button is clicked', () => {
-      it('should call joinGame with the users name', () => {
-        const name = faker.name.firstName();
+      it('invokes joinGame with the users name', () => {
+        const name = 'Olga';
         const joinGameSpy = spy();
         const wrapper = connect({}, {
           joinGame: joinGameSpy
@@ -47,8 +46,8 @@ describe('Join Container', () => {
         }))).to.be.true;
       });
 
-      it('should call joinGame with the gameId url param', () => {
-        const gameId = faker.random.uuid();
+      it('invokes joinGame with the gameId url param', () => {
+        const gameId = 'Game1234';
         const joinGameSpy = spy();
         const wrapper = connect({}, {
           joinGame: joinGameSpy,
