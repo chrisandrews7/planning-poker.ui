@@ -1,6 +1,6 @@
-import listeners from './listeners';
+import subscribe from './subscribe';
 
 export default socket => (store) => {
-  listeners(socket, store.dispatch);
+  subscribe(socket, store.dispatch);
   return next => action => next(action);
 };

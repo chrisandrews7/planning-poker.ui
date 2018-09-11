@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { spy } from 'sinon';
 import { EventEmitter } from 'events';
 
-import socketListener from './listeners';
+import subscribe from './subscribe';
 import { newPlayer, playerVote, removePlayer } from '../../actions/players';
 import {
   PLAYER_JOINED,
@@ -11,7 +11,7 @@ import {
   GAME_UPDATED
 } from '../../constants/eventTypes';
 
-describe('Socket Middleware - Listeners', () => {
+describe('Socket Middleware - Subscribe', () => {
   let socketMock;
   let dispatchSpy;
 
@@ -19,7 +19,7 @@ describe('Socket Middleware - Listeners', () => {
     socketMock = new EventEmitter();
 
     dispatchSpy = spy();
-    socketListener(socketMock, dispatchSpy);
+    subscribe(socketMock, dispatchSpy);
   });
 
   afterEach(() => {

@@ -3,9 +3,9 @@ import { spy } from 'sinon';
 import { joinGame, setVote } from '../../actions/user';
 import { VOTE, JOIN } from '../../constants/eventTypes';
 
-import socketEmitter from './emitters';
+import publish from './publish';
 
-describe('Socket Middleware - Emitters', () => {
+describe('Socket Middleware - Publish', () => {
   const socketMock = {
     emit: spy()
   };
@@ -20,7 +20,7 @@ describe('Socket Middleware - Emitters', () => {
         name: 'Sharon',
         gameId: 345678
       });
-      socketEmitter(socketMock)()(() => {})(action);
+      publish(socketMock)()(() => {})(action);
 
       expect(socketMock.emit).to.have.been.calledWithExactly(JOIN, {
         name: action.payload.name,
@@ -34,7 +34,7 @@ describe('Socket Middleware - Emitters', () => {
       const action = setVote({
         vote: 13
       });
-      socketEmitter(socketMock)()(() => {})(action);
+      publish(socketMock)()(() => {})(action);
 
       expect(socketMock.emit).to.have.been.calledWithExactly(VOTE, {
         vote: action.payload.vote
@@ -47,7 +47,7 @@ describe('Socket Middleware - Emitters', () => {
       const action = {
         type: 'ANOTHER_ACTION_TYPE'
       };
-      socketEmitter(socketMock)()(() => {})(action);
+      publish(socketMock)()(() => {})(action);
 
       expect(socketMock.emit).to.have.not.been.called;
     });
@@ -55,7 +55,7 @@ describe('Socket Middleware - Emitters', () => {
 
   it('should invoke the next action', () => {
     const mockNext = spy();
-    socketEmitter(socketMock)()(mockNext)('action');
+    publish(socketMock)()(mockNext)('action');
 
     expect(mockNext).to.have.been.calledWith('action');
   });

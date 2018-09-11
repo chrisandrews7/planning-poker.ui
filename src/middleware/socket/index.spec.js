@@ -1,27 +1,27 @@
 import { expect } from 'chai';
 import { spy, stub } from 'sinon';
-import * as listeners from './listeners';
+import * as subscribe from './subscribe';
 import socket from './';
 
 describe('Socket Middleware', () => {
-  let stubListeners;
+  let stubSubscribe;
   const mockStore = {
     dispatch: spy()
   };
 
   beforeAll(() => {
-    stubListeners = stub(listeners, 'default');
+    stubSubscribe = stub(subscribe, 'default');
   });
 
   afterAll(() => {
-    stubListeners.restore();
+    stubSubscribe.restore();
   });
 
   it('starts listening to events', () => {
     const mockSocket = spy();
     socket(mockSocket)(mockStore)(() => {})();
 
-    expect(stubListeners).to.have.been.calledWithExactly(mockSocket, mockStore.dispatch);
+    expect(stubSubscribe).to.have.been.calledWithExactly(mockSocket, mockStore.dispatch);
   });
 
   it('invokes the next action', () => {
