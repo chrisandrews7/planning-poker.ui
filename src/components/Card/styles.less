@@ -1,3 +1,46 @@
+@card-padding: 5px;
+
 .card {
-  color: blue;
+  border: 1px solid grey;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 15px 15px 0;
+  position: relative;
+  padding: 75px 55px;
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+
+  &:before,
+	&:after {
+		content: attr(value);
+		position: absolute;
+  }
+
+  &:before {
+		top: @card-padding;
+		left: @card-padding;
+	}
+	
+	&:after {
+		bottom: @card-padding;
+		right: @card-padding;
+		transform: rotate(180deg);
+  }
+
+  &:hover {
+    background:	#F0F0F0;
+  }
+  
+  &__centre {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 25px;
+    height: 30px;
+    font-size: 2rem;
+  }
 }
