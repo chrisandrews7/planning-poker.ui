@@ -11,7 +11,7 @@ describe('Socket Middleware - Publish', () => {
   };
 
   afterEach(() => {
-    socketMock.emit.reset();
+    socketMock.emit.resetHistory();
   });
 
   describe('when a USER_JOINED_GAME action is fired', () => {

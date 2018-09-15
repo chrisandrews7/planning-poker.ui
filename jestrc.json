@@ -1,8 +1,6 @@
 {
-  "coveragePathIgnorePatterns": [
-    "/node_modules/",
-    "/test/"
-  ],
-  "coverageDirectory": "./coverage/",
-  "setupFiles": ["<rootDir>/test/setup.js"]
+  "setupFiles": ["<rootDir>/test/setup.js"],
+  "moduleNameMapper": {
+    "\\.(css|less)$": "identity-obj-proxy"
+  }
 }

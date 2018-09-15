@@ -16,6 +16,7 @@ const SERVER_URL = config.get('SERVER_URL');
 const socket = io(SERVER_URL);
 const store = configureStore(undefined, socket);
 
+
 render(
   <Provider store={store}>
     <Router>

@@ -1,11 +1,11 @@
-var webpack = require('webpack');
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './src/index.js'
   ],
   module: {
@@ -18,15 +18,12 @@ module.exports = {
         ]
       },
       {
-        test: /\.less|css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-              'css-loader',
-              'autoprefixer-loader',
-              'less-loader'
-          ]
-        })
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader',
+        ]
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
@@ -46,7 +43,6 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       title: 'Planning Poker'
     }),
@@ -55,6 +51,10 @@ module.exports = {
         o[k] = JSON.stringify(process.env[k]);
         return o;
       }, {})
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
     })
   ]
 };

@@ -18,20 +18,17 @@ export default (socket, dispatch) => {
     });
   });
 
-  socket.on(PLAYER_JOINED, ({ id, name }) =>
-    dispatch(newPlayer({
-      id,
-      name
-    })));
+  socket.on(PLAYER_JOINED, ({ id, name }) => dispatch(newPlayer({
+    id,
+    name
+  })));
 
-  socket.on(PLAYER_VOTED, ({ id, vote }) =>
-    dispatch(playerVote({
-      id,
-      vote
-    })));
+  socket.on(PLAYER_VOTED, ({ id, vote }) => dispatch(playerVote({
+    id,
+    vote
+  })));
 
-  socket.on(PLAYER_LEFT, ({ id }) =>
-    dispatch(removePlayer({
-      id
-    })));
+  socket.on(PLAYER_LEFT, ({ id }) => dispatch(removePlayer({
+    id
+  })));
 };

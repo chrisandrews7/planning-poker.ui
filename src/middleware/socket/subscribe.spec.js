@@ -23,7 +23,7 @@ describe('Socket Middleware - Subscribe', () => {
   });
 
   afterEach(() => {
-    dispatchSpy.reset();
+    dispatchSpy.resetHistory();
   });
 
   describe('when GAME_UPDATED is fired', () => {

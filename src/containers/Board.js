@@ -13,8 +13,7 @@ export const mapStateToProps = state => ({
   gameId: state.getIn(['user', 'gameId'])
 });
 
-export const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setVote }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({ setVote }, dispatch);
 
 export class Board extends Component {
   static propTypes = {
@@ -35,7 +34,9 @@ export class Board extends Component {
     const { players, gameId } = this.props;
     return (
       <div>
-        <h1>Game: {gameId}</h1>
+        <h1>
+          {`Game: ${gameId}`}
+        </h1>
         <VotePanel
           options={voteOptions}
           onVote={vote => this.props.setVote(vote)}

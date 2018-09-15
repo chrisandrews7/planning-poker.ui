@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Player = props => (
+const Player = ({ name, vote }) => (
   <div className="player">
-    <div className="player__name">{props.name}</div>
-    <div className="player__vote">{props.vote}</div>
+    <div className="player__name">{name}</div>
+    <div className="player__vote">{vote}</div>
   </div>
 );
 

@@ -5,8 +5,7 @@ import { bindActionCreators } from 'redux';
 import { joinGame } from '../actions/user';
 import { ENTER_NAME } from '../constants/dictionary';
 
-export const mapDispatchToProps = dispatch =>
-  bindActionCreators({ joinGame }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({ joinGame }, dispatch);
 
 export class Join extends Component {
   static propTypes = {
@@ -49,6 +48,7 @@ export class Join extends Component {
           onChange={this.setName}
         />
         <button
+          type="button"
           onClick={this.joinGame}
         >
           Join

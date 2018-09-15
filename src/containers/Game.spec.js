@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { fromJS } from 'immutable';
 import { mapStateToProps, Game } from './Game';
-import BoardContainer from '../containers/Board';
-import JoinContainer from '../containers/Join';
+import BoardContainer from './Board';
+import JoinContainer from './Join';
 
 describe('Game Container', () => {
   const initialState = {};
@@ -52,10 +52,10 @@ describe('Game Container', () => {
         const wrapper = connect(undefined, props);
 
         expect(
-        wrapper
-          .find(JoinContainer)
-          .props()
-      ).to.equal(wrapper.props());
+          wrapper
+            .find(JoinContainer)
+            .props()
+        ).to.equal(wrapper.props());
         expect(wrapper.contains(<BoardContainer />)).to.be.false;
       });
     });

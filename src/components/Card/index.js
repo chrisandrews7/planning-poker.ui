@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles.less';
 
 const Card = props => (
   <div className="card" {...props}>

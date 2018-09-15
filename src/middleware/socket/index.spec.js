@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { spy, stub } from 'sinon';
 import * as subscribe from './subscribe';
-import socket from './';
+import socket from '.';
 
 describe('Socket Middleware', () => {
   let stubSubscribe;
@@ -14,7 +14,7 @@ describe('Socket Middleware', () => {
   });
 
   afterAll(() => {
-    stubSubscribe.restore();
+    stubSubscribe.resetHistory();
   });
 
   it('starts listening to events', () => {
