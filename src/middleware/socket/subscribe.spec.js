@@ -27,7 +27,7 @@ describe('Socket Middleware - Subscribe', () => {
   });
 
   describe('when GAME_UPDATED is fired', () => {
-    xit('omits dispatching newPlayer() with the current user', () => {
+    it('omits dispatching newPlayer() with the current user', () => {
       socketMock.id = '111';
       socketMock.emit(GAME_UPDATED, {
         game: {

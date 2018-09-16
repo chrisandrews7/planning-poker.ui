@@ -4,24 +4,24 @@ import { selectAllPlayers } from './players';
 
 describe('Players Selectors', () => {
   describe('selectAllPlayers()', () => {
-    it('returns a full list of all players', () => {
+    it('should return a full list of all players including the user', () => {
       expect(selectAllPlayers(fromJS({
         players: {
           1234: {
             name: 'Dave',
             vote: 10
-          },
-          4567: {
-            name: 'Steve',
-            vote: 5
           }
+        },
+        user: {
+          name: 'Steve',
+          vote: 5
         }
       }))).to.deep.equal({
         1234: {
           name: 'Dave',
           vote: 10
         },
-        4567: {
+        user: {
           name: 'Steve',
           vote: 5
         }
