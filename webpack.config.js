@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Planning Poker'
+      template: './src/index.html'
     }),
     new webpack.DefinePlugin({
       'process.env': Object.keys(process.env).reduce(function(o, k) {
