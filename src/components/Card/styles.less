@@ -1,20 +1,24 @@
 @card-padding: 5px;
+@card-gutter: 8px;
 
 .card {
-  border: 1px solid grey;
+  font-family: "Open Sans",sans-serif;
   cursor: pointer;
-  display: inline-block;
-  margin: 0 15px 15px 0;
+  margin: @card-gutter;
   position: relative;
-  padding: 75px 55px;
-  border-radius: 10px;
-  -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
-  box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+  display: inline-block;
+  border-radius: 5px;
+  border: 1px solid	#E8E8E8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 30px 15px;
+  text-align: center;
+  width: 70px;
 
   &:before,
 	&:after {
-		content: attr(value);
-		position: absolute;
+    content: attr(value);
+    position: absolute;
+    font-size: .8rem
   }
 
   &:before {
@@ -29,18 +33,13 @@
   }
 
   &:hover {
-    background:	#F0F0F0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
-  
+
   &__centre {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 25px;
-    height: 30px;
-    font-size: 2rem;
+    border: 1px solid#d5d9de;
+    padding: 20px 5px;
+    font-size: 2.2rem;
+    font-weight: 100;
   }
 }

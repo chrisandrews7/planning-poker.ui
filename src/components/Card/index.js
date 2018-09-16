@@ -4,7 +4,7 @@ import './styles.less';
 
 const Card = props => (
   <div className="card" {...props}>
-    <span className="card__centre">{props.value}</span>
+    <div className="card__centre">{props.value}</div>
   </div>
 );
 
