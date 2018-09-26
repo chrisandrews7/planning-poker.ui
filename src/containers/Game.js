@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import JoinContainer from './Join';
-import BoardContainer from './Board';
+import BoardContainer from './Board/index';
 
 export const mapStateToProps = state => ({
   gameId: state.getIn(['user', 'gameId'])

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Player = ({ name, vote }) => (
   <div className="player">
     <div className="player__name">{name}</div>
-    <div className="player__vote">{vote}</div>
+    <span className="player__vote">{vote}</span>
   </div>
 );
 

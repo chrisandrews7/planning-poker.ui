@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setVote } from '../actions/user';
-import PlayerList from '../components/PlayerList';
-import VotePanel from '../components/VotePanel';
-import voteOptions from '../constants/voting';
-import { selectAllPlayers } from '../selectors/players';
+import { setVote } from '../../actions/user';
+import PlayerList from '../../components/PlayerList';
+import VotePanel from '../../components/VotePanel';
+import voteOptions from '../../constants/voting';
+import { selectAllPlayers } from '../../selectors/players';
+import './styles.less';
 
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
@@ -34,14 +35,21 @@ export class Board extends Component {
     const { players, gameId } = this.props;
     return (
       <div>
-        <h1>
-          {`Game: ${gameId}`}
-        </h1>
-        <VotePanel
-          options={voteOptions}
-          onVote={vote => this.props.setVote(vote)}
-        />
-        <PlayerList players={players} />
+        <div className="board-voting">
+          <VotePanel
+            options={voteOptions}
+            onVote={vote => this.props.setVote(vote)}
+          />
+        </div>
+        <div className="board-players">
+          <div className="board-players__title">
+            {'Game: '}
+            {gameId}
+          </div>
+          <div className="board-players__list">
+            <PlayerList players={players} />
+          </div>
+        </div>
       </div>
     );
   }

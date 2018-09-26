@@ -1,0 +1,24 @@
+@player-padding: 15px;
+
+.board {
+  &-voting {
+    float: left;
+    width: 60%;
+  }
+
+  &-players {
+    width: 35%;
+    float: left;
+    
+    &__title {
+      border-radius: 5px 5px 0 0;
+      color: #fff;
+      background-color: #4b9ae8;
+      padding: 20px @player-padding;
+    }
+
+    &__list {
+      padding: @player-padding;
+    }
+  }
+}

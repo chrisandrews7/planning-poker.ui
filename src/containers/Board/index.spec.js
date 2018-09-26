@@ -4,12 +4,12 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { fromJS } from 'immutable';
 import * as redux from 'redux';
-import PlayerList from '../components/PlayerList';
-import VotePanel from '../components/VotePanel';
-import VoteOptions from '../constants/voting';
-import { mapStateToProps, mapDispatchToProps, Board } from './Board';
-import { setVote } from '../actions/user';
-import * as playerSelectors from '../selectors/players';
+import PlayerList from '../../components/PlayerList';
+import VotePanel from '../../components/VotePanel';
+import VoteOptions from '../../constants/voting';
+import { mapStateToProps, mapDispatchToProps, Board } from '.';
+import { setVote } from '../../actions/user';
+import * as playerSelectors from '../../selectors/players';
 
 
 describe('Board Container', () => {
@@ -59,7 +59,7 @@ describe('Board Container', () => {
 
       expect(
         wrapper
-          .find('h1')
+          .find('.board-players__title')
           .text()
       ).to.equal(`Game: ${gameId}`);
     });
