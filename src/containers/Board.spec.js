@@ -59,7 +59,7 @@ describe('Board Container', () => {
 
       expect(
         wrapper
-          .find('.panel-heading')
+          .find('.card-header')
           .text()
       ).to.equal(`Game: ${gameId}`);
     });

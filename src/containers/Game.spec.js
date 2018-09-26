@@ -39,7 +39,7 @@ describe('Game Container', () => {
           wrapper
             .find(BoardContainer)
             .props()
-        ).to.equal(wrapper.props());
+        ).to.deep.equal(props);
         expect(wrapper.contains(<JoinContainer />)).to.be.false;
       });
     });
@@ -55,7 +55,7 @@ describe('Game Container', () => {
           wrapper
             .find(JoinContainer)
             .props()
-        ).to.equal(wrapper.props());
+        ).to.deep.equal(props);
         expect(wrapper.contains(<BoardContainer />)).to.be.false;
       });
     });

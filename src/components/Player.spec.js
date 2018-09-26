@@ -7,7 +7,7 @@ describe('Player Component', () => {
   it('renders the players name', () => {
     const name = 'Susan';
     const wrapper = shallow(<Player name={name} />);
-    expect(wrapper.find('.player__name').text()).to.equal(name);
+    expect(wrapper.find('.player').text()).to.equal(name);
   });
 
   it('renders the players vote', () => {
