@@ -34,14 +34,14 @@ export class Board extends Component {
   render() {
     const { players, gameId } = this.props;
     return (
-      <div>
-        <div className="board-voting">
+      <div className="row">
+        <div className="board-voting col-md-7">
           <VotePanel
             options={voteOptions}
             onVote={vote => this.props.setVote(vote)}
           />
         </div>
-        <div className="board-players">
+        <div className="board-players col-md-5">
           <div className="board-players__title">
             {'Game: '}
             {gameId}

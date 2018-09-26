@@ -19,10 +19,18 @@ export class Game extends Component {
 
   render() {
     if (this.props.gameId) {
-      return <BoardContainer {...this.props} />;
+      return (
+        <div className="container">
+          <BoardContainer {...this.props} />
+        </div>
+      );
     }
 
-    return <JoinContainer {...this.props} />;
+    return (
+      <div className="container">
+        <JoinContainer {...this.props} />
+      </div>
+    );
   }
 }
 
