@@ -42,10 +42,10 @@ export class Board extends Component {
         </div>
         <div className="col-md-5">
           <div className="card">
-            <div className="card-header bg-info">{`Game: ${gameId}`}</div>
-            <div className="card-body">
-              <PlayerList players={players} />
+            <div className="card-header bg-info">
+              <h4>{`Game: ${gameId}`}</h4>
             </div>
+            <PlayerList players={players} />
           </div>
         </div>
       </div>
