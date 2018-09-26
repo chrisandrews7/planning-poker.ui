@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import './styles.less';
 
 const Card = props => (
-  <div className="card" {...props}>
-    <div className="card__centre">{props.value}</div>
+  <div className="playing-card" {...props}>
+    <div className="playing-card__centre">{props.value}</div>
   </div>
 );
 

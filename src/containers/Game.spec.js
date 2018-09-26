@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { fromJS } from 'immutable';
 import { mapStateToProps, Game } from './Game';
-import BoardContainer from './Board/index';
+import BoardContainer from './Board';
 import JoinContainer from './Join';
 
 describe('Game Container', () => {
