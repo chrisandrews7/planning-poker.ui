@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setVote } from '../actions/user';
-import PlayerList from '../components/PlayerList';
-import VotePanel from '../components/VotePanel';
-import voteOptions from '../constants/voting';
-import { selectAllPlayers } from '../selectors/players';
+import { setVote } from '../../actions/user';
+import PlayerList from '../../components/PlayerList';
+import VotePanel from '../../components/VotePanel';
+import voteOptions from '../../constants/voting';
+import { selectAllPlayers } from '../../selectors/players';
+import './styles.less';
 
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
@@ -43,7 +44,10 @@ export class Board extends Component {
         <div className="col-md-5">
           <div className="card">
             <div className="card-header bg-info">
-              <h4>{`Game: ${gameId}`}</h4>
+              <h4 className="text-white">
+                {'Game: '}
+                <span className="font-weight-light">{gameId}</span>
+              </h4>
             </div>
             <PlayerList players={players} />
           </div>
