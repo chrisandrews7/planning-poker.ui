@@ -4,11 +4,14 @@ import { EventEmitter } from 'events';
 
 import subscribe from './subscribe';
 import { newPlayer, playerVote, removePlayer } from '../../actions/players';
+import { loadingSocket, connectSocket } from '../../actions/user';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
   PLAYER_VOTED,
-  GAME_UPDATED
+  GAME_UPDATED,
+  RECONNECTING,
+  CONNECTED
 } from '../../constants/eventTypes';
 
 describe('Socket Middleware - Subscribe', () => {
@@ -114,6 +117,22 @@ describe('Socket Middleware - Subscribe', () => {
       expect(dispatchSpy).to.have.been.calledWithExactly(removePlayer({
         id: 789
       }));
+    });
+  });
+
+  describe('when RECONNECTING is fired', () => {
+    it('dispatches loadingSocket()', () => {
+      socketMock.emit(RECONNECTING);
+
+      expect(dispatchSpy).to.have.been.calledWithExactly(loadingSocket());
+    });
+  });
+
+  describe('when CONNECTED is fired', () => {
+    it('dispatches connectSocket()', () => {
+      socketMock.emit(CONNECTED);
+
+      expect(dispatchSpy).to.have.been.calledWithExactly(connectSocket());
     });
   });
 });
