@@ -42,7 +42,7 @@ describe('Socket Middleware - Publish', () => {
     });
   });
 
-  describe('when an action isnt USER_JOINED_GAME or USER_VOTED', () => {
+  describe('when an action isnt USER_JOINING_GAME or USER_VOTED', () => {
     it('emits nothing ', () => {
       const action = {
         type: 'ANOTHER_ACTION_TYPE'

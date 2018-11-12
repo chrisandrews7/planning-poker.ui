@@ -8,7 +8,8 @@ describe('User Reducer', () => {
     expect(reducer(undefined, {})).to.deep.equal(Map({
       name: undefined,
       vote: undefined,
-      gameId: undefined
+      gameId: undefined,
+      loading: false
     }));
   });
 
@@ -24,12 +25,12 @@ describe('User Reducer', () => {
     expect(reducer(undefined, action).get('vote')).to.equal(vote);
   });
 
-  it('handles USER_JOINED_GAME', () => {
+  it('handles USER_JOINING_GAME', () => {
     const gameId = 'Game5679';
     const name = 'Derek';
 
     const action = {
-      type: types.USER_JOINED_GAME,
+      type: types.USER_JOINING_GAME,
       payload: {
         gameId,
         name
@@ -38,9 +39,26 @@ describe('User Reducer', () => {
     const expectedOutput = fromJS({
       gameId,
       name,
-      vote: undefined
+      vote: undefined,
+      loading: true
     });
 
     expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
+  });
+
+  it('handles SOCKET_LOADING', () => {
+    const action = {
+      type: types.SOCKET_LOADING
+    };
+
+    expect(reducer(undefined, action).get('loading')).to.be.true;
+  });
+
+  it('handles SOCKET_CONNECTED', () => {
+    const action = {
+      type: types.SOCKET_CONNECTED
+    };
+
+    expect(reducer(Map({ loading: true }), action).get('loading')).to.be.false;
   });
 });

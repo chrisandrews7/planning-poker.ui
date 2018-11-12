@@ -1,12 +1,12 @@
 import { VOTE, JOIN } from '../../constants/eventTypes';
 import {
-  USER_JOINED_GAME,
+  USER_JOINING_GAME,
   USER_VOTED
 } from '../../constants/actionTypes';
 
 export default socket => () => next => (action) => {
   switch (action.type) {
-    case USER_JOINED_GAME:
+    case USER_JOINING_GAME:
       socket.emit(JOIN, {
         name: action.payload.name,
         gameId: action.payload.gameId

@@ -1,10 +1,12 @@
 import {
-  USER_JOINED_GAME,
-  USER_VOTED
+  USER_JOINING_GAME,
+  USER_VOTED,
+  SOCKET_CONNECTED,
+  SOCKET_LOADING
 } from '../constants/actionTypes';
 
 export const joinGame = ({ gameId, name }) => ({
-  type: USER_JOINED_GAME,
+  type: USER_JOINING_GAME,
   payload: {
     gameId,
     name
@@ -16,4 +18,12 @@ export const setVote = vote => ({
   payload: {
     vote
   }
+});
+
+export const connectSocket = () => ({
+  type: SOCKET_CONNECTED
+});
+
+export const loadingSocket = () => ({
+  type: SOCKET_LOADING
 });
