@@ -21,7 +21,7 @@ export class Join extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: undefined
+      name: ''
     };
   }
 
