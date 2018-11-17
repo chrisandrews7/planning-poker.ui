@@ -78,6 +78,23 @@ describe('Socket Middleware - Subscribe', () => {
         vote: 10
       }));
     });
+
+    it('dispatches connectSocket()', () => {
+      socketMock.emit(GAME_UPDATED, {
+        game: {
+          123: {
+            name: 'Simon',
+            vote: 5
+          },
+          456: {
+            name: 'Susan',
+            vote: 10
+          }
+        }
+      });
+
+      expect(dispatchSpy).to.have.been.calledWith(connectSocket());
+    });
   });
 
   describe('when PLAYER_JOINED is fired', () => {

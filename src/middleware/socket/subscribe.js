@@ -12,6 +12,8 @@ import {
 
 export default (socket, dispatch) => {
   socket.on(GAME_UPDATED, ({ game }) => {
+    dispatch(connectSocket());
+
     each(game, ({ vote, name }, id) => {
       if (id === socket.id) {
         return;
