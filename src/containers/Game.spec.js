@@ -5,6 +5,7 @@ import { fromJS } from 'immutable';
 import { mapStateToProps, Game } from './Game';
 import BoardContainer from './Board';
 import JoinContainer from './Join';
+import { CONNECTION_ERROR } from '../constants/dictionary';
 
 describe('Game Container', () => {
   const initialState = {};
@@ -21,9 +22,17 @@ describe('Game Container', () => {
         }
       };
 
-      expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
-        gameId: 'game12345'
-      });
+      expect(mapStateToProps(fromJS(mockState))).to.have.property('gameId', 'game12345');
+    });
+
+    it('returns loading info', () => {
+      const mockState = {
+        user: {
+          loading: true
+        }
+      };
+
+      expect(mapStateToProps(fromJS(mockState))).to.have.property('isLoading', true);
     });
   });
 
@@ -31,7 +40,8 @@ describe('Game Container', () => {
     describe('when a gameId prop is provided', () => {
       it('renders the Board container', () => {
         const props = {
-          gameId: 'game12345'
+          gameId: 'game12345',
+          isLoading: false
         };
         const wrapper = connect(undefined, props);
 
@@ -42,12 +52,44 @@ describe('Game Container', () => {
         ).to.deep.equal(props);
         expect(wrapper.contains(<JoinContainer />)).to.be.false;
       });
+
+      describe('when the game is loading', () => {
+        it('renders a loading alert', () => {
+          const props = {
+            gameId: 'game12345',
+            isLoading: true
+          };
+          const wrapper = connect(undefined, props);
+
+          expect(
+            wrapper
+              .find('.alert')
+              .text()
+          ).to.equal(CONNECTION_ERROR);
+        });
+      });
+
+      describe('when the game has loaded OK', () => {
+        it('doesnt render a loading alert', () => {
+          const props = {
+            gameId: 'game12345',
+            isLoading: false
+          };
+          const wrapper = connect(undefined, props);
+
+          expect(
+            wrapper
+              .find('.alert')
+          ).to.have.lengthOf(0);
+        });
+      });
     });
 
     describe('when a gameId prop is not provided', () => {
       it('renders the Join container', () => {
         const props = {
-          gameId: undefined
+          gameId: undefined,
+          isLoading: false
         };
         const wrapper = connect(undefined, props);
 
