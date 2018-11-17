@@ -6,8 +6,7 @@ import {
   PLAYER_VOTED,
   PLAYER_LEFT,
   GAME_UPDATED,
-  RECONNECTING,
-  CONNECTED
+  RECONNECTING
 } from '../../constants/eventTypes';
 
 export default (socket, dispatch) => {
@@ -41,6 +40,4 @@ export default (socket, dispatch) => {
   })));
 
   socket.on(RECONNECTING, () => dispatch(loadingSocket()));
-
-  socket.on(CONNECTED, () => dispatch(connectSocket()));
 };

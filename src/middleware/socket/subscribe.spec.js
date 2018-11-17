@@ -10,8 +10,7 @@ import {
   PLAYER_LEFT,
   PLAYER_VOTED,
   GAME_UPDATED,
-  RECONNECTING,
-  CONNECTED
+  RECONNECTING
 } from '../../constants/eventTypes';
 
 describe('Socket Middleware - Subscribe', () => {
@@ -142,14 +141,6 @@ describe('Socket Middleware - Subscribe', () => {
       socketMock.emit(RECONNECTING);
 
       expect(dispatchSpy).to.have.been.calledWithExactly(loadingSocket());
-    });
-  });
-
-  describe('when CONNECTED is fired', () => {
-    it('dispatches connectSocket()', () => {
-      socketMock.emit(CONNECTED);
-
-      expect(dispatchSpy).to.have.been.calledWithExactly(connectSocket());
     });
   });
 });
