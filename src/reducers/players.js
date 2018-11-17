@@ -7,6 +7,7 @@ export default function players(state = initialState, action) {
   switch (action.type) {
     case PLAYER_JOINED:
       return state.set(action.payload.id, Map({
+        id: action.payload.id,
         name: action.payload.name,
         vote: action.payload.vote
       }));

@@ -22,6 +22,7 @@ describe('Players Selectors', () => {
           vote: 10
         },
         user: {
+          id: 'player',
           name: 'Steve',
           vote: 5
         }

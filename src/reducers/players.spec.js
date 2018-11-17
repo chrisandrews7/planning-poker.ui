@@ -23,6 +23,7 @@ describe('Players Reducer', () => {
     };
     const expectedOutput = fromJS({
       [id]: {
+        id,
         name,
         vote
       }
