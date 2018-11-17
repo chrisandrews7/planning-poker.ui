@@ -34,10 +34,12 @@ describe('Socket Middleware - Subscribe', () => {
       socketMock.emit(GAME_UPDATED, {
         game: {
           111: {
+            id: 111,
             name: 'Simon',
             vote: 5
           },
           456: {
+            id: 456,
             name: 'Susan',
             vote: 10
           }
@@ -49,29 +51,32 @@ describe('Socket Middleware - Subscribe', () => {
         name: 'Susan',
         vote: 10
       }));
-      expect(dispatchSpy).to.have.been.calledOnce;
+      // First call is CONNECTED
+      expect(dispatchSpy).to.have.been.calledTwice;
     });
 
     it('dispatches newPlayer() with the players', () => {
       socketMock.emit(GAME_UPDATED, {
         game: {
           123: {
+            id: 123,
             name: 'Simon',
             vote: 5
           },
           456: {
+            id: 456,
             name: 'Susan',
             vote: 10
           }
         }
       });
 
-      expect(dispatchSpy.firstCall).to.have.been.calledWith(newPlayer({
+      expect(dispatchSpy.secondCall).to.have.been.calledWith(newPlayer({
         id: '123',
         name: 'Simon',
         vote: 5
       }));
-      expect(dispatchSpy.secondCall).to.have.been.calledWith(newPlayer({
+      expect(dispatchSpy.thirdCall).to.have.been.calledWith(newPlayer({
         id: '456',
         name: 'Susan',
         vote: 10
@@ -82,10 +87,12 @@ describe('Socket Middleware - Subscribe', () => {
       socketMock.emit(GAME_UPDATED, {
         game: {
           123: {
+            id: 123,
             name: 'Simon',
             vote: 5
           },
           456: {
+            id: 456,
             name: 'Susan',
             vote: 10
           }
