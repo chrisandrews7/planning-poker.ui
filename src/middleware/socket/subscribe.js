@@ -1,15 +1,16 @@
 import { each } from 'lodash';
 import { newPlayer, playerVote, removePlayer } from '../../actions/players';
-import { loadingSocket, connectSocket } from '../../actions/user';
+import { loadingSocket, connectSocket, joinGame } from '../../actions/user';
 import {
   PLAYER_JOINED,
   PLAYER_VOTED,
   PLAYER_LEFT,
   GAME_UPDATED,
-  RECONNECTING
+  RECONNECTING,
+  RECONNECTED
 } from '../../constants/eventTypes';
 
-export default (socket, dispatch) => {
+export default (socket, dispatch, getState) => {
   socket.on(GAME_UPDATED, ({ game }) => {
     dispatch(connectSocket());
 
@@ -40,4 +41,12 @@ export default (socket, dispatch) => {
   })));
 
   socket.on(RECONNECTING, () => dispatch(loadingSocket()));
+
+  socket.on(RECONNECTED, () => {
+    const state = getState();
+    return dispatch(joinGame({
+      name: state.getIn(['user', 'name']),
+      gameId: state.getIn(['user', 'gameId'])
+    }));
+  });
 };

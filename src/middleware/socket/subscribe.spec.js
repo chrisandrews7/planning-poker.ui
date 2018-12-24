@@ -1,27 +1,36 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
+import { fromJS } from 'immutable';
 import { EventEmitter } from 'events';
 
 import subscribe from './subscribe';
 import { newPlayer, playerVote, removePlayer } from '../../actions/players';
-import { loadingSocket, connectSocket } from '../../actions/user';
+import { loadingSocket, connectSocket, joinGame } from '../../actions/user';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
   PLAYER_VOTED,
   GAME_UPDATED,
-  RECONNECTING
+  RECONNECTING,
+  RECONNECTED
 } from '../../constants/eventTypes';
 
 describe('Socket Middleware - Subscribe', () => {
   let socketMock;
   let dispatchSpy;
+  const mockState = {
+    user: {
+      name: 'Test',
+      gameId: 'G123'
+    }
+  };
+  const getState = () => fromJS(mockState);
 
   beforeAll(() => {
     socketMock = new EventEmitter();
 
     dispatchSpy = spy();
-    subscribe(socketMock, dispatchSpy);
+    subscribe(socketMock, dispatchSpy, getState);
   });
 
   afterEach(() => {
@@ -148,6 +157,17 @@ describe('Socket Middleware - Subscribe', () => {
       socketMock.emit(RECONNECTING);
 
       expect(dispatchSpy).to.have.been.calledWithExactly(loadingSocket());
+    });
+  });
+
+  describe('when RECONNECTED is fired', () => {
+    it('dispatches joinGame()', () => {
+      socketMock.emit(RECONNECTED);
+
+      expect(dispatchSpy).to.have.been.calledWithExactly(joinGame({
+        gameId: mockState.user.gameId,
+        name: mockState.user.name
+      }));
     });
   });
 });

@@ -1,5 +1,6 @@
 export const CONNECTED = 'connect';
 export const RECONNECTING = 'reconnect_attempt';
+export const RECONNECTED = 'reconnect';
 
 export const GAME_UPDATED = 'game_updated';
 

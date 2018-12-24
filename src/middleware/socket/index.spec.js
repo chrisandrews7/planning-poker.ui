@@ -6,7 +6,8 @@ import socket from '.';
 describe('Socket Middleware', () => {
   let stubSubscribe;
   const mockStore = {
-    dispatch: spy()
+    dispatch: spy(),
+    getState: spy()
   };
 
   beforeAll(() => {
@@ -21,7 +22,11 @@ describe('Socket Middleware', () => {
     const mockSocket = spy();
     socket(mockSocket)(mockStore)(() => {})();
 
-    expect(stubSubscribe).to.have.been.calledWithExactly(mockSocket, mockStore.dispatch);
+    expect(stubSubscribe).to.have.been.calledWithExactly(
+      mockSocket,
+      mockStore.dispatch,
+      mockStore.getState
+    );
   });
 
   it('invokes the next action', () => {
