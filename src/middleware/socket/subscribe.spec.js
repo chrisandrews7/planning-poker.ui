@@ -5,7 +5,7 @@ import { EventEmitter } from 'events';
 
 import subscribe from './subscribe';
 import { newPlayer, playerVote, removePlayer } from '../../actions/players';
-import { loadingSocket, connectSocket, joinGame } from '../../actions/user';
+import { setConnectionLost, setGameJoined, joinGame } from '../../actions/user';
 import {
   PLAYER_JOINED,
   PLAYER_LEFT,
@@ -92,7 +92,7 @@ describe('Socket Middleware - Subscribe', () => {
       }));
     });
 
-    it('dispatches connectSocket()', () => {
+    it('dispatches setGameJoined()', () => {
       socketMock.emit(GAME_UPDATED, {
         game: {
           123: {
@@ -108,7 +108,7 @@ describe('Socket Middleware - Subscribe', () => {
         }
       });
 
-      expect(dispatchSpy).to.have.been.calledWith(connectSocket());
+      expect(dispatchSpy).to.have.been.calledWith(setGameJoined());
     });
   });
 
@@ -153,10 +153,10 @@ describe('Socket Middleware - Subscribe', () => {
   });
 
   describe('when RECONNECTING is fired', () => {
-    it('dispatches loadingSocket()', () => {
+    it('dispatches setConnectionLost()', () => {
       socketMock.emit(RECONNECTING);
 
-      expect(dispatchSpy).to.have.been.calledWithExactly(loadingSocket());
+      expect(dispatchSpy).to.have.been.calledWithExactly(setConnectionLost());
     });
   });
 

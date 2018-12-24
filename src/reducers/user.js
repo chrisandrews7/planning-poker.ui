@@ -1,9 +1,9 @@
 import { Map } from 'immutable';
 import {
-  USER_JOINING_GAME,
+  JOINING_GAME,
   USER_VOTED,
-  SOCKET_LOADING,
-  SOCKET_CONNECTED
+  JOINED_GAME,
+  CONNECTION_LOST
 } from '../constants/actionTypes';
 
 const initialState = Map({
@@ -17,14 +17,14 @@ export default function user(state = initialState, action) {
   switch (action.type) {
     case USER_VOTED:
       return state.set('vote', action.payload.vote);
-    case USER_JOINING_GAME:
+    case JOINING_GAME:
       return state
         .set('loading', true)
         .set('gameId', action.payload.gameId)
         .set('name', action.payload.name);
-    case SOCKET_LOADING:
+    case CONNECTION_LOST:
       return state.set('loading', true);
-    case SOCKET_CONNECTED:
+    case JOINED_GAME:
       return state.set('loading', false);
     default:
       return state;

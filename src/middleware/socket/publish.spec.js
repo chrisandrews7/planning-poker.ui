@@ -14,7 +14,7 @@ describe('Socket Middleware - Publish', () => {
     socketMock.emit.resetHistory();
   });
 
-  describe('when a USER_JOINED_GAME action is fired', () => {
+  describe('when a JOINING_GAME action is fired', () => {
     it('emits a JOIN event', () => {
       const action = joinGame({
         name: 'Sharon',
@@ -42,7 +42,7 @@ describe('Socket Middleware - Publish', () => {
     });
   });
 
-  describe('when an action isnt USER_JOINING_GAME or USER_VOTED', () => {
+  describe('when an action isnt JOINING_GAME or USER_VOTED', () => {
     it('emits nothing ', () => {
       const action = {
         type: 'ANOTHER_ACTION_TYPE'

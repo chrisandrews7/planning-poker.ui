@@ -1,6 +1,6 @@
 import { each } from 'lodash';
 import { newPlayer, playerVote, removePlayer } from '../../actions/players';
-import { loadingSocket, connectSocket, joinGame } from '../../actions/user';
+import { setConnectionLost, setGameJoined, joinGame } from '../../actions/user';
 import {
   PLAYER_JOINED,
   PLAYER_VOTED,
@@ -12,7 +12,7 @@ import {
 
 export default (socket, dispatch, getState) => {
   socket.on(GAME_UPDATED, ({ game }) => {
-    dispatch(connectSocket());
+    dispatch(setGameJoined());
 
     each(game, ({ vote, name }, id) => {
       if (id === socket.id) {
@@ -40,7 +40,7 @@ export default (socket, dispatch, getState) => {
     id
   })));
 
-  socket.on(RECONNECTING, () => dispatch(loadingSocket()));
+  socket.on(RECONNECTING, () => dispatch(setConnectionLost()));
 
   socket.on(RECONNECTED, () => {
     const state = getState();

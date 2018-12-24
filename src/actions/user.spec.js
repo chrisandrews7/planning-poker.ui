@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import {
-  USER_JOINING_GAME, USER_VOTED, SOCKET_CONNECTED, SOCKET_LOADING
+  JOINING_GAME, USER_VOTED, JOINED_GAME, CONNECTION_LOST
 } from '../constants/actionTypes';
 import {
-  setVote, joinGame, connectSocket, loadingSocket
+  setVote, joinGame, setGameJoined, setConnectionLost
 } from './user';
 
 describe('User Actions', () => {
@@ -21,12 +21,12 @@ describe('User Actions', () => {
   });
 
   describe('joinGame()', () => {
-    it('returns a USER_JOINING_GAME action', () => {
+    it('returns a JOINING_GAME action', () => {
       const gameId = 12345;
       const name = 'Herbert';
 
       expect(joinGame({ gameId, name })).to.deep.equal({
-        type: USER_JOINING_GAME,
+        type: JOINING_GAME,
         payload: {
           gameId,
           name
@@ -35,18 +35,18 @@ describe('User Actions', () => {
     });
   });
 
-  describe('loadingSocket()', () => {
-    it('returns a SOCKET_LOADING action', () => {
-      expect(loadingSocket()).to.deep.equal({
-        type: SOCKET_LOADING
+  describe('setConnectionLost()', () => {
+    it('returns a CONNECTION_LOST action', () => {
+      expect(setConnectionLost()).to.deep.equal({
+        type: CONNECTION_LOST
       });
     });
   });
 
-  describe('connectSocket()', () => {
-    it('returns a SOCKET_CONNECTED action', () => {
-      expect(connectSocket()).to.deep.equal({
-        type: SOCKET_CONNECTED
+  describe('setGameJoined()', () => {
+    it('returns a JOINED_GAME action', () => {
+      expect(setGameJoined()).to.deep.equal({
+        type: JOINED_GAME
       });
     });
   });
