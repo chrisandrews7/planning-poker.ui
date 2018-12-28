@@ -1,4 +1,4 @@
-export const NO_PLAYERS = 'No players yet!';
+export const NO_PLAYERS = 'No one here!';
 
 export const ENTER_NAME = 'Your Name';
 
