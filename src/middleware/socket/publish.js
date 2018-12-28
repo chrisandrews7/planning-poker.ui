@@ -7,6 +7,8 @@ import {
 export default socket => store => next => (action) => {
   switch (action.type) {
     case JOINING_GAME:
+      socket.connect();
+
       const state = store.getState();
       socket.emit(JOIN, {
         name: state.getIn(['user', 'name']),

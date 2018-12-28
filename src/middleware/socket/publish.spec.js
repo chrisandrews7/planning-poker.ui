@@ -8,7 +8,8 @@ import publish from './publish';
 
 describe('Socket Middleware - Publish', () => {
   const socketMock = {
-    emit: spy()
+    emit: spy(),
+    connect: spy()
   };
 
   afterEach(() => {
@@ -16,21 +17,28 @@ describe('Socket Middleware - Publish', () => {
   });
 
   describe('when a JOINING_GAME action is fired', () => {
-    it('emits a JOIN event', () => {
-      const mockState = {
-        user: {
-          name: 'Test'
-        },
-        game: {
-          gameId: 'G123'
-        }
-      };
+    const mockState = {
+      user: {
+        name: 'Test'
+      },
+      game: {
+        gameId: 'G123'
+      }
+    };
+
+    beforeEach(() => {
       const getState = () => fromJS(mockState);
 
       publish(socketMock)({ getState })(() => {})({
         type: actionTypes.JOINING_GAME
       });
+    });
 
+    it('opens a socket connection', () => {
+      expect(socketMock.connect).to.have.been.calledOnce;
+    });
+
+    it('emits a JOIN event', () => {
       expect(socketMock.emit).to.have.been.calledWithExactly(JOIN, {
         name: mockState.user.name,
         gameId: mockState.game.gameId
