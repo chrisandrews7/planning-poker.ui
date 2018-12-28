@@ -3,12 +3,13 @@ import { shallow } from 'enzyme';
 import { spy, stub, match } from 'sinon';
 import React from 'react';
 import * as redux from 'redux';
-import { joinGame } from '../actions/user';
+import { joinGame, setUser } from '../actions/user';
 import { Join, mapDispatchToProps } from './Join';
 
 describe('Join Container', () => {
   const defaultProps = {
     joinGame: () => {},
+    setUser: () => {},
     match: {
       params: {}
     }
@@ -24,33 +25,34 @@ describe('Join Container', () => {
 
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub).to.have.been.calledWith({
-        joinGame
+        joinGame,
+        setUser
       }, fakeDispatch);
     });
   });
 
   describe('Join', () => {
     describe('when the join button is clicked', () => {
-      it('invokes joinGame with the users name', () => {
+      it('invokes setUser with the users name', () => {
         const name = 'Olga';
-        const joinGameSpy = spy();
+        const setUserSpy = spy();
         const wrapper = connect({}, {
-          joinGame: joinGameSpy
+          setUser: setUserSpy
         });
 
         wrapper.find('input').simulate('change', { target: { value: name } });
 
         wrapper.find('button').simulate('click');
-        expect(joinGameSpy).to.have.been.calledWith(match({
+        expect(setUserSpy).to.have.been.calledWith(match({
           name
         }));
       });
 
-      it('invokes joinGame with the gameId url param', () => {
+      it('invokes setUser with the gameId url param', () => {
         const gameId = 'Game1234';
-        const joinGameSpy = spy();
+        const setUserSpy = spy();
         const wrapper = connect({}, {
-          joinGame: joinGameSpy,
+          setUser: setUserSpy,
           match: {
             params: {
               gameId
@@ -59,9 +61,19 @@ describe('Join Container', () => {
         });
 
         wrapper.find('button').simulate('click');
-        expect(joinGameSpy).to.have.been.calledWith(match({
+        expect(setUserSpy).to.have.been.calledWith(match({
           gameId
         }));
+      });
+
+      it('invokes joinGame', () => {
+        const joinGameSpy = spy();
+        const wrapper = connect({}, {
+          joinGame: joinGameSpy
+        });
+
+        wrapper.find('button').simulate('click');
+        expect(joinGameSpy).to.have.been.calledOnce;
       });
     });
   });

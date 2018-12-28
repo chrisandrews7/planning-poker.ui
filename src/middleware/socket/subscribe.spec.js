@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
-import { fromJS } from 'immutable';
 import { EventEmitter } from 'events';
 
 import subscribe from './subscribe';
@@ -18,19 +17,12 @@ import {
 describe('Socket Middleware - Subscribe', () => {
   let socketMock;
   let dispatchSpy;
-  const mockState = {
-    user: {
-      name: 'Test',
-      gameId: 'G123'
-    }
-  };
-  const getState = () => fromJS(mockState);
 
   beforeAll(() => {
     socketMock = new EventEmitter();
 
     dispatchSpy = spy();
-    subscribe(socketMock, dispatchSpy, getState);
+    subscribe(socketMock, dispatchSpy);
   });
 
   afterEach(() => {
@@ -164,10 +156,7 @@ describe('Socket Middleware - Subscribe', () => {
     it('dispatches joinGame()', () => {
       socketMock.emit(RECONNECTED);
 
-      expect(dispatchSpy).to.have.been.calledWithExactly(joinGame({
-        gameId: mockState.user.gameId,
-        name: mockState.user.name
-      }));
+      expect(dispatchSpy).to.have.been.calledWithExactly(joinGame());
     });
   });
 });

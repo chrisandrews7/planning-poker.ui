@@ -1,18 +1,14 @@
 import { expect } from 'chai';
-import {
-  JOINING_GAME, USER_VOTED, JOINED_GAME, CONNECTION_LOST
-} from '../constants/actionTypes';
-import {
-  setVote, joinGame, setGameJoined, setConnectionLost
-} from './user';
+import * as actionTypes from '../constants/actionTypes';
+import * as actions from './user';
 
 describe('User Actions', () => {
   describe('setVote()', () => {
     it('returns a USER_VOTED action', () => {
       const vote = 13;
 
-      expect(setVote(vote)).to.deep.equal({
-        type: USER_VOTED,
+      expect(actions.setVote(vote)).to.deep.equal({
+        type: actionTypes.USER_VOTED,
         payload: {
           vote
         }
@@ -20,13 +16,13 @@ describe('User Actions', () => {
     });
   });
 
-  describe('joinGame()', () => {
-    it('returns a JOINING_GAME action', () => {
+  describe('setUser()', () => {
+    it('returns a USER_UPDATED action', () => {
       const gameId = 12345;
       const name = 'Herbert';
 
-      expect(joinGame({ gameId, name })).to.deep.equal({
-        type: JOINING_GAME,
+      expect(actions.setUser({ gameId, name })).to.deep.equal({
+        type: actionTypes.USER_UPDATED,
         payload: {
           gameId,
           name
@@ -35,18 +31,26 @@ describe('User Actions', () => {
     });
   });
 
+  describe('joinGame()', () => {
+    it('returns a JOINING_GAME action', () => {
+      expect(actions.joinGame()).to.deep.equal({
+        type: actionTypes.JOINING_GAME
+      });
+    });
+  });
+
   describe('setConnectionLost()', () => {
     it('returns a CONNECTION_LOST action', () => {
-      expect(setConnectionLost()).to.deep.equal({
-        type: CONNECTION_LOST
+      expect(actions.setConnectionLost()).to.deep.equal({
+        type: actionTypes.CONNECTION_LOST
       });
     });
   });
 
   describe('setGameJoined()', () => {
     it('returns a JOINED_GAME action', () => {
-      expect(setGameJoined()).to.deep.equal({
-        type: JOINED_GAME
+      expect(actions.setGameJoined()).to.deep.equal({
+        type: actionTypes.JOINED_GAME
       });
     });
   });

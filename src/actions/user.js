@@ -1,12 +1,13 @@
 import {
   JOINING_GAME,
   USER_VOTED,
+  USER_UPDATED,
   JOINED_GAME,
   CONNECTION_LOST
 } from '../constants/actionTypes';
 
-export const joinGame = ({ gameId, name }) => ({
-  type: JOINING_GAME,
+export const setUser = ({ gameId, name }) => ({
+  type: USER_UPDATED,
   payload: {
     gameId,
     name
@@ -18,6 +19,10 @@ export const setVote = vote => ({
   payload: {
     vote
   }
+});
+
+export const joinGame = () => ({
+  type: JOINING_GAME
 });
 
 export const setGameJoined = () => ({

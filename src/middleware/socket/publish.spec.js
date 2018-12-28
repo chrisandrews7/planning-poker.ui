@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
+import { fromJS } from 'immutable';
 import { joinGame, setVote } from '../../actions/user';
 import { VOTE, JOIN } from '../../constants/eventTypes';
 
@@ -16,15 +17,24 @@ describe('Socket Middleware - Publish', () => {
 
   describe('when a JOINING_GAME action is fired', () => {
     it('emits a JOIN event', () => {
+      const mockState = {
+        user: {
+          name: 'Test',
+          gameId: 'G123'
+        }
+      };
+      const getState = () => fromJS(mockState);
+
+
       const action = joinGame({
         name: 'Sharon',
         gameId: 345678
       });
-      publish(socketMock)()(() => {})(action);
+      publish(socketMock)({ getState })(() => {})(action);
 
       expect(socketMock.emit).to.have.been.calledWithExactly(JOIN, {
-        name: action.payload.name,
-        gameId: action.payload.gameId
+        name: mockState.user.name,
+        gameId: mockState.user.gameId
       });
     });
   });

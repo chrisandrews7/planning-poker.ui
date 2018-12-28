@@ -10,7 +10,7 @@ import {
   RECONNECTED
 } from '../../constants/eventTypes';
 
-export default (socket, dispatch, getState) => {
+export default (socket, dispatch) => {
   socket.on(GAME_UPDATED, ({ game }) => {
     dispatch(setGameJoined());
 
@@ -42,11 +42,5 @@ export default (socket, dispatch, getState) => {
 
   socket.on(RECONNECTING, () => dispatch(setConnectionLost()));
 
-  socket.on(RECONNECTED, () => {
-    const state = getState();
-    return dispatch(joinGame({
-      name: state.getIn(['user', 'name']),
-      gameId: state.getIn(['user', 'gameId'])
-    }));
-  });
+  socket.on(RECONNECTED, () => dispatch(joinGame()));
 };

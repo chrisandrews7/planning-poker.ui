@@ -1,14 +1,6 @@
 import { expect } from 'chai';
-import {
-  newPlayer,
-  removePlayer,
-  playerVote
-} from './players';
-import {
-  PLAYER_JOINED,
-  PLAYER_LEFT,
-  PLAYER_VOTED
-} from '../constants/actionTypes';
+import * as actions from './players';
+import * as actionTypes from '../constants/actionTypes';
 
 describe('Player Actions', () => {
   describe('newPlayer()', () => {
@@ -17,12 +9,12 @@ describe('Player Actions', () => {
       const name = 'Susan';
       const vote = 5;
 
-      expect(newPlayer({
+      expect(actions.newPlayer({
         id,
         name,
         vote
       })).to.deep.equal({
-        type: PLAYER_JOINED,
+        type: actionTypes.PLAYER_JOINED,
         payload: {
           id,
           name,
@@ -36,8 +28,8 @@ describe('Player Actions', () => {
     it('returns a PLAYER_LEFT action', () => {
       const id = 12345;
 
-      expect(removePlayer({ id })).to.deep.equal({
-        type: PLAYER_LEFT,
+      expect(actions.removePlayer({ id })).to.deep.equal({
+        type: actionTypes.PLAYER_LEFT,
         payload: {
           id
         }
@@ -50,11 +42,11 @@ describe('Player Actions', () => {
       const id = 12345;
       const vote = 10;
 
-      expect(playerVote({
+      expect(actions.playerVote({
         id,
         vote
       })).to.deep.equal({
-        type: PLAYER_VOTED,
+        type: actionTypes.PLAYER_VOTED,
         payload: {
           id,
           vote

@@ -3,7 +3,8 @@ import {
   JOINING_GAME,
   USER_VOTED,
   JOINED_GAME,
-  CONNECTION_LOST
+  CONNECTION_LOST,
+  USER_UPDATED
 } from '../constants/actionTypes';
 
 const initialState = Map({
@@ -17,12 +18,12 @@ export default function user(state = initialState, action) {
   switch (action.type) {
     case USER_VOTED:
       return state.set('vote', action.payload.vote);
-    case JOINING_GAME:
+    case USER_UPDATED:
       return state
-        .set('loading', true)
         .set('gameId', action.payload.gameId)
         .set('name', action.payload.name);
     case CONNECTION_LOST:
+    case JOINING_GAME:
       return state.set('loading', true);
     case JOINED_GAME:
       return state.set('loading', false);

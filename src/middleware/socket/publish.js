@@ -4,12 +4,13 @@ import {
   USER_VOTED
 } from '../../constants/actionTypes';
 
-export default socket => () => next => (action) => {
+export default socket => store => next => (action) => {
   switch (action.type) {
     case JOINING_GAME:
+      const state = store.getState();
       socket.emit(JOIN, {
-        name: action.payload.name,
-        gameId: action.payload.gameId
+        name: state.getIn(['user', 'name']),
+        gameId: state.getIn(['user', 'gameId'])
       });
       break;
     case USER_VOTED:

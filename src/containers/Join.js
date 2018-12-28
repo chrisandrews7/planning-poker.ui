@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { joinGame } from '../actions/user';
+import { setUser, joinGame } from '../actions/user';
 import { ENTER_NAME } from '../constants/dictionary';
 
-export const mapDispatchToProps = dispatch => bindActionCreators({ joinGame }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({ joinGame, setUser }, dispatch);
 
 export class Join extends Component {
   static propTypes = {
+    setUser: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -32,10 +33,11 @@ export class Join extends Component {
   }
 
   joinGame = () => {
-    this.props.joinGame({
+    this.props.setUser({
       gameId: this.props.match.params.gameId,
       name: this.state.name
     });
+    this.props.joinGame();
   }
 
   render() {
