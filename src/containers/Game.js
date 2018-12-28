@@ -6,25 +6,25 @@ import BoardContainer from './Board';
 import { CONNECTION_ERROR } from '../constants/dictionary';
 
 export const mapStateToProps = state => ({
-  gameId: state.getIn(['user', 'gameId']),
-  isLoading: state.getIn(['user', 'loading'])
+  name: state.getIn(['user', 'name']),
+  connected: state.getIn(['game', 'connected'])
 });
 
 export class Game extends Component {
   static propTypes = {
-    gameId: PropTypes.string,
-    isLoading: PropTypes.bool.isRequired
+    name: PropTypes.string,
+    connected: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
-    gameId: undefined
+    name: undefined
   }
 
   render() {
-    if (this.props.gameId) {
+    if (this.props.name) {
       return (
         <div className="container">
-          {this.props.isLoading && (
+          {!this.props.connected && (
             <div className="alert alert-danger" role="alert">
               {CONNECTION_ERROR}
             </div>

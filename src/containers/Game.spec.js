@@ -15,33 +15,33 @@ describe('Game Container', () => {
   );
 
   describe('mapStateToProps()', () => {
-    it('returns the gameId', () => {
+    it('returns the name', () => {
       const mockState = {
         user: {
-          gameId: 'game12345'
+          name: 'Dave'
         }
       };
 
-      expect(mapStateToProps(fromJS(mockState))).to.have.property('gameId', 'game12345');
+      expect(mapStateToProps(fromJS(mockState))).to.have.property('name', 'Dave');
     });
 
     it('returns loading info', () => {
       const mockState = {
-        user: {
-          loading: true
+        game: {
+          connected: true
         }
       };
 
-      expect(mapStateToProps(fromJS(mockState))).to.have.property('isLoading', true);
+      expect(mapStateToProps(fromJS(mockState))).to.have.property('connected', true);
     });
   });
 
   describe('Game', () => {
-    describe('when a gameId prop is provided', () => {
+    describe('when a name prop is found', () => {
       it('renders the Board container', () => {
         const props = {
-          gameId: 'game12345',
-          isLoading: false
+          name: 'Dave',
+          connected: true
         };
         const wrapper = connect(undefined, props);
 
@@ -56,8 +56,8 @@ describe('Game Container', () => {
       describe('when the game is loading', () => {
         it('renders a loading alert', () => {
           const props = {
-            gameId: 'game12345',
-            isLoading: true
+            name: 'Dave',
+            connected: false
           };
           const wrapper = connect(undefined, props);
 
@@ -72,8 +72,8 @@ describe('Game Container', () => {
       describe('when the game has loaded OK', () => {
         it('doesnt render a loading alert', () => {
           const props = {
-            gameId: 'game12345',
-            isLoading: false
+            name: 'Dave',
+            connected: true
           };
           const wrapper = connect(undefined, props);
 
@@ -88,8 +88,8 @@ describe('Game Container', () => {
     describe('when a gameId prop is not provided', () => {
       it('renders the Join container', () => {
         const props = {
-          gameId: undefined,
-          isLoading: false
+          name: undefined,
+          connected: true
         };
         const wrapper = connect(undefined, props);
 

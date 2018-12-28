@@ -10,7 +10,7 @@ export default socket => store => next => (action) => {
       const state = store.getState();
       socket.emit(JOIN, {
         name: state.getIn(['user', 'name']),
-        gameId: state.getIn(['user', 'gameId'])
+        gameId: state.getIn(['game', 'gameId'])
       });
       break;
     case USER_VOTED:

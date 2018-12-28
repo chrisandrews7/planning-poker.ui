@@ -3,16 +3,10 @@ import { spy } from 'sinon';
 import { EventEmitter } from 'events';
 
 import subscribe from './subscribe';
-import { newPlayer, playerVote, removePlayer } from '../../actions/players';
-import { setConnectionLost, setGameJoined, joinGame } from '../../actions/user';
 import {
-  PLAYER_JOINED,
-  PLAYER_LEFT,
-  PLAYER_VOTED,
-  GAME_UPDATED,
-  RECONNECTING,
-  RECONNECTED
-} from '../../constants/eventTypes';
+  setConnectionLost, setGameJoined, joinGame, updateBoard
+} from '../../actions/game';
+import * as eventTypes from '../../constants/eventTypes';
 
 describe('Socket Middleware - Subscribe', () => {
   let socketMock;
@@ -29,124 +23,40 @@ describe('Socket Middleware - Subscribe', () => {
     dispatchSpy.resetHistory();
   });
 
-  describe('when GAME_UPDATED is fired', () => {
-    it('omits dispatching newPlayer() with the current user', () => {
-      socketMock.id = '111';
-      socketMock.emit(GAME_UPDATED, {
-        game: {
-          111: {
-            id: 111,
-            name: 'Simon',
-            vote: 5
-          },
-          456: {
-            id: 456,
-            name: 'Susan',
-            vote: 10
-          }
+  describe('when BOARD_UPDATED is fired', () => {
+    it('dispatches boardUpdated()', () => {
+      const board = {
+        111: {
+          id: 111,
+          name: 'Simon',
+          vote: 5
+        },
+        456: {
+          id: 456,
+          name: 'Susan',
+          vote: 10
         }
+      };
+
+      socketMock.emit(eventTypes.BOARD_UPDATED, {
+        board
       });
 
-      expect(dispatchSpy).to.have.been.calledWith(newPlayer({
-        id: '456',
-        name: 'Susan',
-        vote: 10
-      }));
-      // First call is CONNECTED
-      expect(dispatchSpy).to.have.been.calledTwice;
+      expect(dispatchSpy).to.have.been.calledWith(updateBoard(board));
     });
+  });
 
-    it('dispatches newPlayer() with the players', () => {
-      socketMock.emit(GAME_UPDATED, {
-        game: {
-          123: {
-            id: 123,
-            name: 'Simon',
-            vote: 5
-          },
-          456: {
-            id: 456,
-            name: 'Susan',
-            vote: 10
-          }
-        }
-      });
-
-      expect(dispatchSpy.secondCall).to.have.been.calledWith(newPlayer({
-        id: '123',
-        name: 'Simon',
-        vote: 5
-      }));
-      expect(dispatchSpy.thirdCall).to.have.been.calledWith(newPlayer({
-        id: '456',
-        name: 'Susan',
-        vote: 10
-      }));
-    });
-
+  describe('when JOINED_GAME is fired', () => {
     it('dispatches setGameJoined()', () => {
-      socketMock.emit(GAME_UPDATED, {
-        game: {
-          123: {
-            id: 123,
-            name: 'Simon',
-            vote: 5
-          },
-          456: {
-            id: 456,
-            name: 'Susan',
-            vote: 10
-          }
-        }
-      });
+      socketMock.emit(eventTypes.JOINED_GAME);
 
-      expect(dispatchSpy).to.have.been.calledWith(setGameJoined());
-    });
-  });
-
-  describe('when PLAYER_JOINED is fired', () => {
-    it('dispatches newPlayer', () => {
-      socketMock.emit(PLAYER_JOINED, {
-        id: 234,
-        name: 'David'
-      });
-
-      expect(dispatchSpy).to.have.been.calledWithExactly(newPlayer({
-        id: 234,
-        name: 'David'
-      }));
-    });
-  });
-
-  describe('when PLAYER_VOTED is fired', () => {
-    it('dispatches playerVote()', () => {
-      socketMock.emit(PLAYER_VOTED, {
-        id: 567,
-        vote: 5
-      });
-
-      expect(dispatchSpy).to.have.been.calledWithExactly(playerVote({
-        id: 567,
-        vote: 5
-      }));
-    });
-  });
-
-  describe('when PLAYER_LEFT is fired', () => {
-    it('dispatches removePlayer()', () => {
-      socketMock.emit(PLAYER_LEFT, {
-        id: 789
-      });
-
-      expect(dispatchSpy).to.have.been.calledWithExactly(removePlayer({
-        id: 789
-      }));
+      expect(dispatchSpy).to.have.been.calledWithExactly(setGameJoined());
     });
   });
 
   describe('when RECONNECTING is fired', () => {
     it('dispatches setConnectionLost()', () => {
-      socketMock.emit(RECONNECTING);
+      socketMock.emit(eventTypes.RECONNECTING);
 
       expect(dispatchSpy).to.have.been.calledWithExactly(setConnectionLost());
     });
@@ -154,7 +64,7 @@ describe('Socket Middleware - Subscribe', () => {
 
   describe('when RECONNECTED is fired', () => {
     it('dispatches joinGame()', () => {
-      socketMock.emit(RECONNECTED);
+      socketMock.emit(eventTypes.RECONNECTED);
 
       expect(dispatchSpy).to.have.been.calledWithExactly(joinGame());
     });

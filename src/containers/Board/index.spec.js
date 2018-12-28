@@ -27,14 +27,14 @@ describe('Board Container', () => {
       stub(playerSelectors, 'selectAllPlayers').returns('players');
       const mockState = {
         players: {},
-        user: {
+        game: {
           gameId: 'Game123'
         }
       };
 
       expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
         players: 'players',
-        gameId: mockState.user.gameId
+        gameId: mockState.game.gameId
       });
     });
   });

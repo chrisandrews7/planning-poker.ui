@@ -2,22 +2,32 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUser, joinGame } from '../actions/user';
+import { setName } from '../actions/user';
+import { joinGame, setGameId } from '../actions/game';
 import { ENTER_NAME } from '../constants/dictionary';
 
-export const mapDispatchToProps = dispatch => bindActionCreators({ joinGame, setUser }, dispatch);
+export const mapStateToProps = state => ({
+  name: state.getIn(['user', 'name'])
+});
+
+export const mapDispatchToProps = dispatch => bindActionCreators({
+  joinGame,
+  setName,
+  setGameId
+}, dispatch);
 
 export class Join extends Component {
   static propTypes = {
-    setUser: PropTypes.func.isRequired,
+    setName: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
+    setGameId: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
         gameId: PropTypes.string
       }).isRequired
     }).isRequired
   }
-
 
   constructor(props) {
     super(props);
@@ -26,18 +36,19 @@ export class Join extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.setGameId(this.props.match.params.gameId);
+  }
+
+  joinGame = () => {
+    this.props.setName(this.state.name);
+    this.props.joinGame();
+  }
+
   setName = ({ target }) => {
     this.setState({
       name: target.value
     });
-  }
-
-  joinGame = () => {
-    this.props.setUser({
-      gameId: this.props.match.params.gameId,
-      name: this.state.name
-    });
-    this.props.joinGame();
   }
 
   render() {
@@ -48,7 +59,7 @@ export class Join extends Component {
           <input
             type="text"
             placeholder={ENTER_NAME}
-            value={this.state.name}
+            value={this.props.name}
             onChange={this.setName}
           />
           <button
@@ -64,4 +75,4 @@ export class Join extends Component {
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(Join);
+export default connect(mapStateToProps, mapDispatchToProps)(Join);

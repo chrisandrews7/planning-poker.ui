@@ -1,44 +1,17 @@
-import { each } from 'lodash';
-import { newPlayer, playerVote, removePlayer } from '../../actions/players';
-import { setConnectionLost, setGameJoined, joinGame } from '../../actions/user';
 import {
-  PLAYER_JOINED,
-  PLAYER_VOTED,
-  PLAYER_LEFT,
-  GAME_UPDATED,
+  setConnectionLost, setGameJoined, joinGame, updateBoard
+} from '../../actions/game';
+import {
+  BOARD_UPDATED,
+  JOINED_GAME,
   RECONNECTING,
   RECONNECTED
 } from '../../constants/eventTypes';
 
 export default (socket, dispatch) => {
-  socket.on(GAME_UPDATED, ({ game }) => {
-    dispatch(setGameJoined());
+  socket.on(BOARD_UPDATED, ({ board }) => dispatch(updateBoard(board)));
 
-    each(game, ({ vote, name }, id) => {
-      if (id === socket.id) {
-        return;
-      }
-      dispatch(newPlayer({
-        id,
-        name,
-        vote
-      }));
-    });
-  });
-
-  socket.on(PLAYER_JOINED, ({ id, name }) => dispatch(newPlayer({
-    id,
-    name
-  })));
-
-  socket.on(PLAYER_VOTED, ({ id, vote }) => dispatch(playerVote({
-    id,
-    vote
-  })));
-
-  socket.on(PLAYER_LEFT, ({ id }) => dispatch(removePlayer({
-    id
-  })));
+  socket.on(JOINED_GAME, () => dispatch(setGameJoined()));
 
   socket.on(RECONNECTING, () => dispatch(setConnectionLost()));
 

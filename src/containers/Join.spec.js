@@ -1,22 +1,38 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { spy, stub, match } from 'sinon';
+import { spy, stub } from 'sinon';
+import { fromJS } from 'immutable';
 import React from 'react';
 import * as redux from 'redux';
-import { joinGame, setUser } from '../actions/user';
-import { Join, mapDispatchToProps } from './Join';
+import { setName } from '../actions/user';
+import { joinGame, setGameId } from '../actions/game';
+import { Join, mapDispatchToProps, mapStateToProps } from './Join';
 
 describe('Join Container', () => {
   const defaultProps = {
     joinGame: () => {},
-    setUser: () => {},
+    setGameId: () => {},
+    setName: () => {},
     match: {
       params: {}
-    }
+    },
+    name: 'Dave'
   };
   const connect = (state, props) => shallow(
     <Join {...state} {...defaultProps} {...props} />
   );
+
+  describe('mapStateToProps()', () => {
+    it('returns the users name', () => {
+      const mockState = {
+        user: {
+          name: 'Steve'
+        }
+      };
+
+      expect(mapStateToProps(fromJS(mockState))).to.have.property('name', 'Steve');
+    });
+  });
 
   describe('mapDispatchToProps()', () => {
     it('returns the actions bound to the dispatch', () => {
@@ -26,33 +42,19 @@ describe('Join Container', () => {
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub).to.have.been.calledWith({
         joinGame,
-        setUser
+        setGameId,
+        setName
       }, fakeDispatch);
     });
   });
 
   describe('Join', () => {
-    describe('when the join button is clicked', () => {
-      it('invokes setUser with the users name', () => {
-        const name = 'Olga';
-        const setUserSpy = spy();
-        const wrapper = connect({}, {
-          setUser: setUserSpy
-        });
-
-        wrapper.find('input').simulate('change', { target: { value: name } });
-
-        wrapper.find('button').simulate('click');
-        expect(setUserSpy).to.have.been.calledWith(match({
-          name
-        }));
-      });
-
-      it('invokes setUser with the gameId url param', () => {
+    describe('when mounting', () => {
+      it('updates the GameID with the gameId url param', () => {
         const gameId = 'Game1234';
-        const setUserSpy = spy();
+        const setGameIdSpy = spy();
         const wrapper = connect({}, {
-          setUser: setUserSpy,
+          setGameId: setGameIdSpy,
           match: {
             params: {
               gameId
@@ -61,12 +63,27 @@ describe('Join Container', () => {
         });
 
         wrapper.find('button').simulate('click');
-        expect(setUserSpy).to.have.been.calledWith(match({
-          gameId
-        }));
+        expect(setGameIdSpy).to.have.been.calledWith(gameId);
+      });
+    });
+
+    describe('when the join button is clicked', () => {
+      it('updates the users name', () => {
+        const name = 'Olga';
+        const setNameSpy = spy();
+        const wrapper = connect({}, {
+          setName: setNameSpy
+        });
+
+        wrapper.find('input').simulate('change', { target: { value: 'testChange' } });
+        wrapper.find('input').simulate('change', { target: { value: name } });
+
+        wrapper.find('button').simulate('click');
+
+        expect(setNameSpy).to.have.been.calledWith(name);
       });
 
-      it('invokes joinGame', () => {
+      it('attempts to join the game', () => {
         const joinGameSpy = spy();
         const wrapper = connect({}, {
           joinGame: joinGameSpy

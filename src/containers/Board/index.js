@@ -11,7 +11,7 @@ import './styles.less';
 
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
-  gameId: state.getIn(['user', 'gameId'])
+  gameId: state.getIn(['game', 'gameId'])
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({ setVote }, dispatch);

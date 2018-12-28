@@ -16,41 +16,15 @@ describe('User Actions', () => {
     });
   });
 
-  describe('setUser()', () => {
-    it('returns a USER_UPDATED action', () => {
-      const gameId = 12345;
+  describe('setName()', () => {
+    it('returns a NAME_UPDATED action', () => {
       const name = 'Herbert';
 
-      expect(actions.setUser({ gameId, name })).to.deep.equal({
-        type: actionTypes.USER_UPDATED,
+      expect(actions.setName(name)).to.deep.equal({
+        type: actionTypes.NAME_UPDATED,
         payload: {
-          gameId,
           name
         }
-      });
-    });
-  });
-
-  describe('joinGame()', () => {
-    it('returns a JOINING_GAME action', () => {
-      expect(actions.joinGame()).to.deep.equal({
-        type: actionTypes.JOINING_GAME
-      });
-    });
-  });
-
-  describe('setConnectionLost()', () => {
-    it('returns a CONNECTION_LOST action', () => {
-      expect(actions.setConnectionLost()).to.deep.equal({
-        type: actionTypes.CONNECTION_LOST
-      });
-    });
-  });
-
-  describe('setGameJoined()', () => {
-    it('returns a JOINED_GAME action', () => {
-      expect(actions.setGameJoined()).to.deep.equal({
-        type: actionTypes.JOINED_GAME
       });
     });
   });

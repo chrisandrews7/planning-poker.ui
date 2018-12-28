@@ -7,9 +7,7 @@ describe('User Reducer', () => {
   it('returns the initial state', () => {
     expect(reducer(undefined, {})).to.deep.equal(Map({
       name: undefined,
-      vote: undefined,
-      gameId: undefined,
-      loading: false
+      vote: undefined
     }));
   });
 
@@ -25,48 +23,19 @@ describe('User Reducer', () => {
     expect(reducer(undefined, action).get('vote')).to.equal(vote);
   });
 
-  it('handles USER_UPDATED', () => {
-    const gameId = 'Game5679';
+  it('handles NAME_UPDATED', () => {
     const name = 'Derek';
-
     const action = {
-      type: types.USER_UPDATED,
+      type: types.NAME_UPDATED,
       payload: {
-        gameId,
         name
       }
     };
     const expectedOutput = fromJS({
-      gameId,
       name,
-      vote: undefined,
-      loading: false
+      vote: undefined
     });
 
     expect(reducer(undefined, action).equals(expectedOutput)).to.be.true;
-  });
-
-  it('handles JOINING_GAME', () => {
-    const action = {
-      type: types.JOINING_GAME
-    };
-
-    expect(reducer(undefined, action).get('loading')).to.be.true;
-  });
-
-  it('handles CONNECTION_LOST', () => {
-    const action = {
-      type: types.CONNECTION_LOST
-    };
-
-    expect(reducer(undefined, action).get('loading')).to.be.true;
-  });
-
-  it('handles JOINED_GAME', () => {
-    const action = {
-      type: types.JOINED_GAME
-    };
-
-    expect(reducer(Map({ loading: true }), action).get('loading')).to.be.false;
   });
 });
