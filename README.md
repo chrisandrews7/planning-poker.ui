@@ -4,18 +4,16 @@
 
 ## About
 
-Sprint planning tool to make agile estimating and planning faster and more efficient.
+UI for a Sprint planning tool to make agile estimating and planning faster and more efficient.
 
 ## Getting Started
 
-First clone config/default.yml.example to default.yml and add your settings.
-
-Next install dependencies through NPM
+Install dependencies
 ```
 npm install
 ```
 
 Start app
 ```
-npm start
+npm run dev
 ```
