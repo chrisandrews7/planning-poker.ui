@@ -6,10 +6,6 @@ import { setName } from '../actions/user';
 import { joinGame, setGameId } from '../actions/game';
 import { ENTER_NAME } from '../constants/dictionary';
 
-export const mapStateToProps = state => ({
-  name: state.getIn(['user', 'name'])
-});
-
 export const mapDispatchToProps = dispatch => bindActionCreators({
   joinGame,
   setName,
@@ -21,7 +17,6 @@ export class Join extends Component {
     setName: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
     setGameId: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
         gameId: PropTypes.string
@@ -59,7 +54,7 @@ export class Join extends Component {
           <input
             type="text"
             placeholder={ENTER_NAME}
-            value={this.props.name}
+            value={this.state.name}
             onChange={this.setName}
           />
           <button
@@ -75,4 +70,4 @@ export class Join extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Join);
+export default connect(undefined, mapDispatchToProps)(Join);

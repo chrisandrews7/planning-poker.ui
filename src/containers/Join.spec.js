@@ -1,12 +1,11 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
-import { fromJS } from 'immutable';
 import React from 'react';
 import * as redux from 'redux';
 import { setName } from '../actions/user';
 import { joinGame, setGameId } from '../actions/game';
-import { Join, mapDispatchToProps, mapStateToProps } from './Join';
+import { Join, mapDispatchToProps } from './Join';
 
 describe('Join Container', () => {
   const defaultProps = {
@@ -15,24 +14,11 @@ describe('Join Container', () => {
     setName: () => {},
     match: {
       params: {}
-    },
-    name: 'Dave'
+    }
   };
   const connect = (state, props) => shallow(
     <Join {...state} {...defaultProps} {...props} />
   );
-
-  describe('mapStateToProps()', () => {
-    it('returns the users name', () => {
-      const mockState = {
-        user: {
-          name: 'Steve'
-        }
-      };
-
-      expect(mapStateToProps(fromJS(mockState))).to.have.property('name', 'Steve');
-    });
-  });
 
   describe('mapDispatchToProps()', () => {
     it('returns the actions bound to the dispatch', () => {
@@ -63,7 +49,7 @@ describe('Join Container', () => {
         });
 
         wrapper.find('button').simulate('click');
-        expect(setGameIdSpy).to.have.been.calledWith(gameId);
+        expect(setGameIdSpy).to.have.been.calledOnceWith(gameId);
       });
     });
 
@@ -80,7 +66,7 @@ describe('Join Container', () => {
 
         wrapper.find('button').simulate('click');
 
-        expect(setNameSpy).to.have.been.calledWith(name);
+        expect(setNameSpy).to.have.been.calledOnceWith(name);
       });
 
       it('attempts to join the game', () => {
