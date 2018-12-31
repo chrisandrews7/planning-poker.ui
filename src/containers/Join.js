@@ -50,21 +50,27 @@ export class Join extends Component {
     return (
       <div className="jumbotron">
         <h1 className="display-4">Join</h1>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder={ENTER_NAME}
-            value={this.state.name}
-            onChange={this.setName}
-          />
+        <form className="form-inline" onSubmit={this.joinGame}>
+          <div className="form-group mb-2">
+            <input
+              type="text"
+              id="name"
+              className="form-control"
+              aria-label={ENTER_NAME}
+              placeholder={ENTER_NAME}
+              value={this.state.name}
+              onChange={this.setName}
+              required
+            />
+          </div>
           <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this.joinGame}
+            type="submit"
+            className="btn btn-primary mb-2"
           >
-           Join
+              Join
           </button>
-        </div>
+
+        </form>
       </div>
     );
   }

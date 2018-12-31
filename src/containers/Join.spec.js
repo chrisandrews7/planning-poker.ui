@@ -39,7 +39,7 @@ describe('Join Container', () => {
       it('updates the GameID with the gameId url param', () => {
         const gameId = 'Game1234';
         const setGameIdSpy = spy();
-        const wrapper = connect({}, {
+        connect({}, {
           setGameId: setGameIdSpy,
           match: {
             params: {
@@ -48,12 +48,11 @@ describe('Join Container', () => {
           }
         });
 
-        wrapper.find('button').simulate('click');
         expect(setGameIdSpy).to.have.been.calledOnceWith(gameId);
       });
     });
 
-    describe('when the join button is clicked', () => {
+    describe('when the form is submitted', () => {
       it('updates the users name', () => {
         const name = 'Olga';
         const setNameSpy = spy();
@@ -64,7 +63,7 @@ describe('Join Container', () => {
         wrapper.find('input').simulate('change', { target: { value: 'testChange' } });
         wrapper.find('input').simulate('change', { target: { value: name } });
 
-        wrapper.find('button').simulate('click');
+        wrapper.find('form').simulate('submit');
 
         expect(setNameSpy).to.have.been.calledOnceWith(name);
       });
@@ -75,7 +74,7 @@ describe('Join Container', () => {
           joinGame: joinGameSpy
         });
 
-        wrapper.find('button').simulate('click');
+        wrapper.find('form').simulate('submit');
         expect(joinGameSpy).to.have.been.calledOnce;
       });
     });
