@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setName } from '../actions/user';
 import { joinGame, setGameId } from '../actions/game';
-import { ENTER_NAME } from '../constants/dictionary';
+import { ENTER_NAME, JOIN } from '../constants/dictionary';
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
   joinGame,
@@ -49,7 +49,7 @@ export class Join extends Component {
   render() {
     return (
       <div className="jumbotron">
-        <h1 className="display-4">Join</h1>
+        <h1 className="display-4">{JOIN}</h1>
         <form className="form-inline" onSubmit={this.joinGame}>
           <div className="form-group mb-2">
             <input
@@ -67,7 +67,7 @@ export class Join extends Component {
             type="submit"
             className="btn btn-primary mb-2"
           >
-              Join
+            {JOIN}
           </button>
 
         </form>

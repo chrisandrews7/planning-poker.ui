@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setVote } from '../../actions/user';
-import PlayerList from '../../components/PlayerList';
-import VotePanel from '../../components/VotePanel';
-import voteOptions from '../../constants/voting';
-import { selectAllPlayers } from '../../selectors/players';
-import './styles.less';
+import { setVote } from '../actions/user';
+import PlayerList from '../components/PlayerList';
+import VotePanel from '../components/VotePanel';
+import voteOptions from '../constants/voting';
+import { selectAllPlayers } from '../selectors/players';
 
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
