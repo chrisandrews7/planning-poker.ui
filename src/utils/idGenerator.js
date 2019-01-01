@@ -1,1 +1,1 @@
-export const generateShortId = () => Math.floor(Math.random() * 90000) + 10000;
+export const generateShortId = () => Math.floor(Math.random() * 9000) + 1000;

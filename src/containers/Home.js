@@ -60,7 +60,7 @@ export class Home extends Component {
                   placeholder={ENTER_GAME}
                   aria-label={ENTER_GAME}
                   required
-                  minLength={5}
+                  minLength={4}
                 />
                 <button
                   type="submit"
