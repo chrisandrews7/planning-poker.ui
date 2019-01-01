@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   APP_NAME,
   APP_DESC,
+  ENTER_GAME,
   JOIN_GAME,
   START_GAME,
   JOIN,
@@ -31,7 +32,7 @@ export class Home extends Component {
     });
   }
 
-  goToGame = (gameId = this.state.gameId) => {
+  goToGame = (gameId = generateShortId()) => {
     this.props.history.push(`/${gameId}`);
   }
 
@@ -54,8 +55,10 @@ export class Home extends Component {
               >
                 <input
                   type="text"
+                  id="gameId"
                   onChange={this.setGameId}
-                  placeholder="GameID"
+                  placeholder={ENTER_GAME}
+                  aria-label={ENTER_GAME}
                   required
                   minLength={5}
                 />
@@ -75,7 +78,7 @@ export class Home extends Component {
               <button
                 type="button"
                 className="btn btn-primary home-panel__start-btn"
-                onClick={() => this.goToGame(generateShortId())}
+                onClick={() => this.goToGame()}
               >
                 {START}
               </button>

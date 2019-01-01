@@ -43,7 +43,7 @@ describe('Home Container', () => {
           }
         });
 
-        wrapper.find('.home-panel__start-btn').simulate('click');
+        wrapper.find('.home-panel__start-btn').simulate('click', { target: {} });
 
         expect(historySpy).to.have.been.calledOnceWith(`/${randomGameId}`);
       });
