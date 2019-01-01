@@ -1,5 +1,7 @@
 export const NO_PLAYERS = 'No one here!';
 export const CONNECTION_ERROR = 'Houston, we have a problem! Trying to reconnect back to your game.';
+export const SHARE_LINK = 'Invite someone';
+export const GAME = 'Game';
 
 export const ENTER_NAME = 'Your Name';
 export const ENTER_GAME = 'Game ID';

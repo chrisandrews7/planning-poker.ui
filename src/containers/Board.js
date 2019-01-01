@@ -7,6 +7,7 @@ import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import voteOptions from '../constants/voting';
 import { selectAllPlayers } from '../selectors/players';
+import { SHARE_LINK, GAME } from '../constants/dictionary';
 
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
@@ -44,13 +45,13 @@ export class Board extends Component {
           <div className="card">
             <div className="card-header bg-info">
               <h4 className="text-white">
-                {'Game: '}
+                {`${GAME}: `}
                 <span className="font-weight-light">{gameId}</span>
               </h4>
             </div>
             <PlayerList players={players} />
             <div className="card-footer text-muted text-center">
-              {'Share: '}
+              {`${SHARE_LINK}: `}
               <a href={window.location.href}>{window.location.href}</a>
             </div>
           </div>
