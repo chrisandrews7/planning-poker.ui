@@ -9,7 +9,8 @@ import publish from './publish';
 describe('Socket Middleware - Publish', () => {
   const socketMock = {
     emit: spy(),
-    connect: spy()
+    connect: spy(),
+    close: spy()
   };
 
   afterEach(() => {
@@ -59,6 +60,17 @@ describe('Socket Middleware - Publish', () => {
       expect(socketMock.emit).to.have.been.calledWithExactly(VOTE, {
         vote: action.payload.vote
       });
+    });
+  });
+
+  describe('when a LEFT_GAME action is fired', () => {
+    it('closes the socket connection', () => {
+      const action = {
+        type: actionTypes.LEFT_GAME
+      };
+      publish(socketMock)()(() => {})(action);
+
+      expect(socketMock.close).to.have.been.calledOnce;
     });
   });
 

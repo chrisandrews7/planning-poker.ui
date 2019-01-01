@@ -3,7 +3,8 @@ import {
   JOINING_GAME,
   JOINED_GAME,
   CONNECTION_LOST,
-  BOARD_UPDATED
+  BOARD_UPDATED,
+  LEFT_GAME
 } from '../constants/actionTypes';
 
 export const setGameId = gameId => ({
@@ -19,6 +20,10 @@ export const joinGame = () => ({
 
 export const setGameJoined = () => ({
   type: JOINED_GAME
+});
+
+export const leaveGame = () => ({
+  type: LEFT_GAME
 });
 
 export const setConnectionLost = () => ({

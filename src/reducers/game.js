@@ -4,7 +4,8 @@ import {
   JOINING_GAME,
   JOINED_GAME,
   CONNECTION_LOST,
-  BOARD_UPDATED
+  BOARD_UPDATED,
+  LEFT_GAME
 } from '../constants/actionTypes';
 
 const initialState = Map({
@@ -18,6 +19,7 @@ export default function user(state = initialState, action) {
     case GAME_ID_UPDATED:
       return state.set('gameId', action.payload.gameId);
     case JOINING_GAME:
+    case LEFT_GAME:
     case CONNECTION_LOST:
       return state.set('connected', false);
     case JOINED_GAME:

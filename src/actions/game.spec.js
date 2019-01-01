@@ -32,6 +32,13 @@ describe('Game Actions', () => {
     });
   });
 
+  describe('leaveGame()', () => {
+    it('returns a LEFT_GAME action', () => {
+      expect(actions.leaveGame()).to.deep.equal({
+        type: actionTypes.LEFT_GAME
+      });
+    });
+  });
 
   describe('setConnectionLost()', () => {
     it('returns a CONNECTION_LOST action', () => {

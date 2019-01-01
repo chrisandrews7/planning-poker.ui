@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import JoinContainer from './Join';
 import BoardContainer from './Board';
-import { setGameId, joinGame } from '../actions/game';
+import { setGameId, joinGame, leaveGame } from '../actions/game';
 import { CONNECTION_ERROR } from '../constants/dictionary';
 
 export const mapStateToProps = state => ({
@@ -14,7 +14,8 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
   setGameId,
-  joinGame
+  joinGame,
+  leaveGame
 }, dispatch);
 
 export class Game extends Component {
@@ -23,6 +24,7 @@ export class Game extends Component {
     connected: PropTypes.bool.isRequired,
     setGameId: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
+    leaveGame: PropTypes.func.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
         gameId: PropTypes.string
@@ -41,6 +43,10 @@ export class Game extends Component {
     if (this.props.name) {
       this.props.joinGame();
     }
+  }
+
+  componentWillUnmount() {
+    this.props.leaveGame();
   }
 
   render() {

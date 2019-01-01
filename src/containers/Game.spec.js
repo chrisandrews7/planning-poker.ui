@@ -5,7 +5,7 @@ import { spy, stub } from 'sinon';
 import { fromJS } from 'immutable';
 import * as redux from 'redux';
 import { mapStateToProps, mapDispatchToProps, Game } from './Game';
-import { setGameId, joinGame } from '../actions/game';
+import { setGameId, joinGame, leaveGame } from '../actions/game';
 import BoardContainer from './Board';
 import JoinContainer from './Join';
 import { CONNECTION_ERROR } from '../constants/dictionary';
@@ -15,6 +15,7 @@ describe('Game Container', () => {
   const initialProps = {
     setGameId: () => {},
     joinGame: () => {},
+    leaveGame: () => {},
     match: {
       params: {}
     }
@@ -53,7 +54,8 @@ describe('Game Container', () => {
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub).to.have.been.calledWith({
         setGameId,
-        joinGame
+        joinGame,
+        leaveGame
       }, fakeDispatch);
     });
   });
@@ -156,6 +158,20 @@ describe('Game Container', () => {
             .props()
         ).to.deep.equal(props);
         expect(wrapper.contains(<BoardContainer />)).to.be.false;
+      });
+    });
+
+    describe('when unmounting', () => {
+      it('leaves the game', () => {
+        const leaveGameSpy = spy();
+
+        const wrapper = connect({}, {
+          leaveGame: leaveGameSpy,
+          connected: true
+        });
+
+        wrapper.unmount();
+        expect(leaveGameSpy).to.have.been.calledOnce;
       });
     });
   });
