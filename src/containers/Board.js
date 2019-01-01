@@ -49,6 +49,10 @@ export class Board extends Component {
               </h4>
             </div>
             <PlayerList players={players} />
+            <div className="card-footer text-muted text-center">
+              {'Share: '}
+              <a href={window.location.href}>{window.location.href}</a>
+            </div>
           </div>
         </div>
       </div>

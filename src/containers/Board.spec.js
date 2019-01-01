@@ -100,5 +100,19 @@ describe('Board Container', () => {
       props.onVote('vote');
       expect(setVoteSpy).to.have.been.calledWith('vote');
     });
+
+    it('renders a link to share the game', () => {
+      const state = {
+        gameId: 'GameTest'
+      };
+      const wrapper = connect(state);
+
+      expect(
+        wrapper
+          .find('.card-footer a')
+          .props()
+          .href
+      ).to.equal(window.location.href);
+    });
   });
 });
