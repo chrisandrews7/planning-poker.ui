@@ -49,27 +49,23 @@ export class Join extends Component {
   render() {
     return (
       <div className="jumbotron">
-        <h1 className="display-4">{JOIN}</h1>
-        <form className="form-inline" onSubmit={this.joinGame}>
-          <div className="form-group mb-2">
-            <input
-              type="text"
-              id="name"
-              className="form-control"
-              aria-label={ENTER_NAME}
-              placeholder={ENTER_NAME}
-              value={this.state.name}
-              onChange={this.setName}
-              required
-            />
-          </div>
+        <h2 className="display-4">{JOIN}</h2>
+        <form className="input-group" onSubmit={this.joinGame}>
+          <input
+            type="text"
+            id="name"
+            aria-label={ENTER_NAME}
+            placeholder={ENTER_NAME}
+            value={this.state.name}
+            onChange={this.setName}
+            required
+          />
           <button
             type="submit"
-            className="btn btn-primary mb-2"
+            className="btn btn-primary"
           >
             {JOIN}
           </button>
-
         </form>
       </div>
     );
