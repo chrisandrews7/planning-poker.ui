@@ -1,15 +1,23 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import { spy, stub } from 'sinon';
 import { fromJS } from 'immutable';
-import { mapStateToProps, Game } from './Game';
+import * as redux from 'redux';
+import { mapStateToProps, mapDispatchToProps, Game } from './Game';
+import { setGameId } from '../actions/game';
 import BoardContainer from './Board';
 import JoinContainer from './Join';
 import { CONNECTION_ERROR } from '../constants/dictionary';
 
 describe('Game Container', () => {
   const initialState = {};
-  const initialProps = {};
+  const initialProps = {
+    setGameId: () => {},
+    match: {
+      params: {}
+    }
+  };
   const connect = (state, props) => shallow(
     <Game {...initialState} {...state} {...initialProps} {...props} />
   );
@@ -36,12 +44,43 @@ describe('Game Container', () => {
     });
   });
 
+  describe('mapDispatchToProps()', () => {
+    it('returns the actions bound to the dispatch', () => {
+      const bindACStub = stub(redux, 'bindActionCreators');
+      const fakeDispatch = spy();
+
+      mapDispatchToProps(fakeDispatch);
+      expect(bindACStub).to.have.been.calledWith({
+        setGameId
+      }, fakeDispatch);
+    });
+  });
+
   describe('Game', () => {
+    describe('when mounting', () => {
+      it('updates the GameID with the gameId url param', () => {
+        const gameId = 'Game1234';
+        const setGameIdSpy = spy();
+        connect({}, {
+          setGameId: setGameIdSpy,
+          connected: false,
+          match: {
+            params: {
+              gameId
+            }
+          }
+        });
+
+        expect(setGameIdSpy).to.have.been.calledOnceWith(gameId);
+      });
+    });
+
     describe('when a name prop is found', () => {
       it('renders the Board container', () => {
         const props = {
           name: 'Dave',
-          connected: true
+          connected: true,
+          ...initialProps
         };
         const wrapper = connect(undefined, props);
 
@@ -89,7 +128,8 @@ describe('Game Container', () => {
       it('renders the Join container', () => {
         const props = {
           name: undefined,
-          connected: true
+          connected: true,
+          ...initialProps
         };
         const wrapper = connect(undefined, props);
 

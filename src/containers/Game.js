@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import JoinContainer from './Join';
 import BoardContainer from './Board';
+import { setGameId } from '../actions/game';
 import { CONNECTION_ERROR } from '../constants/dictionary';
 
 export const mapStateToProps = state => ({
@@ -10,14 +12,28 @@ export const mapStateToProps = state => ({
   connected: state.getIn(['game', 'connected'])
 });
 
+export const mapDispatchToProps = dispatch => bindActionCreators({
+  setGameId
+}, dispatch);
+
 export class Game extends Component {
   static propTypes = {
     name: PropTypes.string,
-    connected: PropTypes.bool.isRequired
+    connected: PropTypes.bool.isRequired,
+    setGameId: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        gameId: PropTypes.string
+      }).isRequired
+    }).isRequired
   }
 
   static defaultProps = {
     name: undefined
+  }
+
+  componentDidMount() {
+    this.props.setGameId(this.props.match.params.gameId);
   }
 
   render() {
@@ -42,4 +58,4 @@ export class Game extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

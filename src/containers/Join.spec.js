@@ -1,16 +1,16 @@
+
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
 import React from 'react';
 import * as redux from 'redux';
 import { setName } from '../actions/user';
-import { joinGame, setGameId } from '../actions/game';
+import { joinGame } from '../actions/game';
 import { Join, mapDispatchToProps } from './Join';
 
 describe('Join Container', () => {
   const defaultProps = {
     joinGame: () => {},
-    setGameId: () => {},
     setName: () => {},
     match: {
       params: {}
@@ -28,30 +28,12 @@ describe('Join Container', () => {
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub).to.have.been.calledWith({
         joinGame,
-        setGameId,
         setName
       }, fakeDispatch);
     });
   });
 
   describe('Join', () => {
-    describe('when mounting', () => {
-      it('updates the GameID with the gameId url param', () => {
-        const gameId = 'Game1234';
-        const setGameIdSpy = spy();
-        connect({}, {
-          setGameId: setGameIdSpy,
-          match: {
-            params: {
-              gameId
-            }
-          }
-        });
-
-        expect(setGameIdSpy).to.have.been.calledOnceWith(gameId);
-      });
-    });
-
     describe('when the form is submitted', () => {
       it('updates the users name', () => {
         const name = 'Olga';
