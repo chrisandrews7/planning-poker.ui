@@ -5,7 +5,7 @@ import { spy, stub } from 'sinon';
 import { fromJS } from 'immutable';
 import * as redux from 'redux';
 import { mapStateToProps, mapDispatchToProps, Game } from './Game';
-import { setGameId } from '../actions/game';
+import { setGameId, joinGame } from '../actions/game';
 import BoardContainer from './Board';
 import JoinContainer from './Join';
 import { CONNECTION_ERROR } from '../constants/dictionary';
@@ -14,6 +14,7 @@ describe('Game Container', () => {
   const initialState = {};
   const initialProps = {
     setGameId: () => {},
+    joinGame: () => {},
     match: {
       params: {}
     }
@@ -51,7 +52,8 @@ describe('Game Container', () => {
 
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub).to.have.been.calledWith({
-        setGameId
+        setGameId,
+        joinGame
       }, fakeDispatch);
     });
   });
@@ -61,6 +63,7 @@ describe('Game Container', () => {
       it('updates the GameID with the gameId url param', () => {
         const gameId = 'Game1234';
         const setGameIdSpy = spy();
+
         connect({}, {
           setGameId: setGameIdSpy,
           connected: false,
@@ -72,6 +75,20 @@ describe('Game Container', () => {
         });
 
         expect(setGameIdSpy).to.have.been.calledOnceWith(gameId);
+      });
+
+      describe('if the user has already entered a name', () => {
+        it('attempts to join the game', () => {
+          const joinGameSpy = spy();
+
+          connect({}, {
+            joinGame: joinGameSpy,
+            connected: false,
+            name: 'Already Entered Name'
+          });
+
+          expect(joinGameSpy).to.have.been.calledOnce;
+        });
       });
     });
 

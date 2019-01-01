@@ -1,4 +1,3 @@
-
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
