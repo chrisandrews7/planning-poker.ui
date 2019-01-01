@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map, isEmpty } from 'lodash';
-import { NO_PLAYERS } from '../constants/dictionary';
+import { map } from 'lodash';
 import Player from './Player';
 
 const PlayerList = ({ players }) => (
   <ul className="player-list list-group">
-    {!isEmpty(players)
-      ? map(players, player => <Player key={player.id} name={player.name} vote={player.vote} />)
-      : NO_PLAYERS}
+    {map(players, player => <Player key={player.id} name={player.name} vote={player.vote} />)}
   </ul>
 );
 
