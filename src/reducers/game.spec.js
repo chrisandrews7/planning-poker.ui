@@ -11,63 +11,74 @@ describe('Game Reducer', () => {
       board: {}
     }));
   });
+  describe('GAME_ID_UPDATED', () => {
+    it('updates the gameId', () => {
+      const gameId = 'G123';
+      const action = {
+        type: types.GAME_ID_UPDATED,
+        payload: {
+          gameId
+        }
+      };
 
-  it('handles GAME_ID_UPDATED', () => {
-    const gameId = 'G123';
-    const action = {
-      type: types.GAME_ID_UPDATED,
-      payload: {
-        gameId
-      }
-    };
-
-    expect(reducer(undefined, action).get('gameId')).to.equal(gameId);
+      expect(reducer(undefined, action).get('gameId')).to.equal(gameId);
+    });
   });
 
-  it('handles JOINING_GAME', () => {
-    const action = {
-      type: types.JOINING_GAME
-    };
+  describe('JOINING_GAME', () => {
+    it('updates the connected status', () => {
+      const action = {
+        type: types.JOINING_GAME
+      };
 
-    expect(reducer(Map({ connected: true }), action).get('connected')).to.be.false;
+      expect(reducer(Map({ connected: true }), action).get('connected')).to.be.false;
+    });
   });
 
-  it('handles CONNECTION_LOST', () => {
-    const action = {
-      type: types.CONNECTION_LOST
-    };
+  describe('CONNECTION_LOST', () => {
+    it('updates the connected status', () => {
+      const action = {
+        type: types.CONNECTION_LOST
+      };
 
-    expect(reducer(Map({ connected: true }), action).get('connected')).to.be.false;
+      expect(reducer(Map({ connected: true }), action).get('connected')).to.be.false;
+    });
   });
 
-  it('handles JOINED_GAME', () => {
-    const action = {
-      type: types.JOINED_GAME
-    };
+  describe('JOINED_GAME', () => {
+    it('updates the connected status', () => {
+      const action = {
+        type: types.JOINED_GAME
+      };
 
-    expect(reducer(undefined, action).get('connected')).to.be.true;
+      expect(reducer(undefined, action).get('connected')).to.be.true;
+    });
   });
 
-  it('handles LEFT_GAME', () => {
-    const action = {
-      type: types.LEFT_GAME
-    };
+  describe('LEFT_GAME', () => {
+    it('updates the connected status', () => {
+      const action = {
+        type: types.LEFT_GAME
+      };
 
-    expect(reducer(Map({ connected: true }), action).get('connected')).to.be.false;
+      expect(reducer(Map({ connected: true }), action).get('connected')).to.be.false;
+    });
   });
 
-  it('handles BOARD_UPDATED', () => {
-    const board = {
-      player: 'playerinfo'
-    };
+  describe('BOARD_UPDATED', () => {
+    it('replaces the current board', () => {
+      const board = {
+        player: 'playerinfo'
+      };
 
-    const action = {
-      type: types.BOARD_UPDATED,
-      payload: {
-        board
-      }
-    };
+      const action = {
+        type: types.BOARD_UPDATED,
+        payload: {
+          board
+        }
+      };
 
-    expect(reducer(undefined, action).get('board')).to.deep.equal(board);
+      expect(reducer(undefined, action).get('board')).to.deep.equal(board);
+    });
   });
 });
