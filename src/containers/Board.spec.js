@@ -6,7 +6,7 @@ import { fromJS } from 'immutable';
 import * as redux from 'redux';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
-import Result from '../components/Result';
+import Results from '../components/Results';
 import VoteOptions from '../constants/voting';
 import { mapStateToProps, mapDispatchToProps, Board } from './Board';
 import { setVote } from '../actions/user';
@@ -113,7 +113,7 @@ describe('Board Container', () => {
 
         expect(
           wrapper
-            .find(Result)
+            .find(Results)
             .props()
             .results
         ).to.deep.equal(['15', '?']);

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { setVote } from '../actions/user';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
-import Result from '../components/Result';
+import Results from '../components/Results';
 import voteOptions from '../constants/voting';
 import { selectAllPlayers } from '../selectors/players';
 import { SHARE_LINK, GAME } from '../constants/dictionary';
@@ -53,7 +53,11 @@ export class Board extends Component {
                 <span className="font-weight-light">{gameId}</span>
               </h4>
             </div>
-            {allVoted ? <Result results={map(players, ({ vote }) => vote)} /> : <PlayerList players={players} />}
+            {allVoted ? (
+              <div className="card-body">
+                <Results results={map(players, ({ vote }) => vote)} />
+              </div>)
+              : <PlayerList players={players} />}
             <div className="card-footer text-muted text-center">
               {`${SHARE_LINK}: `}
               <a href={window.location.href}>{window.location.href}</a>
