@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { map } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setVote } from '../actions/user';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
+import Result from '../components/Result';
 import voteOptions from '../constants/voting';
 import { selectAllPlayers } from '../selectors/players';
 import { SHARE_LINK, GAME } from '../constants/dictionary';
 
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
-  gameId: state.getIn(['game', 'gameId'])
+  gameId: state.getIn(['game', 'gameId']),
+  allVoted: state.getIn(['game', 'allVoted'])
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({ setVote }, dispatch);
@@ -19,20 +22,21 @@ export const mapDispatchToProps = dispatch => bindActionCreators({ setVote }, di
 export class Board extends Component {
   static propTypes = {
     players: PropTypes.shape({
+      id: PropTypes.string,
       name: PropTypes.string,
       vote: PropTypes.string
-    }),
+    }).isRequired,
     gameId: PropTypes.string,
-    setVote: PropTypes.func.isRequired
+    setVote: PropTypes.func.isRequired,
+    allVoted: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
-    gameId: undefined,
-    players: {}
+    gameId: undefined
   }
 
   render() {
-    const { players, gameId } = this.props;
+    const { players, gameId, allVoted } = this.props;
     return (
       <div className="row">
         <div className="col-md-7">
@@ -49,7 +53,7 @@ export class Board extends Component {
                 <span className="font-weight-light">{gameId}</span>
               </h4>
             </div>
-            <PlayerList players={players} />
+            {allVoted ? <Result results={map(players, ({ vote }) => vote)} /> : <PlayerList players={players} />}
             <div className="card-footer text-muted text-center">
               {`${SHARE_LINK}: `}
               <a href={window.location.href}>{window.location.href}</a>

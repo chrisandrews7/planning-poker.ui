@@ -6,13 +6,17 @@ import { fromJS } from 'immutable';
 import * as redux from 'redux';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
+import Result from '../components/Result';
 import VoteOptions from '../constants/voting';
 import { mapStateToProps, mapDispatchToProps, Board } from './Board';
 import { setVote } from '../actions/user';
 import * as playerSelectors from '../selectors/players';
 
 describe('Board Container', () => {
-  const initialState = {};
+  const initialState = {
+    players: {},
+    allVoted: false
+  };
   const initialProps = {
     setVote: () => {},
     params: {}
@@ -22,18 +26,20 @@ describe('Board Container', () => {
   );
 
   describe('mapStateToProps()', () => {
-    it('returns the players and gameId', () => {
+    it('returns the players, gameId and voted state', () => {
       stub(playerSelectors, 'selectAllPlayers').returns('players');
       const mockState = {
-        players: {},
         game: {
-          gameId: 'Game123'
+          gameId: 'Game123',
+          allVoted: true,
+          players: {}
         }
       };
 
       expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
         players: 'players',
-        gameId: mockState.game.gameId
+        gameId: mockState.game.gameId,
+        allVoted: mockState.game.allVoted
       });
     });
   });
@@ -63,25 +69,55 @@ describe('Board Container', () => {
       ).to.equal(`Game: ${gameId}`);
     });
 
-    it('renders the PlayerList component with the list of players', () => {
-      const expectedResults = {
-        1234: {
-          name: 'Usain',
-          vote: 15
-        }
-      };
-      const state = {
-        players: expectedResults,
-        gameId: 'Game789'
-      };
-      const wrapper = connect(state);
+    describe('when players are still voting', () => {
+      it('renders the PlayerList component with the list of players', () => {
+        const players = {
+          1234: {
+            name: 'Usain',
+            vote: '15'
+          }
+        };
+        const state = {
+          players,
+          gameId: 'Game789'
+        };
+        const wrapper = connect(state);
 
-      expect(
-        wrapper
-          .find(PlayerList)
-          .props()
-          .players
-      ).to.deep.equal(expectedResults);
+        expect(
+          wrapper
+            .find(PlayerList)
+            .props()
+            .players
+        ).to.deep.equal(players);
+      });
+    });
+
+    describe('when players have finished voting', () => {
+      it('renders the Results component with the results', () => {
+        const players = {
+          1234: {
+            name: 'Usain',
+            vote: '15'
+          },
+          5678: {
+            name: 'Zara',
+            vote: '?'
+          }
+        };
+        const state = {
+          players,
+          gameId: 'Game789',
+          allVoted: true
+        };
+        const wrapper = connect(state);
+
+        expect(
+          wrapper
+            .find(Result)
+            .props()
+            .results
+        ).to.deep.equal(['15', '?']);
+      });
     });
 
     it('renders the VotePanel component with the options and the onVote method', () => {
