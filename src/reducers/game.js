@@ -1,4 +1,5 @@
 import { Map } from 'immutable';
+import { every } from 'lodash';
 import {
   GAME_ID_UPDATED,
   JOINING_GAME,
@@ -10,6 +11,7 @@ import {
 
 const initialState = Map({
   connected: false,
+  allVoted: false,
   gameId: undefined,
   board: {}
 });
@@ -25,7 +27,10 @@ export default function user(state = initialState, action) {
     case JOINED_GAME:
       return state.set('connected', true);
     case BOARD_UPDATED:
-      return state.set('board', action.payload.board);
+      const haveAllVoted = every(action.payload.board, player => !!player.vote);
+      return state
+        .set('board', action.payload.board)
+        .set('allVoted', haveAllVoted);
     default:
       return state;
   }

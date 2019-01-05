@@ -7,6 +7,7 @@ describe('Game Reducer', () => {
   it('returns the initial state', () => {
     expect(reducer(undefined, {})).to.deep.equal(Map({
       connected: false,
+      allVoted: false,
       gameId: undefined,
       board: {}
     }));
@@ -68,7 +69,15 @@ describe('Game Reducer', () => {
   describe('BOARD_UPDATED', () => {
     it('replaces the current board', () => {
       const board = {
-        player: 'playerinfo'
+        12345: {
+          id: 12345,
+          name: 'Tina',
+          vote: 12
+        },
+        6789: {
+          id: 6789,
+          name: 'Brian'
+        }
       };
 
       const action = {
@@ -79,6 +88,34 @@ describe('Game Reducer', () => {
       };
 
       expect(reducer(undefined, action).get('board')).to.deep.equal(board);
+      expect(reducer(undefined, action).get('allVoted')).to.be.false;
+    });
+
+    describe('when all players have voted', () => {
+      it('updates the allVoted status', () => {
+        const board = {
+          12345: {
+            id: 12345,
+            name: 'Tina',
+            vote: 5
+          },
+          6789: {
+            id: 6789,
+            name: 'Brian',
+            vote: 13
+          }
+        };
+
+        const action = {
+          type: types.BOARD_UPDATED,
+          payload: {
+            board
+          }
+        };
+
+        expect(reducer(undefined, action).get('board')).to.deep.equal(board);
+        expect(reducer(undefined, action).get('allVoted')).to.be.true;
+      });
     });
   });
 });
