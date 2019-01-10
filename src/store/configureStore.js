@@ -14,7 +14,6 @@ export default function (initialState, socket) {
   const store = createStoreWithMiddleware(
     rootReducer,
     initialState,
-    window.devToolsExtension()
   );
 
   return store;
