@@ -1,6 +1,6 @@
 {
   "name": "planning-poker-ui",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Sprint planning tool to make agile estimating and planning faster and more efficient",
   "main": "src/index.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "dev": "NODE_ENV=development webpack-dev-server --config webpack.dev.config.js",
     "lint": "eslint .",
     "clean": "rimraf dist",
-    "build": "npm run clean && NODE_ENV=production webpack --config webpack.prod.config.js -p"
+    "build": "npm run clean && NODE_ENV=production webpack --config webpack.prod.config.js",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

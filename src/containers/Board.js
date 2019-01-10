@@ -56,7 +56,8 @@ export class Board extends Component {
             {allVoted ? (
               <div className="card-body">
                 <Results results={map(players, ({ vote }) => vote)} />
-              </div>)
+              </div>
+            )
               : <PlayerList players={players} />}
             <div className="card-footer text-muted text-center">
               {`${SHARE_LINK}: `}

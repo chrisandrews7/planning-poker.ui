@@ -40,7 +40,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.[contenthash].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -53,7 +53,7 @@ module.exports = {
       }, {})
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: "[name].[contenthash].css",
       chunkFilename: "[id].css"
     })
   ]
