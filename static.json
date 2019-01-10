@@ -4,6 +4,11 @@
   "routes": {
     "/**": "index.html"
   },
+  "proxies": {
+    "/server/": {
+      "origin": "${REMOTE_SERVER_URL}"
+    }
+  },
   "headers": {
     "/": {
       "Cache-Control": "no-store, no-cache"

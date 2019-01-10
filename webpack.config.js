@@ -47,10 +47,9 @@ module.exports = {
       template: './src/index.html'
     }),
     new webpack.DefinePlugin({
-      'process.env': Object.keys(process.env).reduce(function(o, k) {
-        o[k] = JSON.stringify(process.env[k]);
-        return o;
-      }, {})
+      'process.env': {
+        SERVER_URL: JSON.stringify(process.env.SERVER_URL)
+      }
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
