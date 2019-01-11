@@ -25,7 +25,9 @@ export class Join extends Component {
   }
 
 
-  joinGame = () => {
+  joinGame = (event) => {
+    event.preventDefault();
+
     this.props.setName(this.state.name);
     this.props.joinGame();
   }

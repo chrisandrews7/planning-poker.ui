@@ -34,6 +34,15 @@ describe('Join Container', () => {
 
   describe('Join', () => {
     describe('when the form is submitted', () => {
+      it('prevents the forms default behavior', () => {
+        const preventDefault = spy();
+        const wrapper = connect();
+
+        wrapper.find('form').simulate('submit', { preventDefault });
+
+        expect(preventDefault).to.have.been.calledOnce;
+      });
+
       it('updates the users name', () => {
         const name = 'Olga';
         const setNameSpy = spy();
@@ -44,7 +53,7 @@ describe('Join Container', () => {
         wrapper.find('input').simulate('change', { target: { value: 'testChange' } });
         wrapper.find('input').simulate('change', { target: { value: name } });
 
-        wrapper.find('form').simulate('submit');
+        wrapper.find('form').simulate('submit', { preventDefault: () => {} });
 
         expect(setNameSpy).to.have.been.calledOnceWith(name);
       });
@@ -55,7 +64,7 @@ describe('Join Container', () => {
           joinGame: joinGameSpy
         });
 
-        wrapper.find('form').simulate('submit');
+        wrapper.find('form').simulate('submit', { preventDefault: () => {} });
         expect(joinGameSpy).to.have.been.calledOnce;
       });
     });
