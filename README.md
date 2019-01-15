@@ -4,7 +4,9 @@
 
 ## About
 
-UI for a Sprint planning tool to make agile estimating and planning faster and more efficient.
+UI for a Sprint planning tool to make agile estimating and planning faster and more efficient.  
+
+Built in React and Redux, connecting to a socket server to communicate with other players.
 
 ## Getting Started
 
@@ -13,7 +15,22 @@ Install dependencies
 npm install
 ```
 
-Start app
+Run in development locally
 ```
 npm run dev
+```
+
+Build for production
+```
+npm run build
+```
+
+## Environment Variables
+
+- **SERVER_URL**: Server URL of the game server to connect to. *Required*
+
+## Testing
+
+```
+npm test
 ```
