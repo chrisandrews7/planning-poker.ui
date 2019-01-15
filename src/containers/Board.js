@@ -14,7 +14,8 @@ import { SHARE_LINK, GAME } from '../constants/dictionary';
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
   gameId: state.getIn(['game', 'gameId']),
-  allVoted: state.getIn(['game', 'allVoted'])
+  allVoted: state.getIn(['game', 'allVoted']),
+  vote: state.getIn(['user', 'vote'])
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({ setVote }, dispatch);
@@ -28,21 +29,27 @@ export class Board extends Component {
     }).isRequired,
     gameId: PropTypes.string,
     setVote: PropTypes.func.isRequired,
-    allVoted: PropTypes.bool.isRequired
+    allVoted: PropTypes.bool.isRequired,
+    vote: PropTypes.string
   }
 
   static defaultProps = {
-    gameId: undefined
+    gameId: undefined,
+    vote: undefined
   }
 
   render() {
-    const { players, gameId, allVoted } = this.props;
+    const {
+      players, gameId, allVoted, vote
+    } = this.props;
+
     return (
       <div className="row">
         <div className="col-md-7">
           <VotePanel
             options={voteOptions}
-            onVote={vote => this.props.setVote(vote)}
+            onVote={value => this.props.setVote(value)}
+            selectedValue={vote}
           />
         </div>
         <div className="col-md-5">
@@ -55,7 +62,7 @@ export class Board extends Component {
             </div>
             {allVoted ? (
               <div className="card-body">
-                <Results results={map(players, ({ vote }) => vote)} />
+                <Results results={map(players, ({ vote: v }) => v)} />
               </div>
             )
               : <PlayerList players={players} />}

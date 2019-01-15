@@ -14,6 +14,23 @@ describe('VotePanel Component', () => {
     expect(voteOptions).to.deep.equal(options);
   });
 
+  describe('when the selectedValue is provided', () => {
+    it('renders the vote option with a selected prop', () => {
+      const options = ['1', '5'];
+      const wrapper = shallow(<VotePanel options={options} onVote={() => {}} selectedValue="5" />);
+
+      expect(wrapper
+        .containsMatchingElement(
+          <Card value="1" selected={false} />
+        )).to.be.ok;
+
+      expect(wrapper
+        .containsMatchingElement(
+          <Card value="5" selected />
+        )).to.be.ok;
+    });
+  });
+
   describe('when the button is clicked', () => {
     it('invokes the callback function in props', () => {
       const options = ['13'];

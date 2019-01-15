@@ -13,12 +13,22 @@
   width: 100%;
   margin-bottom: 15px;
   padding: 35px 15px;
+  transition: transform 0.3s;
 
   &:before,
 	&:after {
     content: attr(value);
     position: absolute;
     font-size: .8rem
+  }
+
+  &--selected{
+    transform: rotateY(180deg);
+
+    &:before,
+    &:after {
+      content: "♠️";
+    }
   }
 
   &:before {

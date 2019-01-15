@@ -26,20 +26,24 @@ describe('Board Container', () => {
   );
 
   describe('mapStateToProps()', () => {
-    it('returns the players, gameId and voted state', () => {
+    it('returns the players, gameId, voted and current vote state', () => {
       stub(playerSelectors, 'selectAllPlayers').returns('players');
       const mockState = {
         game: {
           gameId: 'Game123',
           allVoted: true,
           players: {}
+        },
+        user: {
+          vote: '5'
         }
       };
 
       expect(mapStateToProps(fromJS(mockState))).to.deep.equal({
         players: 'players',
         gameId: mockState.game.gameId,
-        allVoted: mockState.game.allVoted
+        allVoted: mockState.game.allVoted,
+        vote: mockState.user.vote
       });
     });
   });
@@ -69,11 +73,12 @@ describe('Board Container', () => {
       ).to.equal(`Game: ${gameId}`);
     });
 
-    it('renders the VotePanel component with the options and the onVote method', () => {
+    it('renders the VotePanel component with the options, onVote and current vote', () => {
       const setVoteSpy = spy();
 
       const wrapper = connect({
-        gameId: 'Game9876'
+        gameId: 'Game9876',
+        vote: '5'
       }, { setVote: setVoteSpy });
 
       const props = wrapper
@@ -81,6 +86,7 @@ describe('Board Container', () => {
         .props();
 
       expect(props.options).to.deep.equal(VoteOptions);
+      expect(props.selectedValue).to.deep.equal('5');
 
       props.onVote('vote');
       expect(setVoteSpy).to.have.been.calledWith('vote');
