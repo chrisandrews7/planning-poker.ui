@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Player = ({ name, vote }) => (
   <li className="player list-group-item d-flex justify-content-between align-items-center">
     {name}
-    <span className="player__vote badge badge-info badge-pill">{vote}</span>
+    <span className="player__vote badge badge-info badge-pill">{vote && '✓'}</span>
   </li>
 );
 

@@ -10,11 +10,13 @@ describe('Player Component', () => {
     expect(wrapper.find('.player').text()).to.equal(name);
   });
 
-  it('renders the players vote', () => {
-    const name = 'David';
-    const vote = 5;
-    const wrapper = shallow(<Player name={name} vote={vote} />);
-    expect(+wrapper.find('.player__vote').text()).to.equal(vote);
+  describe('when the user has voted', () => {
+    it('renders a tick', () => {
+      const name = 'David';
+      const vote = 5;
+      const wrapper = shallow(<Player name={name} vote={vote} />);
+      expect(wrapper.find('.player__vote').text()).to.equal('✓');
+    });
   });
 
   describe('when no vote is prop is provided', () => {
