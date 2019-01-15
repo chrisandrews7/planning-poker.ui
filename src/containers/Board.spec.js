@@ -69,6 +69,37 @@ describe('Board Container', () => {
       ).to.equal(`Game: ${gameId}`);
     });
 
+    it('renders the VotePanel component with the options and the onVote method', () => {
+      const setVoteSpy = spy();
+
+      const wrapper = connect({
+        gameId: 'Game9876'
+      }, { setVote: setVoteSpy });
+
+      const props = wrapper
+        .find(VotePanel)
+        .props();
+
+      expect(props.options).to.deep.equal(VoteOptions);
+
+      props.onVote('vote');
+      expect(setVoteSpy).to.have.been.calledWith('vote');
+    });
+
+    it('renders a link to share the game', () => {
+      const state = {
+        gameId: 'GameTest'
+      };
+      const wrapper = connect(state);
+
+      expect(
+        wrapper
+          .find('.card-footer a')
+          .props()
+          .href
+      ).to.equal(window.location.href);
+    });
+
     describe('when players are still voting', () => {
       it('renders the PlayerList component with the list of players', () => {
         const players = {
@@ -118,37 +149,6 @@ describe('Board Container', () => {
             .results
         ).to.deep.equal(['15', '?']);
       });
-    });
-
-    it('renders the VotePanel component with the options and the onVote method', () => {
-      const setVoteSpy = spy();
-
-      const wrapper = connect({
-        gameId: 'Game9876'
-      }, { setVote: setVoteSpy });
-
-      const props = wrapper
-        .find(VotePanel)
-        .props();
-
-      expect(props.options).to.deep.equal(VoteOptions);
-
-      props.onVote('vote');
-      expect(setVoteSpy).to.have.been.calledWith('vote');
-    });
-
-    it('renders a link to share the game', () => {
-      const state = {
-        gameId: 'GameTest'
-      };
-      const wrapper = connect(state);
-
-      expect(
-        wrapper
-          .find('.card-footer a')
-          .props()
-          .href
-      ).to.equal(window.location.href);
     });
   });
 });
