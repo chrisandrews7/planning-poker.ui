@@ -15,6 +15,7 @@ describe('Home Container', () => {
       it('navigates to that game', () => {
         const gameId = 'Test123';
 
+        const preventDefault = spy();
         const historySpy = spy();
         const wrapper = connect({}, {
           history: {
@@ -25,9 +26,10 @@ describe('Home Container', () => {
         wrapper.find('input').simulate('change', { target: { value: 'someId' } });
         wrapper.find('input').simulate('change', { target: { value: gameId } });
 
-        wrapper.find('form').simulate('submit');
+        wrapper.find('form').simulate('submit', { preventDefault });
 
         expect(historySpy).to.have.been.calledOnceWith(`/${gameId}`);
+        expect(preventDefault).to.have.been.calledOnce;
       });
     });
 
@@ -36,6 +38,7 @@ describe('Home Container', () => {
         const randomGameId = 'R12345';
         stub(idUtils, 'generateShortId').returns(randomGameId);
 
+        const preventDefault = spy();
         const historySpy = spy();
         const wrapper = connect({}, {
           history: {
@@ -43,9 +46,10 @@ describe('Home Container', () => {
           }
         });
 
-        wrapper.find('.home-panel__start-btn').simulate('click', { target: {} });
+        wrapper.find('.home-panel__start-btn').simulate('click', { preventDefault });
 
         expect(historySpy).to.have.been.calledOnceWith(`/${randomGameId}`);
+        expect(preventDefault).to.have.been.calledOnce;
       });
     });
   });

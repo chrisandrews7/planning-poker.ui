@@ -51,7 +51,7 @@ export class Home extends Component {
               </h2>
               <form
                 className="input-group"
-                onSubmit={() => this.goToGame(this.state.gameId)}
+                onSubmit={(e) => { e.preventDefault(); this.goToGame(this.state.gameId); }}
               >
                 <input
                   type="text"
@@ -78,7 +78,7 @@ export class Home extends Component {
               <button
                 type="button"
                 className="btn btn-primary home-panel__start-btn"
-                onClick={() => this.goToGame()}
+                onClick={(e) => { e.preventDefault(); this.goToGame(); }}
               >
                 {START}
               </button>
