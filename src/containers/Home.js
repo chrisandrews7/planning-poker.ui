@@ -59,6 +59,7 @@ export class Home extends Component {
                   onChange={this.setGameId}
                   placeholder={ENTER_GAME}
                   aria-label={ENTER_GAME}
+                  autoCapitalize="none"
                   required
                   minLength={4}
                 />
