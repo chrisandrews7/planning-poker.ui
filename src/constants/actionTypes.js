@@ -7,3 +7,4 @@ export const JOINED_GAME = '@@JOINED_GAME';
 export const LEFT_GAME = '@@LEFT_GAME';
 export const BOARD_UPDATED = '@@BOARD_UPDATED';
 export const CONNECTION_LOST = '@@CONNECTION_LOST';
+export const VOTES_RESET = '@@VOTES_RESET';

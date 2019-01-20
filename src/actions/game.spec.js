@@ -62,4 +62,12 @@ describe('Game Actions', () => {
       });
     });
   });
+
+  describe('resetVotes()', () => {
+    it('returns a VOTES_RESET action', () => {
+      expect(actions.resetVotes()).to.deep.equal({
+        type: actionTypes.VOTES_RESET
+      });
+    });
+  });
 });

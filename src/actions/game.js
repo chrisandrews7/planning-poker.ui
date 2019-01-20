@@ -4,7 +4,8 @@ import {
   JOINED_GAME,
   CONNECTION_LOST,
   BOARD_UPDATED,
-  LEFT_GAME
+  LEFT_GAME,
+  VOTES_RESET
 } from '../constants/actionTypes';
 
 export const setGameId = gameId => ({
@@ -35,4 +36,8 @@ export const updateBoard = board => ({
   payload: {
     board
   }
+});
+
+export const resetVotes = () => ({
+  type: VOTES_RESET
 });

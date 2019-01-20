@@ -9,6 +9,7 @@ import VotePanel from '../components/VotePanel';
 import Results from '../components/Results';
 import VoteOptions from '../constants/voting';
 import { mapStateToProps, mapDispatchToProps, Board } from './Board';
+import { resetVotes } from '../actions/game';
 import { setVote } from '../actions/user';
 import * as playerSelectors from '../selectors/players';
 
@@ -19,6 +20,7 @@ describe('Board Container', () => {
   };
   const initialProps = {
     setVote: () => {},
+    resetVotes: () => {},
     params: {}
   };
   const connect = (state, props) => shallow(
@@ -54,7 +56,7 @@ describe('Board Container', () => {
       const fakeDispatch = spy();
 
       mapDispatchToProps(fakeDispatch);
-      expect(bindACStub).to.have.been.calledWith({ setVote }, fakeDispatch);
+      expect(bindACStub).to.have.been.calledWith({ setVote, resetVotes }, fakeDispatch);
     });
   });
 
@@ -68,7 +70,7 @@ describe('Board Container', () => {
 
       expect(
         wrapper
-          .find('.card-header')
+          .find('.card-header h4')
           .text()
       ).to.equal(`Game: ${gameId}`);
     });
@@ -104,6 +106,18 @@ describe('Board Container', () => {
           .props()
           .href
       ).to.equal(window.location.href);
+    });
+
+    describe('when clicking the reset vote button', () => {
+      it('resets the voting', () => {
+        const props = {
+          resetVotes: spy()
+        };
+        const wrapper = connect({}, props);
+        wrapper.find('.card-header button').simulate('click');
+
+        expect(props.resetVotes).to.have.been.calledOnce;
+      });
     });
 
     describe('when players are still voting', () => {

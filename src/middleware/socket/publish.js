@@ -1,8 +1,9 @@
-import { VOTE, JOIN } from '../../constants/eventTypes';
+import { VOTE, JOIN, RESET } from '../../constants/eventTypes';
 import {
   JOINING_GAME,
   USER_VOTED,
-  LEFT_GAME
+  LEFT_GAME,
+  VOTES_RESET
 } from '../../constants/actionTypes';
 
 export default socket => store => next => (action) => {
@@ -23,6 +24,9 @@ export default socket => store => next => (action) => {
       socket.emit(VOTE, {
         vote: action.payload.vote
       });
+      break;
+    case VOTES_RESET:
+      socket.emit(RESET);
       break;
     default:
       break;

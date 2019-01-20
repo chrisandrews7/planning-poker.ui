@@ -4,6 +4,7 @@ import { map } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setVote } from '../actions/user';
+import { resetVotes } from '../actions/game';
 import PlayerList from '../components/PlayerList';
 import VotePanel from '../components/VotePanel';
 import Results from '../components/Results';
@@ -18,7 +19,7 @@ export const mapStateToProps = state => ({
   vote: state.getIn(['user', 'vote'])
 });
 
-export const mapDispatchToProps = dispatch => bindActionCreators({ setVote }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({ setVote, resetVotes }, dispatch);
 
 export class Board extends Component {
   static propTypes = {
@@ -28,9 +29,10 @@ export class Board extends Component {
       vote: PropTypes.string
     }).isRequired,
     gameId: PropTypes.string,
-    setVote: PropTypes.func.isRequired,
     allVoted: PropTypes.bool.isRequired,
-    vote: PropTypes.string
+    vote: PropTypes.string,
+    setVote: PropTypes.func.isRequired,
+    resetVotes: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -55,6 +57,13 @@ export class Board extends Component {
         <div className="col-md-5">
           <div className="card">
             <div className="card-header bg-info">
+              <button
+                type="button"
+                className="btn btn-outline-light float-right"
+                onClick={this.props.resetVotes}
+              >
+                Reset Votes
+              </button>
               <h4 className="text-white">
                 {`${GAME}: `}
                 <span className="font-weight-light">{gameId}</span>
