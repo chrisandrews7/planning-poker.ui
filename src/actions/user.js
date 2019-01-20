@@ -1,6 +1,7 @@
 import {
   USER_VOTED,
-  NAME_UPDATED
+  NAME_UPDATED,
+  ONLY_OBSERVING
 } from '../constants/actionTypes';
 
 export const setName = name => ({
@@ -8,6 +9,10 @@ export const setName = name => ({
   payload: {
     name
   }
+});
+
+export const observe = () => ({
+  type: ONLY_OBSERVING
 });
 
 export const setVote = vote => ({

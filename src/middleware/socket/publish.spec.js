@@ -20,7 +20,8 @@ describe('Socket Middleware - Publish', () => {
   describe('when a JOINING_GAME action is fired', () => {
     const mockState = {
       user: {
-        name: 'Test'
+        name: 'Test',
+        isObserver: true
       },
       game: {
         gameId: 'G123'
@@ -42,7 +43,8 @@ describe('Socket Middleware - Publish', () => {
     it('emits a JOIN event', () => {
       expect(socketMock.emit).to.have.been.calledWithExactly(JOIN, {
         name: mockState.user.name,
-        gameId: mockState.game.gameId
+        gameId: mockState.game.gameId,
+        isObserver: mockState.user.isObserver
       });
     });
   });

@@ -28,4 +28,12 @@ describe('User Actions', () => {
       });
     });
   });
+
+  describe('observe()', () => {
+    it('returns a ONLY_OBSERVING action', () => {
+      expect(actions.observe()).to.deep.equal({
+        type: actionTypes.ONLY_OBSERVING
+      });
+    });
+  });
 });

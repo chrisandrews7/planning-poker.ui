@@ -3,6 +3,7 @@ export const SHARE_LINK = 'Invite someone';
 export const GAME = 'Game';
 
 export const ENTER_NAME = 'Your Name';
+export const ENTER_OBSERVER = 'Observer';
 export const ENTER_GAME = 'Game ID';
 
 export const JOIN_GAME = 'Join an existing game';

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
 import React from 'react';
 import * as redux from 'redux';
-import { setName } from '../actions/user';
+import { setName, observe } from '../actions/user';
 import { joinGame } from '../actions/game';
 import { Join, mapDispatchToProps } from './Join';
 
@@ -11,6 +11,7 @@ describe('Join Container', () => {
   const defaultProps = {
     joinGame: () => {},
     setName: () => {},
+    observe: () => {},
     match: {
       params: {}
     }
@@ -27,7 +28,8 @@ describe('Join Container', () => {
       mapDispatchToProps(fakeDispatch);
       expect(bindACStub).to.have.been.calledWith({
         joinGame,
-        setName
+        setName,
+        observe
       }, fakeDispatch);
     });
   });
@@ -50,12 +52,53 @@ describe('Join Container', () => {
           setName: setNameSpy
         });
 
-        wrapper.find('input').simulate('change', { target: { value: 'testChange' } });
-        wrapper.find('input').simulate('change', { target: { value: name } });
+        wrapper.find('input[id="name"]').simulate('change', {
+          target: {
+            id: 'name',
+            value: 'testChange'
+          }
+        });
+        wrapper.find('input[id="name"]').simulate('change', {
+          target: {
+            id: 'name',
+            value: name
+          }
+        });
 
         wrapper.find('form').simulate('submit', { preventDefault: () => {} });
 
         expect(setNameSpy).to.have.been.calledOnceWith(name);
+      });
+
+      it('doesnt set the user as an observer', () => {
+        const observeSpy = spy();
+        const wrapper = connect({}, {
+          observe: observeSpy
+        });
+
+        wrapper.find('form').simulate('submit', { preventDefault: () => {} });
+
+        expect(observeSpy).to.not.have.been.called;
+      });
+
+      describe('when the observer checkbox is true', () => {
+        it('sets the user to being an observer', () => {
+          const observeSpy = spy();
+          const wrapper = connect({}, {
+            observe: observeSpy
+          });
+
+          wrapper.find('input[id="isObserver"]').simulate('change', {
+            target: {
+              id: 'isObserver',
+              type: 'checkbox',
+              checked: true
+            }
+          });
+          wrapper.find('form').simulate('submit', { preventDefault: () => {} });
+
+          expect(observeSpy).to.have.been.calledOnce;
+        });
       });
 
       it('attempts to join the game', () => {
