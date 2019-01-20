@@ -8,7 +8,7 @@ describe('User Reducer', () => {
     expect(reducer(undefined, {})).to.deep.equal(Map({
       name: undefined,
       vote: undefined,
-      observer: false
+      isObserver: false
     }));
   });
 
@@ -41,12 +41,12 @@ describe('User Reducer', () => {
   });
 
   describe('ONLY_OBSERVING', () => {
-    it('updates the observer status', () => {
+    it('updates the isObserver status', () => {
       const action = {
         type: types.ONLY_OBSERVING
       };
 
-      expect(reducer(undefined, action).get('observer')).to.equal(true);
+      expect(reducer(undefined, action).get('isObserver')).to.equal(true);
     });
   });
 });

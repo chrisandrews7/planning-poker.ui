@@ -8,7 +8,7 @@ import {
 const initialState = Map({
   name: undefined,
   vote: undefined,
-  observer: false
+  isObserver: false
 });
 
 export default function user(state = initialState, action) {
@@ -18,7 +18,7 @@ export default function user(state = initialState, action) {
     case NAME_UPDATED:
       return state.set('name', action.payload.name);
     case ONLY_OBSERVING:
-      return state.set('observer', true);
+      return state.set('isObserver', true);
     default:
       return state;
   }
