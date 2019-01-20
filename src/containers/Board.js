@@ -10,7 +10,7 @@ import VotePanel from '../components/VotePanel';
 import Results from '../components/Results';
 import voteOptions from '../constants/voting';
 import { selectAllPlayers } from '../selectors/players';
-import { SHARE_LINK, GAME } from '../constants/dictionary';
+import { SHARE_LINK, GAME, RESET_VOTES } from '../constants/dictionary';
 
 export const mapStateToProps = state => ({
   players: selectAllPlayers(state),
@@ -62,7 +62,7 @@ export class Board extends Component {
                 className="btn btn-outline-light float-right"
                 onClick={this.props.resetVotes}
               >
-                Reset Votes
+                {RESET_VOTES}
               </button>
               <h4 className="text-white">
                 {`${GAME}: `}

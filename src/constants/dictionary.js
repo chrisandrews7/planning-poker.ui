@@ -9,6 +9,7 @@ export const JOIN_GAME = 'Join an existing game';
 export const JOIN = 'Join';
 export const START_GAME = 'Start a new game';
 export const START = 'New game';
+export const RESET_VOTES = 'Reset Votes';
 
 export const APP_NAME = 'Planning Poker';
 export const APP_DESC = 'Sprint planning tool to make estimating and planning faster and more efficient.';
