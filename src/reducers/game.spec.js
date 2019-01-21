@@ -91,8 +91,21 @@ describe('Game Reducer', () => {
       expect(reducer(undefined, action).get('allVoted')).to.be.false;
     });
 
+    describe('when no players are on the board', () => {
+      it('sets the allVoted status to true', () => {
+        const action = {
+          type: types.BOARD_UPDATED,
+          payload: {
+            board: {}
+          }
+        };
+
+        expect(reducer(undefined, action).get('allVoted')).to.be.false;
+      });
+    });
+
     describe('when all players have voted', () => {
-      it('updates the allVoted status', () => {
+      it('sets the allVoted status to true', () => {
         const board = {
           12345: {
             id: 12345,
