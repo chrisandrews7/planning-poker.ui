@@ -3,7 +3,7 @@ import { generateShortId } from './idGenerator';
 
 describe('Id Generator', () => {
   describe('generateShortId()', () => {
-    it('generates a number 5 digits long', () => {
+    it('generates a number 4 digits long', () => {
       const result = generateShortId();
 
       expect(result).to.be.a('number');
