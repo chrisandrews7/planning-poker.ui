@@ -13,4 +13,5 @@ export const START = 'New game';
 export const RESET_VOTES = 'Reset Votes';
 
 export const APP_NAME = 'Planning Poker';
-export const APP_DESC = 'Sprint planning tool to make estimating and planning faster and more efficient.';
+export const APP_DESC =
+  'Agile planning poker for scrum teams to make story estimation faster and more efficient.';

@@ -4,7 +4,7 @@
 
 ## About
 
-UI for a Sprint planning tool to make agile estimating and planning faster and more efficient.  
+UI for a agile planning poker for scrum teams to make story estimation faster and more efficient.
 
 Built in React and Redux, connecting to a socket server to communicate with other players.
 
