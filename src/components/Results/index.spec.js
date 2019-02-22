@@ -11,12 +11,12 @@ describe('Results', () => {
 
     expect(wrapper
       .containsMatchingElement(
-        <div>test1</div>
+        <div>test1 (2 votes)</div>
       )).to.be.ok;
 
     expect(wrapper
       .containsMatchingElement(
-        <div>test2</div>
+        <div>test2 (1 votes)</div>
       )).to.be.ok;
   });
 
@@ -34,17 +34,17 @@ describe('Results', () => {
 
     expect(wrapper
       .containsMatchingElement(
-        <div style={{ width: '100%' }}>test1</div>
+        <div style={{ width: '100%' }}>test1 (4 votes)</div>
       )).to.be.ok;
 
     expect(wrapper
       .containsMatchingElement(
-        <div style={{ width: '50%' }}>test2</div>
+        <div style={{ width: '50%' }}>test2 (2 votes)</div>
       )).to.be.ok;
 
     expect(wrapper
       .containsMatchingElement(
-        <div style={{ width: '25%' }}>test3</div>
+        <div style={{ width: '25%' }}>test3 (1 votes)</div>
       )).to.be.ok;
   });
 
@@ -53,7 +53,7 @@ describe('Results', () => {
 
     expect(wrapper
       .containsMatchingElement(
-        <div style={{ width: '100%' }}>test1</div>
+        <div style={{ width: '100%' }}>test1 (2 votes)</div>
       )).to.be.ok;
   });
 
@@ -68,8 +68,8 @@ describe('Results', () => {
     ]}
     />);
 
-    expect(wrapper.find('.progress-bar').at(0).text()).to.equal('test1');
-    expect(wrapper.find('.progress-bar').at(1).text()).to.equal('test2');
-    expect(wrapper.find('.progress-bar').at(2).text()).to.equal('test3');
+    expect(wrapper.find('.progress-bar').at(0).text()).to.equal('test1 (3 votes)');
+    expect(wrapper.find('.progress-bar').at(1).text()).to.equal('test2 (2 votes)');
+    expect(wrapper.find('.progress-bar').at(2).text()).to.equal('test3 (1 votes)');
   });
 });
