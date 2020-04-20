@@ -1,16 +1,17 @@
 const merge = require('webpack-merge');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin')
 const baseConfig = require('./webpack.config');
 
 module.exports = merge(baseConfig, {
   mode: 'production',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
+      new TerserPlugin({
         parallel: true,
-        sourceMap: false 
+        terserOptions: {
+          ecma: 6,
+        },
       }),
       new OptimizeCSSAssetsPlugin({})
     ]
