@@ -25,7 +25,7 @@ const Results = ({ results }) => {
               width: `${(occurence / maxBar) * 100}%`
             }}
           >
-            {`${value} (${occurence} votes)`}
+            {value}
           </div>
         </div>
       ))}
