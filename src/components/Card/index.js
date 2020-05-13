@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './styles.less';
 
 const Card = props => (
-  <div className="col-6 col-lg-3" {...props}>
+  <div className="col-4 col-lg-3" {...props}>
     <div
       className={cx('playing-card', { 'playing-card--selected': props.selected })}
       value={props.value}
