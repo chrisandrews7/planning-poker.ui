@@ -31,7 +31,7 @@ const Results = ({ results }) => {
         }))}
         label={({ dataEntry }) => dataEntry.title}
         labelStyle={{
-          fontSize: '0.37rem',
+          fontSize: '.37rem',
           fill: '#FFF'
         }}
       />

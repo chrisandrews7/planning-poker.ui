@@ -47,14 +47,14 @@ export class Board extends Component {
 
     return (
       <div className="row">
-        <div className="col-md-7">
+        <div className="col-md-6 col-lg-7">
           <VotePanel
             options={voteOptions}
             onVote={value => this.props.setVote(value)}
             selectedValue={vote}
           />
         </div>
-        <div className="col-md-5">
+        <div className="col-md-6 col-lg-5">
           <div className="card">
             <div className="card-header bg-info">
               <button
