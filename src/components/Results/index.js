@@ -1,35 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { orderBy } from 'lodash';
+import { PieChart } from 'react-minimal-pie-chart';
 import './styles.less';
+import colours from '../../constants/colours';
 
 const Results = ({ results }) => {
-  const bars = results.reduce((group, result) => ({
+  const groupedResults = results.reduce((group, result) => ({
     ...group,
     [result]: {
-      value: result,
-      occurence: group[result] ? group[result].occurence + 1 : 1
+      title: result,
+      value: group[result] ? group[result].value + 1 : 1
     }
   }), {});
-
-  const orderedBars = orderBy(bars, ['occurence'], ['desc']);
-  const maxBar = orderedBars[0].occurence;
+  const orderedResults = orderBy(groupedResults, ['value'], ['desc']);
 
   return (
     <div className="results">
-      {orderedBars.map(({ occurence, value }) => (
-        <div className="progress" key={value}>
-          <div
-            className="progress-bar bg-info"
-            style={{
-              width: `${(occurence / maxBar) * 100}%`
-            }}
-          >
-            {value}
-          </div>
-        </div>
-      ))}
+      <PieChart
+        animate
+        data={orderedResults.map(({ title, value }, index) => ({
+          title,
+          value,
+          color: colours[index]
+        }))}
+        label={({ dataEntry }) => dataEntry.title}
+        labelStyle={{
+          fontSize: '0.35rem',
+          fill: '#FFFFFF'
+        }}
+        labelPosition={60}
+      />
     </div>
+
   );
 };
 

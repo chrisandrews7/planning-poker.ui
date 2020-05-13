@@ -1,26 +1,17 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import { PieChart } from 'react-minimal-pie-chart';
 import Results from '.';
 
 describe('Results', () => {
-  it('renders a bar for each unique result', () => {
+  it('renders a pie chart', () => {
     const wrapper = shallow(<Results results={['test1', 'test1', 'test2']} />);
 
-    expect(wrapper.find('.progress-bar')).to.have.a.lengthOf(2);
-
-    expect(wrapper
-      .containsMatchingElement(
-        <div>test1</div>
-      )).to.be.ok;
-
-    expect(wrapper
-      .containsMatchingElement(
-        <div>test2</div>
-      )).to.be.ok;
+    expect(wrapper.find(PieChart)).to.be.ok;
   });
 
-  it('sets the width of each bar based on a percentage of the total occurences of each unique result', () => {
+  it('sets the size of each portion based on a percentage of the total occurences of each unique result', () => {
     const wrapper = shallow(<Results results={[
       'test1',
       'test1',
@@ -32,44 +23,15 @@ describe('Results', () => {
     ]}
     />);
 
-    expect(wrapper
-      .containsMatchingElement(
-        <div style={{ width: '100%' }}>test1</div>
-      )).to.be.ok;
+    const { data: pieSlices } = wrapper.find(PieChart).props();
 
-    expect(wrapper
-      .containsMatchingElement(
-        <div style={{ width: '50%' }}>test2</div>
-      )).to.be.ok;
+    expect(pieSlices[0]).to.have.property('title', 'test1');
+    expect(pieSlices[0]).to.have.property('value', 4);
 
-    expect(wrapper
-      .containsMatchingElement(
-        <div style={{ width: '25%' }}>test3</div>
-      )).to.be.ok;
-  });
+    expect(pieSlices[1]).to.have.property('title', 'test2');
+    expect(pieSlices[1]).to.have.property('value', 2);
 
-  it('renders the bar with the most votes the full width of the component', () => {
-    const wrapper = shallow(<Results results={['test1', 'test1', 'test2']} />);
-
-    expect(wrapper
-      .containsMatchingElement(
-        <div style={{ width: '100%' }}>test1</div>
-      )).to.be.ok;
-  });
-
-  it('sorts the bars based on the results total occurences', () => {
-    const wrapper = shallow(<Results results={[
-      'test1',
-      'test1',
-      'test1',
-      'test2',
-      'test2',
-      'test3'
-    ]}
-    />);
-
-    expect(wrapper.find('.progress-bar').at(0).text()).to.equal('test1');
-    expect(wrapper.find('.progress-bar').at(1).text()).to.equal('test2');
-    expect(wrapper.find('.progress-bar').at(2).text()).to.equal('test3');
+    expect(pieSlices[2]).to.have.property('title', 'test3');
+    expect(pieSlices[2]).to.have.property('value', 1);
   });
 });
