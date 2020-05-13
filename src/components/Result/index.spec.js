@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import { PLAYERS, PLAYER } from '../../constants/dictionary';
 import Result from '.';
 
 describe('Result', () => {
@@ -11,13 +12,13 @@ describe('Result', () => {
 
   it('renders the percentage and value', () => {
     const wrapper = shallow(<Result title="test1" value={1} percentage={100} colour="green" />);
-    expect(wrapper.find('.result__value').text()).to.equal(' - 100% (1 player)');
+    expect(wrapper.find('.result__value').text()).to.equal(` - 100% (1 ${PLAYER})`);
   });
 
   describe('when there is more that 1 player', () => {
     it('uses the plural of player', () => {
       const wrapper = shallow(<Result title="test1" value={5} percentage={100} colour="green" />);
-      expect(wrapper.find('.result__value').text()).to.equal(' - 100% (5 players)');
+      expect(wrapper.find('.result__value').text()).to.equal(` - 100% (5 ${PLAYERS})`);
     });
   });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { PLAYER, PLAYERS } from '../../constants/dictionary';
 import './styles.less';
 
 const Result = ({
@@ -13,7 +14,7 @@ const Result = ({
     </span>
     <span className="result__value">
       {' - '}
-      {`${percentage}% (${value} player${value < 2 ? '' : 's'})`}
+      {`${percentage}% (${value} ${value < 2 ? PLAYER : PLAYERS})`}
     </span>
 
   </div>

@@ -11,6 +11,8 @@ export const JOIN = 'Join';
 export const START_GAME = 'Start a new game';
 export const START = 'New game';
 export const RESET_VOTES = 'Reset Votes';
+export const PLAYER = 'player';
+export const PLAYERS = 'players';
 
 export const APP_NAME = 'Planning Poker';
 export const APP_DESC = 'Agile planning poker for scrum teams to make story estimation faster and more efficient.';
