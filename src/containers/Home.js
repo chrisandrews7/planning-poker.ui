@@ -54,7 +54,7 @@ export class Home extends Component {
                 onSubmit={(e) => { e.preventDefault(); this.goToGame(this.state.gameId); }}
               >
                 <input
-                  type="text"
+                  type="number"
                   id="gameId"
                   onChange={this.setGameId}
                   placeholder={ENTER_GAME}
