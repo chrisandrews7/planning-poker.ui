@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './styles.less';
 
 const Card = props => (
-  <div className="col-4 col-lg-3" {...props}>
+  <div className={props.className} {...props}>
     <div
       className={cx('playing-card', { 'playing-card--selected': props.selected })}
       value={props.value}
@@ -15,11 +15,13 @@ const Card = props => (
 );
 
 Card.propTypes = {
+  className: PropTypes.string,
   value: PropTypes.string.isRequired,
   selected: PropTypes.bool
 };
 
 Card.defaultProps = {
+  className: undefined,
   selected: false
 };
 

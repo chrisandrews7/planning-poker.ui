@@ -6,6 +6,7 @@ const VotePanel = ({ options, onVote, selectedValue }) => (
   <div className="vote-panel row">
     {options.map(value => (
       <Card
+        className="col-4 col-md-3"
         key={`option-${value}`}
         onClick={() => onVote(value)}
         value={value}
