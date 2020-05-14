@@ -37,7 +37,7 @@ const Results = ({ results }) => {
       />
       <div className="results__key row">
         {orderedResults.map((rProps, index) => (
-          <Result key={rProps.title} className="col-12 col-lg-6" {...rProps} colour={colours[index]} />
+          <Result key={rProps.title} {...rProps} className="col-12 col-md-6" colour={colours[index]} />
         ))}
       </div>
     </div>

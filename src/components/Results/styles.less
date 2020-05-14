@@ -1,7 +1,15 @@
 .results {
-  padding: 10px;
+  &__chart {
+    margin-bottom: 30px;
+  }
 
-  &__key {
-    margin-top: 30px;
+  @media (min-width: 1199.98px) { 
+    padding: 7px;
+  }
+
+  @media (max-width: 991.98px) { 
+    &__chart {
+      display: none;
+    }
   }
 }
